@@ -1,6 +1,5 @@
 import express from "express";
 import dotenv from "dotenv";
-import cors from "cors";
 import projectsRouter from "./routes/project.router.js";
 import tasksRouter from "./routes/task.router.js";
 

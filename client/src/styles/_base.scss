@@ -1,0 +1,18 @@
+body {
+  background-color: $background-color;
+  color: $text-color;
+}
+
+button {
+  background-color: $primary-color;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+a {
+  color: $secondary-color;
+  text-decoration: none;
+}
