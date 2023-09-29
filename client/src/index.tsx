@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./main.module.scss";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import ProjectPage from "./pages/ProjectPage/ProjectPage";
-import TaskPage from "./pages/TaskPage/TaskPage";
+import ProjectPage from "./pages/ProjectPage";
+import TaskPage from "./pages/TaskPage";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

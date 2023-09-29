@@ -5,12 +5,25 @@ body {
 }
 
 button {
-  background-color: $primary-color;
+  background-color: white;
+  display: block;
   color: black;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    transition: all 0.3s ease;
+    transform: scale(1.03) translateY(4px);
+    box-shadow: 7px 7px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  &:active {
+    box-shadow: 4px 2px 6px rgba(0, 0, 0, 0.3);
+    transform: scale(1) translateY(8px);
+  }
 }
 
 a {

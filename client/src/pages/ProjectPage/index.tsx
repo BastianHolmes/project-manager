@@ -1,6 +1,9 @@
-import MaterialSymbolsAddBoxSharp from "../../components/project/ProjectIcon/ProjectIcon";
-import ProjectItem from "../../components/project/ProjectItem/ProjectItem";
+import { useState } from "react";
+import MaterialSymbolsAddBoxSharp from "../../components/project/Icon";
+import ProjectItem from "../../components/project/Item";
 import styles from "./ProjectPage.module.scss";
+import Modal from "../../components/shared/Modal";
+import ModalContent from "../../components/project/Content";
 
 const DummyProjects = [
   { name: "имя", date: "12 313 4" },
@@ -9,9 +12,19 @@ const DummyProjects = [
 ];
 
 const ProjectPage = () => {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const toggleModal = () => {
+    setIsOpenModal(!isOpenModal);
+  };
   let Project = null;
   return (
     <main className={styles.container}>
+      {isOpenModal && (
+        <Modal id="project">
+          <ModalContent onClose={setIsOpenModal} />
+        </Modal>
+      )}
       {!Project ? (
         <h1>
           Список <span className={styles.highlight}>проектов</span>
@@ -22,7 +35,10 @@ const ProjectPage = () => {
         </h1>
       )}
       <section className={styles.list}>
-        <MaterialSymbolsAddBoxSharp className={styles.icon} />
+        <MaterialSymbolsAddBoxSharp
+          className={styles.icon}
+          onClick={() => toggleModal()}
+        />
         {!Project && (
           <ul className={styles.project_list}>
             {DummyProjects.map((item, index) => (

@@ -1,10 +1,10 @@
 import styles from "./ProjectItem.module.scss";
 
-interface ProjectItem {
+interface ProjectItemProps {
   name: string;
   date: string;
 }
-const ProjectItem: React.FC<ProjectItem> = ({ date, name }) => {
+const ProjectItem: React.FC<ProjectItemProps> = ({ date, name }) => {
   return (
     <li className={styles.item}>
       <h2 className={styles.name}>{name}</h2>
