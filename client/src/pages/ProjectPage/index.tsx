@@ -18,17 +18,10 @@ const ProjectPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch({ type: GET_PROJECTS });
-  // }, [dispatch]);
-
   useEffect(() => {
-    async function fetchData() {
-      const data = await getProjects();
-      console.log({ ...data });
-    }
-    fetchData();
-  }, []);
+    dispatch({ type: GET_PROJECTS });
+  }, [dispatch]);
+
   const toggleModal = () => {
     setIsOpenModal(!isOpenModal);
   };
