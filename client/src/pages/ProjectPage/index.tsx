@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MaterialSymbolsAddBoxSharp from "../../components/project/Icon";
 import ProjectItem from "../../components/project/Item";
 import styles from "./ProjectPage.module.scss";
 import Modal from "../../components/shared/Modal";
-import ModalContent from "../../components/project/Content";
+import ModalContent from "../../components/project/ModalContent";
+import { GET_PROJECTS } from "../../redux/constants";
+import { useDispatch } from "react-redux";
+import { getProjects } from "../../api/projectsAPI";
 
 const DummyProjects = [
   { name: "имя", date: "12 313 4" },
@@ -13,7 +16,19 @@ const DummyProjects = [
 
 const ProjectPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const dispatch = useDispatch();
 
+  // useEffect(() => {
+  //   dispatch({ type: GET_PROJECTS });
+  // }, [dispatch]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getProjects();
+      console.log({ ...data });
+    }
+    fetchData();
+  }, []);
   const toggleModal = () => {
     setIsOpenModal(!isOpenModal);
   };

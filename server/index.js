@@ -2,8 +2,10 @@ import express from "express";
 import dotenv from "dotenv";
 import projectsRouter from "./routes/project.router.js";
 import tasksRouter from "./routes/task.router.js";
+import cors from "cors";
 
 const app = express();
+app.use(cors());
 dotenv.config();
 app.use(express.json());
 
