@@ -10,7 +10,7 @@ dotenv.config();
 app.use(express.json());
 
 app.use("/api/v1/projects", projectsRouter);
-app.use("/api/v1/tasks", tasksRouter);
+app.use("/api/v1/:id/tasks", tasksRouter);
 
 app.listen(process.env.PORT, () =>
   console.log("Server is running on port 5000")
