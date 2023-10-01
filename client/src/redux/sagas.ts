@@ -1,6 +1,7 @@
 import { all, fork } from "redux-saga/effects";
 import { onCreateProject, onGetProjects } from "./modules/projects/watcher";
+import { onLoadTasks } from "./modules/tasks/watcher";
 
 export default function* rootSaga() {
-  yield all([fork(onGetProjects), fork(onCreateProject)]);
+  yield all([fork(onGetProjects), fork(onCreateProject), fork(onLoadTasks)]);
 }

@@ -1,13 +1,15 @@
 import { useEffect } from "react";
-import { GET_TASKS } from "../../redux/actionTypes";
 import { useDispatch } from "react-redux";
 import styles from "./TaskPage.module.scss";
+import { LoadTask } from "../../redux/modules/tasks/actions";
+import { useParams } from "react-router-dom";
 
 const TaskPages = () => {
+  const { id } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch({ type: GET_TASKS });
-  });
+    dispatch(LoadTask(id));
+  }, [dispatch]);
   return (
     <section className={styles.container}>
       <div className={styles.col}>Начало</div>

@@ -28,11 +28,6 @@ export function* handleCreateProjects({ payload }) {
     const response = yield call(postProjects, payload);
     if (response.msg === "OK") {
       yield put(createProjectSuccess(response.data));
-      const projectId = response.data.id;
-      yield put(createProjectSuccess(projectId));
-      // const projectId = response.data.id;
-      // yield put(createProjectSuccess(projectId));
-      // payload.callback(projectId);
     }
   } catch (err) {
     yield put(createProjectError(err));
