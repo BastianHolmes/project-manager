@@ -21,6 +21,7 @@ const ModalContent: React.FC<ModalContentProps> = ({ onClose }) => {
           Название проекта
         </label>
         <input
+          id="name"
           min={5}
           type="text"
           placeholder="Введите название..."

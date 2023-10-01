@@ -6,11 +6,6 @@ const initialState = {
 
 const projects = (state = initialState, { type, payload }) => {
   switch (type) {
-    case GET_PROJECTS:
-      return {
-        ...state,
-        projects: payload,
-      };
     case SET_PROJECTS:
       return {
         ...state,

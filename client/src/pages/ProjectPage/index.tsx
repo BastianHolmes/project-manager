@@ -6,27 +6,33 @@ import Modal from "../../components/shared/Modal";
 import ModalContent from "../../components/project/ModalContent";
 import { GET_PROJECTS } from "../../redux/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { getProjects } from "../../api/projectsAPI";
+import { formatDate } from "../../helpers/formatDate";
 
-const DummyProjects = [
-  { title: "имя", id: "12 313 4" },
-  { title: "имя", id: "12 313 4" },
-  { title: "имя", id: "12 313 4" },
-];
+interface Project {
+  title: string;
+  id: string;
+  created_at: string;
+}
 
 const ProjectPage = () => {
-  const { data } = useSelector((store) => store?.projects || {});
+  const projectsObj = useSelector(
+    (store: { projects: { projects: Project[] } }) => store.projects || {}
+  );
+  const projects = projectsObj.projects || [];
   const [isOpenModal, setIsOpenModal] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: GET_PROJECTS });
+    async function fetchProjects() {
+      dispatch({ type: GET_PROJECTS });
+    }
+    fetchProjects();
   }, [dispatch]);
 
   const toggleModal = () => {
     setIsOpenModal(!isOpenModal);
   };
-  let Project = null;
+
   return (
     <main className={styles.container}>
       {isOpenModal && (
@@ -34,7 +40,7 @@ const ProjectPage = () => {
           <ModalContent onClose={setIsOpenModal} />
         </Modal>
       )}
-      {!Project ? (
+      {projects.length === 0 ? (
         <h1>
           Список <span className={styles.highlight}>проектов</span>
         </h1>
@@ -48,10 +54,15 @@ const ProjectPage = () => {
           className={styles.icon}
           onClick={() => toggleModal()}
         />
-        {!Project && (
+        {projects.length > 0 && (
           <ul className={styles.project_list}>
-            {DummyProjects.map((item, index) => (
-              <ProjectItem key={index} name={item.title} date={item.id} />
+            {projects.map((item: Project, index: number) => (
+              <ProjectItem
+                key={index}
+                name={item.title}
+                id={item.id}
+                date={formatDate(item.created_at)}
+              />
             ))}
           </ul>
         )}

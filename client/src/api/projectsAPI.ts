@@ -2,8 +2,8 @@ import API from ".";
 
 export const getProjects = async () => {
   try {
-    const response = await API.get("/");
-    return response;
+    const { data } = await API.get("/");
+    return data;
   } catch (err) {
     console.log(err);
   }
