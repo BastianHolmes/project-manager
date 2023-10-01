@@ -10,15 +10,13 @@ const projectController = {
   },
   postNewProject: async (req, res) => {
     try {
-      const result = await dbModule.query(
+      const { rows } = await pool.query(
         "INSERT INTO projects (title) values ($1) returning *",
         [req.body.title]
       );
       res.status(200).json({
         msg: "OK",
-        data: {
-          project: result.rows[0],
-        },
+        data: rows,
       });
     } catch (error) {
       res.json({ msg: error.msg });
