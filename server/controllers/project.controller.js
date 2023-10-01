@@ -3,7 +3,7 @@ const projectController = {
   getAllProjects: async (req, res) => {
     try {
       const { rows } = await pool.query("select * from projects");
-      res.json({ msg: "OK", data: rows[0] });
+      res.json({ msg: "OK", data: rows });
     } catch (error) {
       res.json({ msg: error.msg });
     }

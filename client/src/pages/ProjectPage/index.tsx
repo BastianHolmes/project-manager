@@ -5,16 +5,17 @@ import styles from "./ProjectPage.module.scss";
 import Modal from "../../components/shared/Modal";
 import ModalContent from "../../components/project/ModalContent";
 import { GET_PROJECTS } from "../../redux/constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProjects } from "../../api/projectsAPI";
 
 const DummyProjects = [
-  { name: "имя", date: "12 313 4" },
-  { name: "имя", date: "12 313 4" },
-  { name: "имя", date: "12 313 4" },
+  { title: "имя", id: "12 313 4" },
+  { title: "имя", id: "12 313 4" },
+  { title: "имя", id: "12 313 4" },
 ];
 
 const ProjectPage = () => {
+  const { data } = useSelector((store) => store?.projects || {});
   const [isOpenModal, setIsOpenModal] = useState(false);
   const dispatch = useDispatch();
 
@@ -50,7 +51,7 @@ const ProjectPage = () => {
         {!Project && (
           <ul className={styles.project_list}>
             {DummyProjects.map((item, index) => (
-              <ProjectItem key={index} name={item.name} date={item.date} />
+              <ProjectItem key={index} name={item.title} date={item.id} />
             ))}
           </ul>
         )}

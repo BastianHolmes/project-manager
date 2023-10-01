@@ -12,6 +12,6 @@ export function* handleProjects() {
   }
 }
 
-export function* watchPopularSaga() {
+export function* watchProjectSaga() {
   yield takeEvery(GET_PROJECTS, handleProjects);
 }
