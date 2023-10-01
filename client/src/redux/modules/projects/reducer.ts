@@ -15,10 +15,7 @@ const initialState = {
 const projects = (state = initialState, { type, payload }) => {
   switch (type) {
     case SET_PROJECTS:
-      return {
-        ...state,
-        projects: payload,
-      };
+      return payload;
     case CREATE_PROJECT_START:
       return {
         ...state,
@@ -28,7 +25,6 @@ const projects = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        projectId: payload.projectId,
       };
     case CREATE_PROJECT_ERROR:
       return {

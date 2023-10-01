@@ -23,10 +23,7 @@ const initialState = {
 const tasks = (state = initialState, { type, payload }) => {
   switch (type) {
     case SET_TASKS:
-      return {
-        ...state,
-        tasks: payload,
-      };
+      return payload;
     case LOAD_TASKS_START:
       return {
         ...state,

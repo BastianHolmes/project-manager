@@ -15,10 +15,9 @@ interface Project {
 }
 
 const ProjectPage = () => {
-  const projectsObj = useSelector(
-    (store: { projects: { projects: Project[] } }) => store.projects || {}
+  const projects = useSelector(
+    (store: { projects: Project[] }) => store.projects || []
   );
-  const projects = projectsObj.projects || [];
   const [isOpenModal, setIsOpenModal] = useState(false);
   const dispatch = useDispatch();
 

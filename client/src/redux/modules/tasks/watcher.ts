@@ -5,7 +5,7 @@ import { setTasks } from "./actions";
 
 export function* handleGetTasks({ payload }) {
   try {
-    const data = yield call(getTasks, payload);
+    const { data } = yield call(getTasks, payload);
     yield put(setTasks(data));
   } catch (err) {
     console.log(err);
