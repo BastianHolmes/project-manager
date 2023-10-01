@@ -11,8 +11,8 @@ const projectController = {
   postNewProject: async (req, res) => {
     try {
       const result = await dbModule.query(
-        "INSERT INTO projects (name) values ($1) returning *",
-        [req.body.name]
+        "INSERT INTO projects (title) values ($1) returning *",
+        [req.body.title]
       );
       res.status(200).json({
         msg: "OK",
