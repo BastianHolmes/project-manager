@@ -1,0 +1,27 @@
+@import "../../styles/mixins.scss";
+.container {
+  height: 100vh;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+
+  @include respond(tab-port) {
+    flex-direction: column;
+  }
+}
+
+.col {
+  width: 30%;
+  padding: 4rem;
+  height: calc(100% - 30rem);
+  border: 1px solid white;
+  border-radius: 10px;
+
+  @include respond(tab-port) {
+    width: 70%;
+    margin: 5rem 0;
+  }
+}

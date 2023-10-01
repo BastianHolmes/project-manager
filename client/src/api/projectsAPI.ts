@@ -8,3 +8,12 @@ export const getProjects = async () => {
     console.log(err);
   }
 };
+
+export const postProjects = async (title: string) => {
+  try {
+    const { data } = await API.post("/", { title });
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};

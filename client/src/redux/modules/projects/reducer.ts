@@ -1,7 +1,15 @@
-import { GET_PROJECTS, SET_PROJECTS } from "../../constants";
+import {
+  CREATE_PROJECT_ERROR,
+  CREATE_PROJECT_START,
+  CREATE_PROJECT_SUCCESS,
+  SET_PROJECTS,
+} from "../../actionTypes";
 
 const initialState = {
   projects: [],
+  loading: false,
+  error: null,
+  projectId: "",
 };
 
 const projects = (state = initialState, { type, payload }) => {
@@ -10,6 +18,23 @@ const projects = (state = initialState, { type, payload }) => {
       return {
         ...state,
         projects: payload,
+      };
+    case CREATE_PROJECT_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case CREATE_PROJECT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        projectId: payload.projectId,
+      };
+    case CREATE_PROJECT_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
       };
     default:
       return state;

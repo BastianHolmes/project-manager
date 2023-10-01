@@ -4,13 +4,13 @@ import ProjectItem from "../../components/project/Item";
 import styles from "./ProjectPage.module.scss";
 import Modal from "../../components/shared/Modal";
 import ModalContent from "../../components/project/ModalContent";
-import { GET_PROJECTS } from "../../redux/constants";
+import { GET_PROJECTS } from "../../redux/actionTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../helpers/formatDate";
 
 interface Project {
+  id: number;
   title: string;
-  id: string;
   created_at: string;
 }
 
@@ -56,14 +56,16 @@ const ProjectPage = () => {
         />
         {projects.length > 0 && (
           <ul className={styles.project_list}>
-            {projects.map((item: Project, index: number) => (
-              <ProjectItem
-                key={index}
-                name={item.title}
-                id={item.id}
-                date={formatDate(item.created_at)}
-              />
-            ))}
+            {projects
+              .sort((a: Project, b: Project) => b.id - a.id)
+              .map((item: Project) => (
+                <ProjectItem
+                  key={item.id}
+                  name={item.title}
+                  id={item.id.toString()}
+                  date={formatDate(item.created_at)}
+                />
+              ))}
           </ul>
         )}
       </section>

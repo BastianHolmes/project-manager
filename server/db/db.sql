@@ -19,7 +19,6 @@ CREATE TABLE tasks (
     attached_files TEXT[],
     status VARCHAR(50),
     project_id INTEGER REFERENCES projects(id),
-    subtasks_allowed BOOLEAN DEFAULT false
 );
 
 CREATE TABLE comments (

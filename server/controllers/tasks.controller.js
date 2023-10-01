@@ -3,7 +3,7 @@ const projectController = {
   getAllTasks: async (req, res) => {
     try {
       const { rows } = await pool.query("select * from tasks");
-      res.json({ msg: "OK", data: rows[0] });
+      res.status(200).json({ msg: "OK", data: rows });
     } catch (error) {
       res.json({ msg: error.msg });
     }

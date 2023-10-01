@@ -1,9 +1,20 @@
-import { put, call, all, takeEvery, fork } from "redux-saga/effects";
-import { GET_PROJECTS } from "../../constants";
-import { getProjects } from "../../../api/projectsAPI";
-import { setProjects } from "./actions";
+import {
+  put,
+  call,
+  takeEvery,
+  fork,
+  takeLatest,
+  take,
+} from "redux-saga/effects";
+import { CREATE_PROJECT_START, GET_PROJECTS } from "../../actionTypes";
+import { getProjects, postProjects } from "../../../api/projectsAPI";
+import {
+  createProjectError,
+  createProjectSuccess,
+  setProjects,
+} from "./actions";
 
-export function* handleProjects() {
+export function* handleGetProjects() {
   try {
     const { data } = yield call(getProjects);
     yield put(setProjects(data));
@@ -12,6 +23,29 @@ export function* handleProjects() {
   }
 }
 
-export function* watchProjectSaga() {
-  yield takeEvery(GET_PROJECTS, handleProjects);
+export function* handleCreateProjects({ payload }) {
+  try {
+    const response = yield call(postProjects, payload);
+    if (response.msg === "OK") {
+      yield put(createProjectSuccess(response.data));
+      const projectId = response.data.id;
+      yield put(createProjectSuccess(projectId));
+      // const projectId = response.data.id;
+      // yield put(createProjectSuccess(projectId));
+      // payload.callback(projectId);
+    }
+  } catch (err) {
+    yield put(createProjectError(err));
+  }
+}
+
+export function* onCreateProject() {
+  while (true) {
+    const action = yield take(CREATE_PROJECT_START);
+    yield fork(handleCreateProjects, action);
+  }
+}
+
+export function* onGetProjects() {
+  yield takeEvery(GET_PROJECTS, handleGetProjects);
 }
