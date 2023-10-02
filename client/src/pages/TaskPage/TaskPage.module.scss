@@ -1,38 +1,29 @@
 @import "../../styles/mixins.scss";
 @import "../../styles/variables.scss";
 
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .title {
-  position: absolute;
-  font-size: 3rem;
-  top: 10%;
-  left: 20%;
+  margin: 12rem 0 6rem 0;
   color: $primary-color;
   display: flex;
   justify-content: center;
 }
-.container {
-  height: 100vh;
+.task_container {
+  height: calc(100% - 10rem);
   width: 80%;
   margin: auto;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-around;
 
   @include respond(tab-port) {
     flex-direction: column;
-  }
-}
-
-.col {
-  width: 30%;
-  padding: 4rem;
-  height: calc(100% - 30rem);
-  border: 1px solid white;
-  border-radius: 10px;
-
-  @include respond(tab-port) {
-    width: 70%;
-    margin: 5rem 0;
   }
 }

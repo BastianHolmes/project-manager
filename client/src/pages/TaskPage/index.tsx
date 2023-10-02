@@ -1,28 +1,80 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./TaskPage.module.scss";
 import { LoadTask } from "../../redux/modules/tasks/actions";
 import { useParams } from "react-router-dom";
-import { getObjectById } from "../../helpers/findIndex";
+import { findItem } from "../../helpers/findItem";
+import { DndProvider, useDrag, useDrop } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import Task from "../../components/tasks/Task";
+import TaskContainer from "../../components/tasks/TaskContainer";
 
-const TaskPages = () => {
+const TaskPage = () => {
   const { id } = useParams();
   const projects = useSelector((store) => store.projects);
-  const projectTitle = getObjectById(id, projects);
+  const tasks = useSelector((store) => store.tasks);
+  const currentProject = findItem(id, projects);
+  const projectTitle = currentProject?.title;
+  const renderQueryTask =
+    tasks.length > 0 &&
+    tasks.filter(
+      (task) =>
+        task.project_id === currentProject?.id && task.status === "QUERY"
+    );
+  const renderDevelopmentTask =
+    tasks.length > 0 &&
+    tasks.filter(
+      (task) =>
+        task.project_id === currentProject?.id && task.status === "DEVELOPMENT"
+    );
+  const renderDoneTask =
+    tasks.length > 0 &&
+    tasks.filter(
+      (task) => task.project_id === currentProject?.id && task.status === "DONE"
+    );
+
+  const containers = [
+    {
+      title: "Начало",
+      status: "QUERY",
+      tasks: renderQueryTask,
+    },
+    {
+      title: "В работе",
+      status: "DEVELOPMENT",
+      tasks: renderDevelopmentTask,
+    },
+    {
+      title: "Сделано",
+      status: "DONE",
+      tasks: renderDoneTask,
+    },
+  ];
+
+  const changeTask = (title: string) => {
+    console.log(title);
+  };
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(LoadTask(id));
   }, [dispatch]);
   return (
-    <>
+    <div className={styles.container}>
       <h2 className={styles.title}>{projectTitle}</h2>
-      <section className={styles.container}>
-        <div className={styles.col}>Начало</div>
-        <div className={styles.col}>В работе</div>
-        <div className={styles.col}>Сделано</div>
+      <section className={styles.task_container}>
+        <DndProvider backend={HTML5Backend}>
+          {containers.map((container, index) => (
+            <TaskContainer
+              key={container.status}
+              title={container.title}
+              tasks={container.tasks}
+              onDrop={changeTask}
+            />
+          ))}
+        </DndProvider>
       </section>
-    </>
+    </div>
   );
 };
 
-export default TaskPages;
+export default TaskPage;
