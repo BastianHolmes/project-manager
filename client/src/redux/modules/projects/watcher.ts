@@ -13,6 +13,7 @@ import {
   createProjectSuccess,
   setProjects,
 } from "./actions";
+import { Project } from "../../../types/projectsTypes";
 
 export function* handleGetProjects() {
   try {
@@ -23,7 +24,7 @@ export function* handleGetProjects() {
   }
 }
 
-export function* handleCreateProjects({ payload }) {
+export function* handleCreateProjects({ payload }: { payload: Project }) {
   try {
     const response = yield call(postProjects, payload);
     if (response.msg === "OK") {

@@ -1,8 +1,9 @@
 import React from "react";
 import { useDrag } from "react-dnd";
 import styles from "./Task.module.scss";
+import { Task } from "../../../types/taskTypes";
 
-const Task = ({ title }) => {
+const TaskItem: React.FC<Task> = ({ title }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "task",
     item: { title: title },
@@ -21,4 +22,4 @@ const Task = ({ title }) => {
   );
 };
 
-export default Task;
+export default TaskItem;

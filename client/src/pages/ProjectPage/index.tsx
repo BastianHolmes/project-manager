@@ -7,12 +7,7 @@ import ModalContent from "../../components/project/ModalContent";
 import { GET_PROJECTS } from "../../redux/actionTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../helpers/formatDate";
-
-interface Project {
-  id: number;
-  title: string;
-  created_at: string;
-}
+import { Project } from "../../types/projectsTypes";
 
 const ProjectPage = () => {
   const projects = useSelector(
@@ -60,7 +55,7 @@ const ProjectPage = () => {
               .map((item: Project) => (
                 <ProjectItem
                   key={item.id}
-                  name={item.title}
+                  name={item.title || ""}
                   id={item.id.toString()}
                   date={formatDate(item.created_at)}
                 />

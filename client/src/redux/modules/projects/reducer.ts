@@ -1,3 +1,4 @@
+import { Project } from "../../../types/projectsTypes";
 import {
   CREATE_PROJECT_ERROR,
   CREATE_PROJECT_START,
@@ -12,7 +13,10 @@ const initialState = {
   projectId: "",
 };
 
-const projects = (state = initialState, { type, payload }) => {
+const projects = (
+  state = initialState,
+  { type, payload }: { type: string; payload: Project }
+) => {
   switch (type) {
     case SET_PROJECTS:
       return payload;

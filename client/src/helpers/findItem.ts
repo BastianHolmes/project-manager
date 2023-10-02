@@ -1,8 +1,13 @@
-export const findItem = (id: string, array: object[]) => {
-  for (let i = 0; i < array.length; i++) {
-    if (array[i]?.id === Number(id)) {
-      return array[i];
-    }
+interface Project {
+  id: number;
+  title: string;
+  created_at: string;
+}
+
+export function findItem(id: string, projects: Project[]): Project {
+  const foundProject = projects.find((project) => project.id.toString() === id);
+  if (!foundProject) {
+    throw new Error("Project not found");
   }
-  return null;
-};
+  return foundProject;
+}

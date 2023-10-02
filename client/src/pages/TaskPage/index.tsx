@@ -6,32 +6,40 @@ import { useParams } from "react-router-dom";
 import { findItem } from "../../helpers/findItem";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import Task from "../../components/tasks/Task";
 import TaskContainer from "../../components/tasks/TaskContainer";
+import { Task } from "../../types/taskTypes";
+import { Project } from "../../types/projectsTypes";
 
 const TaskPage = () => {
-  const { id } = useParams();
-  const projects = useSelector((store) => store.projects);
-  const tasks = useSelector((store) => store.tasks);
-  const currentProject = findItem(id, projects);
+  const selectProjects = (store: { projects: Project[] }) => store.projects;
+  const selectTasks = (store: { tasks: Task[] }) => store.tasks;
+  const { id = "" } = useParams();
+  const projects = useSelector(selectProjects);
+  const tasks = useSelector(selectTasks);
+  const currentProject: Project | undefined = findItem(id, projects);
   const projectTitle = currentProject?.title;
-  const renderQueryTask =
-    tasks.length > 0 &&
-    tasks.filter(
-      (task) =>
-        task.project_id === currentProject?.id && task.status === "QUERY"
-    );
-  const renderDevelopmentTask =
-    tasks.length > 0 &&
-    tasks.filter(
-      (task) =>
-        task.project_id === currentProject?.id && task.status === "DEVELOPMENT"
-    );
-  const renderDoneTask =
-    tasks.length > 0 &&
-    tasks.filter(
-      (task) => task.project_id === currentProject?.id && task.status === "DONE"
-    );
+  const renderQueryTask: Task[] =
+    tasks && Array.isArray(tasks)
+      ? tasks.filter(
+          (task: Task) =>
+            task.project_id === currentProject?.id && task.status === "QUERY"
+        )
+      : [];
+  const renderDevelopmentTask: Task[] =
+    tasks && Array.isArray(tasks)
+      ? tasks.filter(
+          (task: Task) =>
+            task.project_id === currentProject?.id &&
+            task.status === "DEVELOPMENT"
+        )
+      : [];
+  const renderDoneTask: Task[] =
+    tasks && Array.isArray(tasks)
+      ? tasks.filter(
+          (task: Task) =>
+            task.project_id === currentProject?.id && task.status === "DONE"
+        )
+      : [];
 
   const containers = [
     {
