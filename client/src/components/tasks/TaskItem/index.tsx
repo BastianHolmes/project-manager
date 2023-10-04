@@ -3,7 +3,11 @@ import { useDrag } from "react-dnd";
 import styles from "./Task.module.scss";
 import { Task } from "../../../types/taskTypes";
 
-const TaskItem: React.FC<Task> = ({ title, id }) => {
+interface TaskItem extends Task {
+  onOpenModal: () => void;
+}
+
+const TaskItem: React.FC<TaskItem> = ({ title, id, onOpenModal }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "task",
     item: { id: id },
@@ -14,10 +18,11 @@ const TaskItem: React.FC<Task> = ({ title, id }) => {
   return (
     <div
       className={styles.task}
-      style={{ color: isDragging ? "red" : "currentcolor" }}
       ref={drag}
+      style={{ opacity: isDragging ? 0 : 1 }}
+      onClick={onOpenModal}
     >
-      {title}
+      <h4>{title}</h4>
     </div>
   );
 };

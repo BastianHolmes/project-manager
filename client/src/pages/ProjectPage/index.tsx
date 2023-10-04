@@ -3,12 +3,13 @@ import MaterialSymbolsAddBoxSharp from "../../components/project/Icon";
 import ProjectItem from "../../components/project/Item";
 import styles from "./ProjectPage.module.scss";
 import Modal from "../../components/shared/Modal";
-import ModalContent from "../../components/project/ModalContent";
+import ModalContent from "../../components/project/ProjectModalContent";
 import { GET_PROJECTS } from "../../redux/actionTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../helpers/formatDate";
 import { Project } from "../../types/projectsTypes";
 import { LoadTask } from "../../redux/modules/tasks/actions";
+import { getProjects } from "../../redux/modules/projects/actions";
 
 const ProjectPage = () => {
   const projects = useSelector(
@@ -19,7 +20,7 @@ const ProjectPage = () => {
 
   useEffect(() => {
     async function fetchProjects() {
-      dispatch({ type: GET_PROJECTS });
+      dispatch(getProjects());
       dispatch(LoadTask());
     }
     fetchProjects();

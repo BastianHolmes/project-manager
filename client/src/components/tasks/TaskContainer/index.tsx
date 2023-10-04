@@ -8,6 +8,7 @@ interface TaskContainerProps {
   tasks: Task[];
   status: string;
   onDrop: (title: string, status: string) => void;
+  onOpenModal: () => void;
 }
 
 const TaskContainer: React.FC<TaskContainerProps> = ({
@@ -15,6 +16,7 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
   tasks,
   onDrop,
   status,
+  onOpenModal,
 }) => {
   const [{ isOver }, drop] = useDrop(() => ({
     type: "task",
@@ -29,11 +31,16 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
 
   return (
     <div className={styles.col} ref={drop}>
-      {title}
+      <h3 className={styles.title}>{title}</h3>
       <div>
         {tasks.length > 0 &&
           tasks.map((item) => (
-            <TaskItem key={item.id} title={item.title} id={item.id} />
+            <TaskItem
+              key={item.id}
+              title={item.title}
+              id={item.id}
+              onOpenModal={onOpenModal}
+            />
           ))}
       </div>
     </div>

@@ -1,16 +1,24 @@
-import { useEffect, useRef } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./TaskPage.module.scss";
-import { LoadTask, changeTaskStatus } from "../../redux/modules/tasks/actions";
+import { changeTaskStatus } from "../../redux/modules/tasks/actions";
 import { useParams } from "react-router-dom";
 import { findItem } from "../../helpers/findItem";
-import { DndProvider, useDrag, useDrop } from "react-dnd";
+import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import TaskContainer from "../../components/tasks/TaskContainer";
 import { Task } from "../../types/taskTypes";
 import { Project } from "../../types/projectsTypes";
+import Modal from "../../components/shared/Modal";
+import TaskModalContent from "../../components/tasks/TaskModalContent";
 
 const TaskPage = () => {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const toggleModal = () => {
+    setIsOpenModal(!isOpenModal);
+  };
+
+  const dispatch = useDispatch();
   const selectProjects = (store: { projects: Project[] }) => store.projects;
   const selectTasks = (store: { tasks: Task[] }) => store.tasks;
   const { id = "" } = useParams();
@@ -43,17 +51,17 @@ const TaskPage = () => {
 
   const containers = [
     {
-      title: "Начало",
+      title: "QUEUE",
       status: "QUEUE",
       tasks: renderQueryTask,
     },
     {
-      title: "В работе",
+      title: "DEVELOPMENT",
       status: "DEVELOPMENT",
       tasks: renderDevelopmentTask,
     },
     {
-      title: "Сделано",
+      title: "DONE",
       status: "DONE",
       tasks: renderDoneTask,
     },
@@ -62,12 +70,14 @@ const TaskPage = () => {
   const changeTask = (id: string, status: string) => {
     dispatch(changeTaskStatus(id, status));
   };
-  const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(LoadTask(id));
-  // }, [dispatch]);
+
   return (
     <div className={styles.container}>
+      {isOpenModal && (
+        <Modal id="task">
+          <TaskModalContent onClose={setIsOpenModal} />
+        </Modal>
+      )}
       <h2 className={styles.title}>{projectTitle}</h2>
       <section className={styles.task_container}>
         <DndProvider backend={HTML5Backend}>
@@ -78,6 +88,7 @@ const TaskPage = () => {
               title={container.title}
               tasks={container.tasks}
               onDrop={changeTask}
+              onOpenModal={toggleModal}
             />
           ))}
         </DndProvider>
