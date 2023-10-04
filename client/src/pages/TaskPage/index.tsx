@@ -14,9 +14,12 @@ import TaskModalContent from "../../components/tasks/TaskModalContent";
 
 const TaskPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const toggleModal = () => {
+  const toggleModal = (task: Task) => {
     setIsOpenModal(!isOpenModal);
+    setSelectedTask(task);
   };
+
+  const [selectedTask, setSelectedTask] = useState<Task>({});
 
   const dispatch = useDispatch();
   const selectProjects = (store: { projects: Project[] }) => store.projects;
@@ -75,7 +78,7 @@ const TaskPage = () => {
     <div className={styles.container}>
       {isOpenModal && (
         <Modal id="task">
-          <TaskModalContent onClose={setIsOpenModal} />
+          <TaskModalContent onClose={setIsOpenModal} task={selectedTask} />
         </Modal>
       )}
       <h2 className={styles.title}>{projectTitle}</h2>

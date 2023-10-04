@@ -8,7 +8,7 @@ interface TaskContainerProps {
   tasks: Task[];
   status: string;
   onDrop: (title: string, status: string) => void;
-  onOpenModal: () => void;
+  onOpenModal: (item: Task) => void;
 }
 
 const TaskContainer: React.FC<TaskContainerProps> = ({
@@ -35,12 +35,7 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
       <div>
         {tasks.length > 0 &&
           tasks.map((item) => (
-            <TaskItem
-              key={item.id}
-              title={item.title}
-              id={item.id}
-              onOpenModal={onOpenModal}
-            />
+            <TaskItem key={item.id} item={item} onOpenModal={onOpenModal} />
           ))}
       </div>
     </div>

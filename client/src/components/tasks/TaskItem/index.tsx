@@ -4,13 +4,14 @@ import styles from "./Task.module.scss";
 import { Task } from "../../../types/taskTypes";
 
 interface TaskItem extends Task {
-  onOpenModal: () => void;
+  item: Task;
+  onOpenModal: (item: Task) => void;
 }
 
-const TaskItem: React.FC<TaskItem> = ({ title, id, onOpenModal }) => {
+const TaskItem: React.FC<TaskItem> = ({ item, onOpenModal }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "task",
-    item: { id: id },
+    item: { id: item.id },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
@@ -20,9 +21,9 @@ const TaskItem: React.FC<TaskItem> = ({ title, id, onOpenModal }) => {
       className={styles.task}
       ref={drag}
       style={{ opacity: isDragging ? 0 : 1 }}
-      onClick={onOpenModal}
+      onClick={() => onOpenModal(item)}
     >
-      <h4>{title}</h4>
+      <h4>{item.title}</h4>
     </div>
   );
 };

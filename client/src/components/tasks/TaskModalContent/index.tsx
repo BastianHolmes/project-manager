@@ -5,11 +5,13 @@ import {
   getProjects,
 } from "../../../redux/modules/projects/actions";
 import { useState } from "react";
+import { Task } from "../../../types/taskTypes";
 
 interface ModalContentProps {
   onClose: (value: boolean) => void;
+  task?: Task;
 }
-const TaskModalContent: React.FC<ModalContentProps> = ({ onClose }) => {
+const TaskModalContent: React.FC<ModalContentProps> = ({ onClose, task }) => {
   const initialState = {
     title: "",
   };
@@ -21,18 +23,6 @@ const TaskModalContent: React.FC<ModalContentProps> = ({ onClose }) => {
     return;
   };
 
-  const dispatch = useDispatch();
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    if (title) {
-      dispatch(createProjectStart(title));
-      setTimeout(() => {
-        onClose(false);
-        dispatch(getProjects());
-      }, 500);
-    }
-  };
   return (
     <div
       className={styles.background}
@@ -40,18 +30,8 @@ const TaskModalContent: React.FC<ModalContentProps> = ({ onClose }) => {
     >
       <form className={styles.container}>
         <label htmlFor="name" className={styles.name}>
-          Название задачи
+          {task?.title}
         </label>
-        <input
-          id="name"
-          min={5}
-          type="text"
-          placeholder="Введите название..."
-          className={styles.field}
-          value={title}
-          onChange={(e) => setState({ title: e.target.value })}
-        />
-        <button onClick={(e) => handleSubmit(e)}>Готово</button>
       </form>
     </div>
   );
