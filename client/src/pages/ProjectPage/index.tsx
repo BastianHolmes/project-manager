@@ -8,6 +8,7 @@ import { GET_PROJECTS } from "../../redux/actionTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../helpers/formatDate";
 import { Project } from "../../types/projectsTypes";
+import { LoadTask } from "../../redux/modules/tasks/actions";
 
 const ProjectPage = () => {
   const projects = useSelector(
@@ -19,6 +20,7 @@ const ProjectPage = () => {
   useEffect(() => {
     async function fetchProjects() {
       dispatch({ type: GET_PROJECTS });
+      dispatch(LoadTask());
     }
     fetchProjects();
   }, [dispatch]);

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./TaskPage.module.scss";
-import { LoadTask } from "../../redux/modules/tasks/actions";
+import { LoadTask, changeTaskStatus } from "../../redux/modules/tasks/actions";
 import { useParams } from "react-router-dom";
 import { findItem } from "../../helpers/findItem";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
@@ -22,7 +22,7 @@ const TaskPage = () => {
     tasks && Array.isArray(tasks)
       ? tasks.filter(
           (task: Task) =>
-            task.project_id === currentProject?.id && task.status === "QUERY"
+            task.project_id === currentProject?.id && task.status === "QUEUE"
         )
       : [];
   const renderDevelopmentTask: Task[] =
@@ -44,7 +44,7 @@ const TaskPage = () => {
   const containers = [
     {
       title: "Начало",
-      status: "QUERY",
+      status: "QUEUE",
       tasks: renderQueryTask,
     },
     {
@@ -59,13 +59,13 @@ const TaskPage = () => {
     },
   ];
 
-  const changeTask = (title: string) => {
-    console.log(title);
+  const changeTask = (id: string, status: string) => {
+    dispatch(changeTaskStatus(id, status));
   };
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(LoadTask(id));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(LoadTask(id));
+  // }, [dispatch]);
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{projectTitle}</h2>
@@ -73,7 +73,8 @@ const TaskPage = () => {
         <DndProvider backend={HTML5Backend}>
           {containers.map((container, index) => (
             <TaskContainer
-              key={container.status}
+              key={index}
+              status={container.status}
               title={container.title}
               tasks={container.tasks}
               onDrop={changeTask}

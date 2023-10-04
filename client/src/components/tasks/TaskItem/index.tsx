@@ -3,10 +3,10 @@ import { useDrag } from "react-dnd";
 import styles from "./Task.module.scss";
 import { Task } from "../../../types/taskTypes";
 
-const TaskItem: React.FC<Task> = ({ title }) => {
+const TaskItem: React.FC<Task> = ({ title, id }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "task",
-    item: { title: title },
+    item: { id: id },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),

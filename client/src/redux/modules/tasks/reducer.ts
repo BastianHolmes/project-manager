@@ -5,20 +5,7 @@ import {
   SET_TASKS,
 } from "../../actionTypes";
 
-const initialState = {
-  title: "",
-  description: "",
-  created_at: "",
-  time_spent: "",
-  due_date: "",
-  priority: "MEDIUM",
-  attached_files: [],
-  status: "TODO",
-  project_id: "",
-  subtasks: [],
-  parent_task_id: "",
-  is_parent_task: true,
-};
+const initialState = [];
 
 const tasks = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -41,6 +28,16 @@ const tasks = (state = initialState, { type, payload }) => {
         loading: false,
         error: payload,
       };
+    case "CHANGE_TASK_STATUS":
+      return state.map((task) => {
+        if (task.id === payload.taskId) {
+          return {
+            ...task,
+            status: payload.newStatus,
+          };
+        }
+        return task;
+      });
     default:
       return state;
   }

@@ -1,11 +1,11 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import { LOAD_TASKS_START } from "../../actionTypes";
-import { getTasks } from "../../../api/tasksAPI";
+import { getAllTasks, getTasks } from "../../../api/tasksAPI";
 import { setTasks } from "./actions";
 
-export function* handleGetTasks({ payload }) {
+export function* handleGetTasks() {
   try {
-    const { data } = yield call(getTasks, payload);
+    const { data } = yield call(getAllTasks);
     yield put(setTasks(data));
   } catch (err) {
     console.log(err);

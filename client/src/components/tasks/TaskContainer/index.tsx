@@ -6,19 +6,21 @@ import TaskItem from "../TaskItem";
 interface TaskContainerProps {
   title: string;
   tasks: Task[];
-  onDrop: (title: string) => void;
+  status: string;
+  onDrop: (title: string, status: string) => void;
 }
 
 const TaskContainer: React.FC<TaskContainerProps> = ({
   title,
   tasks,
   onDrop,
+  status,
 }) => {
   const [{ isOver }, drop] = useDrop(() => ({
     type: "task",
     accept: "task",
     drop: (item: Task) => {
-      if (item.title) onDrop(item.title);
+      if (item.id) onDrop(item.id, status);
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -30,7 +32,9 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
       {title}
       <div>
         {tasks.length > 0 &&
-          tasks.map((item) => <TaskItem key={item.id} title={item.title} />)}
+          tasks.map((item) => (
+            <TaskItem key={item.id} title={item.title} id={item.id} />
+          ))}
       </div>
     </div>
   );
