@@ -24,6 +24,7 @@ const TaskItem: React.FC<TaskItem> = ({ item, onOpenModal }) => {
       onClick={() => onOpenModal(item)}
     >
       <h4>{item.title}</h4>
+      <h5>Сделано 5 из 6</h5>
     </div>
   );
 };

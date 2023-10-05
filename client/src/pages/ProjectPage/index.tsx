@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import MaterialSymbolsAddBoxSharp from "../../components/project/Icon";
+import MaterialSymbolsAddBoxSharp from "../../components/shared/Icon";
 import ProjectItem from "../../components/project/Item";
 import styles from "./ProjectPage.module.scss";
 import Modal from "../../components/shared/Modal";

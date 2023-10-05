@@ -81,7 +81,9 @@ const TaskPage = () => {
           <TaskModalContent onClose={setIsOpenModal} task={selectedTask} />
         </Modal>
       )}
-      <h2 className={styles.title}>{projectTitle}</h2>
+      <header className={styles.header}>
+        <h2 className={styles.title}>{projectTitle}</h2>
+      </header>
       <section className={styles.task_container}>
         <DndProvider backend={HTML5Backend}>
           {containers.map((container, index) => (

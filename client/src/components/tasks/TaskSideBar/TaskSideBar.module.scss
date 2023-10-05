@@ -1,0 +1,19 @@
+@import "../../../styles/variables.scss";
+
+.sidebar {
+  padding: 1rem;
+  width: 30%;
+}
+
+.highlight {
+  color: $primary-color;
+}
+
+.title {
+  text-align: center;
+}
+
+.time {
+  display: block;
+  text-align: center;
+}

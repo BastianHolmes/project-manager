@@ -1,3 +1,5 @@
+import styles from "./Icon.module.scss";
+
 export default function MaterialSymbolsAddBoxSharp(
   props: React.SVGProps<SVGSVGElement>
 ) {
@@ -8,6 +10,7 @@ export default function MaterialSymbolsAddBoxSharp(
       height="1em"
       viewBox="0 0 24 24"
       {...props}
+      className={styles.icon}
     >
       <path
         fill="currentColor"

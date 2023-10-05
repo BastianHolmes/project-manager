@@ -1,21 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
 import styles from "./TaskModalContent.module.scss";
-import {
-  createProjectStart,
-  getProjects,
-} from "../../../redux/modules/projects/actions";
-import { useState } from "react";
 import { Task } from "../../../types/taskTypes";
+import TaskForm from "../TaskForm";
+import TaskSideBar from "../TaskSideBar";
 
 interface ModalContentProps {
   onClose: (value: boolean) => void;
   task?: Task;
 }
 const TaskModalContent: React.FC<ModalContentProps> = ({ onClose, task }) => {
-  const initialState = {
-    title: "",
-  };
-  const [{ title }, setState] = useState(initialState);
   const handleBackgroundClick = (e: any) => {
     if (e.target === e.currentTarget) {
       onClose(false);
@@ -23,16 +15,22 @@ const TaskModalContent: React.FC<ModalContentProps> = ({ onClose, task }) => {
     return;
   };
 
+  if (!task) return;
   return (
     <div
       className={styles.background}
       onClick={(e) => handleBackgroundClick(e)}
     >
-      <form className={styles.container}>
-        <label htmlFor="name" className={styles.name}>
-          {task?.title}
-        </label>
-      </form>
+      <section className={styles.container}>
+        <header className={styles.header}>
+          <h4 className={styles.name}>{task?.title}</h4>
+          <h5 className={styles.status}>{task?.status}</h5>
+        </header>
+        <div className={styles.main}>
+          <TaskForm task={task} />
+          <TaskSideBar task={task} />
+        </div>
+      </section>
     </div>
   );
 };

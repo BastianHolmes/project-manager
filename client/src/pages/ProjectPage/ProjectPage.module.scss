@@ -18,19 +18,6 @@
   align-items: center;
 }
 
-.icon {
-  margin-top: 2rem;
-  cursor: pointer;
-  height: 5rem;
-  width: 5rem;
-  color: $primary-color;
-  transition: all 0.3s ease;
-  &:hover {
-    width: 7rem;
-    height: 7rem;
-  }
-}
-
 .highlight {
   color: $primary-color;
 }

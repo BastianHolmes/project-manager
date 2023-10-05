@@ -4,6 +4,10 @@ body {
   color: $text-color;
 }
 
+#root {
+  overflow: hidden;
+}
+
 button {
   background-color: white;
   display: block;
