@@ -1,0 +1,45 @@
+@import "../../../styles/variables.scss";
+
+.dropdown {
+  position: relative;
+
+  &_toggle {
+    font-family: inherit;
+    color: white;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: $primary-color;
+    cursor: pointer;
+  }
+
+  &_menu {
+    position: absolute;
+    top: 100%;
+    left: 30%;
+    width: 12rem;
+    padding: 10px;
+    background-color: $primary-color;
+    border: 1px solid $primary-color;
+    border-radius: 5px;
+    list-style: none;
+    margin: 0;
+    z-index: 1;
+
+    &::after {
+      content: "";
+      position: relative;
+      display: block;
+    }
+  }
+
+  &_item {
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+
+    &:hover {
+      border-bottom: 1px solid white;
+    }
+  }
+}

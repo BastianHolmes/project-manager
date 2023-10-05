@@ -13,17 +13,17 @@ const TaskSideBar: React.FC<TaskSideBarProps> = ({ task }) => {
       <h4 className={styles.title}>
         Дата <span className={styles.highlight}>создания</span>
       </h4>
-      <time className={styles.time}>{formatDate(task?.created_at)}</time>
+      <time className={styles.time}>{formatDate(task?.created_at || "")}</time>
       <h4 className={styles.title}>
         Дней <span className={styles.highlight}>в работе</span>
       </h4>
       <time className={styles.time}>
-        {daysPassed(formatDate(task?.created_at))}
+        {daysPassed(formatDate(task?.created_at || ""))}
       </time>
       <h4 className={styles.title}>
         Дата <span className={styles.highlight}>окончания</span>
       </h4>
-      <time className={styles.time}>{formatDate(task?.due_date)}</time>
+      <time className={styles.time}>{formatDate(task?.due_date || "")}</time>
     </aside>
   );
 };
