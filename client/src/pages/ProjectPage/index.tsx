@@ -4,15 +4,15 @@ import ProjectItem from "../../components/project/Item";
 import styles from "./ProjectPage.module.scss";
 import Modal from "../../components/shared/Modal";
 import ModalContent from "../../components/project/ProjectModalContent";
-import { GET_PROJECTS } from "../../redux/actionTypes";
-import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../helpers/formatDate";
 import { Project } from "../../types/projectsTypes";
+import Pagination from "../../components/shared/Pagination";
+import { useDispatch, useSelector } from "react-redux";
 import { LoadTask } from "../../redux/modules/tasks/actions";
 import { getProjects } from "../../redux/modules/projects/actions";
 
 const ProjectPage = () => {
-  const projects = useSelector(
+  const allProjects = useSelector(
     (store: { projects: Project[] }) => store.projects || []
   );
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -26,8 +26,23 @@ const ProjectPage = () => {
     fetchProjects();
   }, [dispatch]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(4);
+
+  const indexOfFirstProject = (currentPage - 1) * itemsPerPage;
+  const indexOfLastProject = indexOfFirstProject + itemsPerPage;
+  const projects = Array.isArray(allProjects)
+    ? allProjects.slice(indexOfFirstProject, indexOfLastProject)
+    : [];
+
+  const totalPages = Math.ceil(allProjects.length / itemsPerPage);
+
   const toggleModal = () => {
     setIsOpenModal(!isOpenModal);
+  };
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -37,7 +52,7 @@ const ProjectPage = () => {
           <ModalContent onClose={setIsOpenModal} />
         </Modal>
       )}
-      {projects.length === 0 ? (
+      {allProjects.length === 0 ? (
         <h1>
           Список <span className={styles.highlight}>проектов</span>
         </h1>
@@ -54,7 +69,7 @@ const ProjectPage = () => {
         {projects.length > 0 && (
           <ul className={styles.project_list}>
             {projects
-              .sort((a: Project, b: Project) => b.id - a.id)
+              .sort((a: Project, b: Project) => a.id - b.id)
               .map((item: Project) => (
                 <ProjectItem
                   key={item.id}
@@ -66,6 +81,11 @@ const ProjectPage = () => {
           </ul>
         )}
       </section>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </main>
   );
 };

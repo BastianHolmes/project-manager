@@ -1,0 +1,30 @@
+@import "../../../styles/variables";
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.pagination li {
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.pagination li:hover {
+  background-color: #f5f5f5;
+}
+
+.pagination .active {
+  background-color: $primary-color;
+  color: #fff;
+}
+
+.pagination .disabled {
+  visibility: hidden;
+  cursor: not-allowed;
+}
