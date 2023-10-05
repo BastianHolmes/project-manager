@@ -1,4 +1,5 @@
 @import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
 
 .background {
   overflow: auto;
@@ -15,7 +16,17 @@
 .container {
   width: 100%;
   max-width: 80rem;
+  min-width: 30rem;
 
+  @include respond(tab-port) {
+    position: absolute;
+    left: 0;
+  }
+
+  @include respond(tab-land) {
+    position: absolute;
+    left: 5%;
+  }
   background-color: darken($color: $background-color, $amount: 1);
   position: relative;
   top: 5rem;
@@ -72,4 +83,8 @@
 .main {
   display: flex;
   flex-direction: row;
+
+  @include respond(tab-port) {
+    flex-direction: column;
+  }
 }

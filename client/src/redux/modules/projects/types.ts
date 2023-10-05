@@ -3,17 +3,34 @@ import {
   CREATE_PROJECT_ERROR,
   CREATE_PROJECT_START,
   CREATE_PROJECT_SUCCESS,
-  GET_PROJECTS,
-  SET_PROJECTS,
+  GET_PROJECTS_SUCCESS,
+  LOAD_PROJECTS_START,
+  LOAD_PROJECTS_SUCCESS,
+  LOAD_PROJECTS_ERROR,
+  GET_PROJECTS_START,
 } from "../../actionTypes";
+export interface GetProjectsAction {
+  type: typeof GET_PROJECTS_START;
+}
 
-export interface SetProjectsAction {
-  type: typeof SET_PROJECTS;
+export interface GetProjectsSuccessAction {
+  type: typeof GET_PROJECTS_SUCCESS;
   payload: Project;
 }
 
-export interface GetProjectsAction {
-  type: typeof GET_PROJECTS;
+export interface LoadProjectsStartsAction {
+  type: typeof LOAD_PROJECTS_START;
+  payload: Project;
+}
+
+export interface LoadProjectsSuccessAction {
+  type: typeof LOAD_PROJECTS_SUCCESS;
+  payload: Project;
+}
+
+export interface LoadProjectsErrorAction {
+  type: typeof LOAD_PROJECTS_ERROR;
+  payload: Project;
 }
 
 export interface CreateProjectStartAction {
@@ -32,7 +49,9 @@ export interface CreateProjectErrorAction {
 }
 
 export type ProjectAction =
-  | SetProjectsAction
+  | LoadProjectsStartsAction
+  | LoadProjectsSuccessAction
+  | LoadProjectsErrorAction
   | GetProjectsAction
   | CreateProjectStartAction
   | CreateProjectSuccessAction

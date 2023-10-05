@@ -6,19 +6,19 @@ import {
   takeLatest,
   take,
 } from "redux-saga/effects";
-import { CREATE_PROJECT_START, GET_PROJECTS } from "../../actionTypes";
+import { CREATE_PROJECT_START, GET_PROJECTS_START } from "../../actionTypes";
 import { getProjects, postProjects } from "../../../api/projectsAPI";
 import {
   createProjectError,
   createProjectSuccess,
-  setProjects,
+  loadProjectsSuccess,
 } from "./actions";
 import { Project } from "../../../types/projectsTypes";
 
 export function* handleGetProjects() {
   try {
     const { data } = yield call(getProjects);
-    yield put(setProjects(data));
+    yield put(loadProjectsSuccess(data));
   } catch (err) {
     console.log(err);
   }
@@ -43,5 +43,5 @@ export function* onCreateProject() {
 }
 
 export function* onGetProjects() {
-  yield takeEvery(GET_PROJECTS, handleGetProjects);
+  yield takeEvery(GET_PROJECTS_START, handleGetProjects);
 }

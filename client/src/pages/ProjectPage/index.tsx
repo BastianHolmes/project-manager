@@ -10,11 +10,17 @@ import Pagination from "../../components/shared/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { LoadTask } from "../../redux/modules/tasks/actions";
 import { getProjects } from "../../redux/modules/projects/actions";
+import Loader from "../../components/shared/Loader";
 
 const ProjectPage = () => {
   const allProjects = useSelector(
-    (store: { projects: Project[] }) => store.projects || []
+    (store: { projects: { projects: Project[] } }) =>
+      store.projects.projects || []
   );
+  const Loading = useSelector(
+    (store: { projects: { loading: Project[] } }) => store.projects.loading
+  );
+
   const [isOpenModal, setIsOpenModal] = useState(false);
   const dispatch = useDispatch();
 
@@ -66,19 +72,23 @@ const ProjectPage = () => {
           className={styles.icon}
           onClick={() => toggleModal()}
         />
-        {projects.length > 0 && (
-          <ul className={styles.project_list}>
-            {projects
-              .sort((a: Project, b: Project) => a.id - b.id)
-              .map((item: Project) => (
-                <ProjectItem
-                  key={item.id}
-                  name={item.title || ""}
-                  id={item.id.toString()}
-                  date={formatDate(item.created_at)}
-                />
-              ))}
-          </ul>
+        {Loading ? (
+          <Loader />
+        ) : (
+          projects.length > 0 && (
+            <ul className={styles.project_list}>
+              {projects
+                .sort((a: Project, b: Project) => a.id - b.id)
+                .map((item: Project) => (
+                  <ProjectItem
+                    key={item.id}
+                    name={item.title || ""}
+                    id={item.id.toString()}
+                    date={formatDate(item.created_at)}
+                  />
+                ))}
+            </ul>
+          )
         )}
       </section>
       <Pagination

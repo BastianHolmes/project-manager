@@ -22,7 +22,8 @@ const TaskPage = () => {
   const [selectedTask, setSelectedTask] = useState<Task>({});
 
   const dispatch = useDispatch();
-  const selectProjects = (store: { projects: Project[] }) => store.projects;
+  const selectProjects = (store: { projects: Project[] }) =>
+    store.projects.projects;
   const selectTasks = (store: { tasks: Task[] }) => store.tasks;
   const { id = "" } = useParams();
   const projects = useSelector(selectProjects);

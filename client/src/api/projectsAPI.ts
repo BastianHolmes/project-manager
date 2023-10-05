@@ -11,7 +11,7 @@ export const getProjects = async () => {
 
 export const postProjects = async (title: string) => {
   try {
-    const { data } = await API.post("/", { title });
+    const { data } = await API.post("/projects", { title });
     return data;
   } catch (err) {
     console.log(err);

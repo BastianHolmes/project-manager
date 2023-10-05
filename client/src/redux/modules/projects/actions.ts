@@ -2,24 +2,34 @@ import {
   CREATE_PROJECT_ERROR,
   CREATE_PROJECT_START,
   CREATE_PROJECT_SUCCESS,
-  GET_PROJECTS,
-  SET_PROJECTS,
+  GET_PROJECTS_START,
+  LOAD_PROJECTS_START,
+  LOAD_PROJECTS_SUCCESS,
+  LOAD_TASKS_ERROR,
 } from "../../actionTypes";
 import {
-  SetProjectsAction,
+  LoadProjectsStartsAction,
+  LoadProjectsSuccessAction,
   GetProjectsAction,
   CreateProjectStartAction,
   CreateProjectSuccessAction,
   CreateProjectErrorAction,
 } from "./types";
 
-export const setProjects = (payload: any): SetProjectsAction => ({
-  type: SET_PROJECTS,
+export const loadProjects = (payload: any): LoadProjectsStartsAction => ({
+  type: LOAD_PROJECTS_START,
+  payload,
+});
+
+export const loadProjectsSuccess = (
+  payload: any
+): LoadProjectsSuccessAction => ({
+  type: LOAD_PROJECTS_SUCCESS,
   payload,
 });
 
 export const getProjects = (): GetProjectsAction => ({
-  type: GET_PROJECTS,
+  type: GET_PROJECTS_START,
 });
 
 export const createProjectStart = (project: any): CreateProjectStartAction => ({
