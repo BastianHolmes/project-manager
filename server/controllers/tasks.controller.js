@@ -11,8 +11,8 @@ const projectController = {
   postTask: async (req, res) => {
     try {
       const { rows } = await pool.query(
-        "INSERT INTO tasks (title) values ($1) returning *",
-        [req.body.title]
+        "INSERT INTO tasks (title,project_id) values ($1,$2) returning *",
+        [req.body.title, req.body.project_id]
       );
       res.status(200).json({
         msg: "OK",
