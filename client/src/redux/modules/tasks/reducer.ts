@@ -1,4 +1,6 @@
 import {
+  CREATE_TASKS_START,
+  CREATE_TASKS_SUCCESS,
   LOAD_TASKS_ERROR,
   LOAD_TASKS_START,
   LOAD_TASKS_SUCCESS,
@@ -11,11 +13,13 @@ const tasks = (state = initialState, { type, payload }) => {
   switch (type) {
     case SET_TASKS:
       return payload;
+    case CREATE_TASKS_START:
     case LOAD_TASKS_START:
       return {
         ...state,
         loading: true,
       };
+    case CREATE_TASKS_SUCCESS:
     case LOAD_TASKS_SUCCESS:
       return {
         ...state,

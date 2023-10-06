@@ -2,6 +2,10 @@ import { useDrop } from "react-dnd";
 import styles from "./TaskContainer.module.scss";
 import { Task } from "../../../types/taskTypes";
 import TaskItem from "../TaskItem";
+import Button from "../../shared/Button";
+import { useState } from "react";
+import { createTaskStart } from "../../../redux/modules/tasks/actions";
+import { useDispatch } from "react-redux";
 
 interface TaskContainerProps {
   title: string;
@@ -18,6 +22,13 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
   status,
   onOpenModal,
 }) => {
+  const dispatch = useDispatch();
+  const [isEditing, setIsEditing] = useState(false);
+  const [taskTitle, setTaskTitle] = useState("");
+  const handleCreateTask = () => {
+    dispatch(createTaskStart(title));
+    setIsEditing(true);
+  };
   const [{ isOver }, drop] = useDrop(() => ({
     type: "task",
     accept: "task",
@@ -37,6 +48,23 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
           tasks.map((item) => (
             <TaskItem key={item.id} item={item} onOpenModal={onOpenModal} />
           ))}
+        {isEditing ? (
+          <input
+            value={taskTitle}
+            onChange={(e) => setTaskTitle(e.target.value)}
+            type="text"
+            className={styles.input}
+            autoFocus
+            onBlur={() => setIsEditing(false)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setIsEditing(false);
+              }
+            }}
+          />
+        ) : (
+          <Button onClick={handleCreateTask}>New task</Button>
+        )}
       </div>
     </div>
   );

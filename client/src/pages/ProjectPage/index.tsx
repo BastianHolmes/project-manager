@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MaterialSymbolsAddBoxSharp from "../../components/shared/Icon";
 import ProjectItem from "../../components/project/Item";
 import styles from "./ProjectPage.module.scss";
@@ -7,48 +7,27 @@ import ModalContent from "../../components/project/ProjectModalContent";
 import { formatDate } from "../../helpers/formatDate";
 import { Project } from "../../types/projectsTypes";
 import Pagination from "../../components/shared/Pagination";
-import { useDispatch, useSelector } from "react-redux";
-import { LoadTask } from "../../redux/modules/tasks/actions";
-import { getProjects } from "../../redux/modules/projects/actions";
 import Loader from "../../components/shared/Loader";
+import { useGetInfo } from "../../hooks/useGetInfo";
+import { useLoading } from "../../hooks/useLoading";
+import { usePagination } from "../../hooks/usePagination";
 
 const ProjectPage = () => {
-  const allProjects = useSelector(
-    (store: { projects: { projects: Project[] } }) =>
-      store.projects.projects || []
-  );
-  const Loading = useSelector(
-    (store: { projects: { loading: Project[] } }) => store.projects.loading
-  );
-
+  const { projects: allProjects } = useGetInfo();
+  const Loading = useLoading();
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    async function fetchProjects() {
-      dispatch(getProjects());
-      dispatch(LoadTask());
-    }
-    fetchProjects();
-  }, [dispatch]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
 
-  const indexOfFirstProject = (currentPage - 1) * itemsPerPage;
-  const indexOfLastProject = indexOfFirstProject + itemsPerPage;
-  const projects = Array.isArray(allProjects)
-    ? allProjects.slice(indexOfFirstProject, indexOfLastProject)
-    : [];
-
-  const totalPages = Math.ceil(allProjects.length / itemsPerPage);
+  const {
+    slicedData: projects,
+    totalPages,
+    handlePageChange,
+  } = usePagination(allProjects, itemsPerPage);
 
   const toggleModal = () => {
     setIsOpenModal(!isOpenModal);
-  };
-
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
   };
 
   return (

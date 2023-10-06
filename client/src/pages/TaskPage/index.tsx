@@ -11,24 +11,21 @@ import { Task } from "../../types/taskTypes";
 import { Project } from "../../types/projectsTypes";
 import Modal from "../../components/shared/Modal";
 import TaskModalContent from "../../components/tasks/TaskModalContent";
+import { useGetInfo } from "../../hooks/useGetInfo";
+import { useLoading } from "../../hooks/useLoading";
+import Loader from "../../components/shared/Loader";
 
 const TaskPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const toggleModal = (task: Task) => {
-    setIsOpenModal(!isOpenModal);
-    setSelectedTask(task);
-  };
-
+  const { projects, tasks } = useGetInfo();
+  const Loading = useLoading();
   const [selectedTask, setSelectedTask] = useState<Task>({});
-
   const dispatch = useDispatch();
-  const selectProjects = (store: { projects: Project[] }) =>
-    store.projects.projects;
-  const selectTasks = (store: { tasks: Task[] }) => store.tasks;
   const { id = "" } = useParams();
-  const projects = useSelector(selectProjects);
-  const tasks = useSelector(selectTasks);
-  const currentProject: Project | undefined = findItem(id, projects);
+  const currentProject: Project | undefined = Loading
+    ? undefined
+    : findItem(id, projects);
+
   const projectTitle = currentProject?.title;
   const renderQueryTask: Task[] =
     tasks && Array.isArray(tasks)
@@ -75,6 +72,11 @@ const TaskPage = () => {
     dispatch(changeTaskStatus(id, status));
   };
 
+  const toggleModal = (task: Task) => {
+    setIsOpenModal(!isOpenModal);
+    setSelectedTask(task);
+  };
+
   return (
     <div className={styles.container}>
       {isOpenModal && (
@@ -87,6 +89,7 @@ const TaskPage = () => {
       </header>
       <section className={styles.task_container}>
         <DndProvider backend={HTML5Backend}>
+          {Loading && <Loader />}
           {containers.map((container, index) => (
             <TaskContainer
               key={index}
