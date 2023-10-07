@@ -4,14 +4,12 @@ import { Task } from "../../../types/taskTypes";
 import TaskItem from "../TaskItem";
 import Button from "../../shared/Button";
 import { useState } from "react";
-import {
-  createTaskStart,
-  setTasks,
-} from "../../../redux/modules/tasks/actions";
+import { createTaskStart } from "../../../redux/modules/tasks/actions";
 import { useDispatch } from "react-redux";
-import { useGetInfo } from "../../../hooks/useGetInfo";
 
 interface TaskContainerProps {
+  count: number;
+  setCount: (value: number) => void;
   title: string;
   tasks: Task[];
   project_id: number;
@@ -21,6 +19,8 @@ interface TaskContainerProps {
 }
 
 const TaskContainer: React.FC<TaskContainerProps> = ({
+  setCount,
+  count,
   project_id,
   title,
   tasks,
@@ -39,20 +39,18 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
     type: "task",
     accept: "task",
     drop: (item: Task) => {
-      if (taskCount < 6 && item.id) onDrop(item.id, status);
+      if (item.id) onDrop(item.id, status);
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
   }));
-  const [taskCount, setTaskCount] = useState(tasks.length);
-  console.log(taskCount);
   return (
     <div className={styles.col} ref={drop}>
       <h3 className={styles.title}>{title}</h3>
       <div>
         {tasks.length > 0 &&
-          tasks.map((item) => (
+          tasks.map((item, index) => (
             <TaskItem key={item.id} item={item} onOpenModal={onOpenModal} />
           ))}
         {isEditing ? (
@@ -66,9 +64,9 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
               setIsEditing(false);
               if (taskTitle.length > 2) {
                 dispatch(
-                  createTaskStart(taskId, taskTitle, status, project_id)
+                  createTaskStart(taskId, taskTitle, status, project_id, count)
                 );
-                setTaskCount(taskCount + 1);
+                setCount(count + 1);
               }
               setTaskTitle("");
             }}
@@ -77,15 +75,21 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
                 setIsEditing(false);
                 if (taskTitle.length > 2) {
                   dispatch(
-                    createTaskStart(taskId, taskTitle, status, project_id)
+                    createTaskStart(
+                      taskId,
+                      taskTitle,
+                      status,
+                      project_id,
+                      count
+                    )
                   );
-                  setTaskCount(taskCount + 1);
+                  setCount(count + 1);
                 }
                 setTaskTitle("");
               }
             }}
           />
-        ) : taskCount < 6 ? (
+        ) : tasks.length < 6 ? (
           <Button onClick={handleCreateTask}>New task</Button>
         ) : null}
       </div>

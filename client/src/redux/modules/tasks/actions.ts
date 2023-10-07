@@ -15,10 +15,11 @@ export const setTasks = (payload) => ({
   payload,
 });
 
-export const createTaskStart = (id, title, status, project_id) => ({
+export const createTaskStart = (id, count, title, status, project_id) => ({
   type: CREATE_TASKS_START,
   payload: {
     id,
+    count,
     title,
     status,
     project_id,

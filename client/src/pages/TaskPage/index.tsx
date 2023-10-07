@@ -18,6 +18,7 @@ import Loader from "../../components/shared/Loader";
 const TaskPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { projects, tasks } = useGetInfo();
+  const [count, setCount] = useState(1);
   const Loading = useLoading();
   const [selectedTask, setSelectedTask] = useState<Task>({});
   const dispatch = useDispatch();
@@ -25,7 +26,6 @@ const TaskPage = () => {
   const currentProject: Project | undefined = Loading
     ? undefined
     : findItem(id, projects);
-
   const projectTitle = currentProject?.title;
   const renderQueryTask: Task[] =
     tasks && Array.isArray(tasks)
@@ -95,6 +95,8 @@ const TaskPage = () => {
               tasks={container.tasks}
               onDrop={changeTask}
               onOpenModal={toggleModal}
+              count={count}
+              setCount={setCount}
             />
           ))}
         </DndProvider>

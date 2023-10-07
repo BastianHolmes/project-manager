@@ -19,6 +19,7 @@ CREATE TABLE tasks (
     attached_files TEXT[],
     status VARCHAR(50),
     project_id INTEGER REFERENCES projects(id),
+    count INTEGER DEFAULT 0,
     parent_task_id INTEGER REFERENCES tasks(id),
     is_parent_task BOOLEAN DEFAULT false
 );
