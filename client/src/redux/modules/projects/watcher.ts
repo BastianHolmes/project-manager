@@ -25,7 +25,6 @@ export function* handleGetProjects() {
 }
 
 export function* handleCreateProjects({ payload }: any) {
-  console.log(payload);
   try {
     const response = yield call(postProjects, payload.title);
     if (response.msg === "OK") {

@@ -22,10 +22,8 @@ export function* onLoadTasks() {
 }
 
 export function* handleCreateTasks({ payload }) {
-  console.log(payload);
   try {
     const response = yield call(postTasks, payload);
-    console.log(response);
     if (response.msg === "OK") {
       yield put(createTaskSuccess(response.data));
     }

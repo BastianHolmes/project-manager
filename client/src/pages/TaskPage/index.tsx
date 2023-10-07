@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./TaskPage.module.scss";
 import { changeTaskStatus } from "../../redux/modules/tasks/actions";
@@ -8,24 +8,29 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import TaskContainer from "../../components/tasks/TaskContainer";
 import { Task } from "../../types/taskTypes";
-import { Project } from "../../types/projectsTypes";
 import Modal from "../../components/shared/Modal";
 import TaskModalContent from "../../components/tasks/TaskModalContent";
 import { useGetInfo } from "../../hooks/useGetInfo";
 import { useLoading } from "../../hooks/useLoading";
 import Loader from "../../components/shared/Loader";
+import { filterObjectsByProjectId } from "../../helpers/filterObjectsByProjectId";
 
 const TaskPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { projects, tasks } = useGetInfo();
-  const [count, setCount] = useState(1);
+
   const Loading = useLoading();
   const [selectedTask, setSelectedTask] = useState<Task>({});
   const dispatch = useDispatch();
   const { id = "" } = useParams();
-  const currentProject: Project | undefined = Loading
-    ? undefined
-    : findItem(id, projects);
+  const [count, setCount] = useState(1);
+
+  useEffect(() => {
+    setCount(filterObjectsByProjectId(tasks, id).length + 1);
+  }, [tasks]);
+
+  const currentProject = Loading ? undefined : findItem(id, projects);
+
   const projectTitle = currentProject?.title;
   const renderQueryTask: Task[] =
     tasks && Array.isArray(tasks)
@@ -89,8 +94,9 @@ const TaskPage = () => {
           {Loading && <Loader />}
           {containers.map((container, index) => (
             <TaskContainer
+              index={index}
               key={index}
-              project_id={currentProject?.id}
+              project_id={Number(currentProject?.id)}
               status={container.status}
               tasks={container.tasks}
               onDrop={changeTask}

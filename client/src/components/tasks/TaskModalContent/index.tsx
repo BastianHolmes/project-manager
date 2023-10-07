@@ -16,7 +16,7 @@ const TaskModalContent: React.FC<ModalContentProps> = ({ onClose, task }) => {
   ];
 
   const handleSelect = (value: string) => {
-    console.log("Selected option:", value);
+    console.log(value);
   };
 
   const handleBackgroundClick = (e: any) => {

@@ -10,11 +10,11 @@ import { useDispatch } from "react-redux";
 interface TaskContainerProps {
   count: number;
   setCount: (value: number) => void;
-  title: string;
   tasks: Task[];
   project_id: number;
   status: string;
-  onDrop: (title: string, status: string) => void;
+  index: number;
+  onDrop: (title: string, status: string, taskNum: number) => void;
   onOpenModal: (item: Task) => void;
 }
 
@@ -22,11 +22,11 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
   setCount,
   count,
   project_id,
-  title,
   tasks,
   onDrop,
   status,
   onOpenModal,
+  index
 }) => {
   const taskId = Math.floor(Math.random() * 100);
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
     type: "task",
     accept: "task",
     drop: (item: Task) => {
-      if (item.id) onDrop(item.id, status);
+      if (item.id) onDrop(item.id, status, index);
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -47,10 +47,10 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
   }));
   return (
     <div className={styles.col} ref={drop}>
-      <h3 className={styles.title}>{title}</h3>
+      <h3 className={styles.title}>{status}</h3>
       <div>
         {tasks.length > 0 &&
-          tasks.map((item, index) => (
+          tasks.map((item) => (
             <TaskItem key={item.id} item={item} onOpenModal={onOpenModal} />
           ))}
         {isEditing ? (
@@ -64,7 +64,7 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
               setIsEditing(false);
               if (taskTitle.length > 2) {
                 dispatch(
-                  createTaskStart(taskId, taskTitle, status, project_id, count)
+                  createTaskStart(taskId, count, taskTitle, status, project_id)
                 );
                 setCount(count + 1);
               }
@@ -77,10 +77,10 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
                   dispatch(
                     createTaskStart(
                       taskId,
+                      count,
                       taskTitle,
                       status,
-                      project_id,
-                      count
+                      project_id
                     )
                   );
                   setCount(count + 1);

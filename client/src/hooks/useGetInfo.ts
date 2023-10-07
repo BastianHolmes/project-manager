@@ -8,7 +8,6 @@ import { Task } from "../types/taskTypes";
 
 export const useGetInfo = () => {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getProjects());
     dispatch(LoadTask());

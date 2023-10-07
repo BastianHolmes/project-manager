@@ -8,7 +8,7 @@ interface TaskItem extends Task {
   onOpenModal: (item: Task) => void;
 }
 
-const TaskItem: React.FC<TaskItem> = ({ item, onOpenModal, number }) => {
+const TaskItem: React.FC<TaskItem> = ({ item, onOpenModal }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "task",
     item: { id: item.id },
@@ -23,8 +23,11 @@ const TaskItem: React.FC<TaskItem> = ({ item, onOpenModal, number }) => {
       style={{ opacity: isDragging ? 0 : 1 }}
       onClick={() => onOpenModal(item)}
     >
-      <h4>{item.title}</h4>
-      <h5>{item.count}</h5>
+      <h5 className={styles.count}>{item.count}.</h5>
+      <div className={styles.header}>
+        <h4>{item.title}.</h4>
+        <h5>Сделано 5 из 6</h5>
+      </div>
     </div>
   );
 };
