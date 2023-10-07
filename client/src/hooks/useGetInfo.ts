@@ -19,7 +19,9 @@ export const useGetInfo = () => {
       store.projects.projects || []
   );
 
-  const tasks = useSelector((store: { tasks: Task[] }) => store.tasks || []);
+  const tasks = useSelector(
+    (store: { tasks: { tasks: Task[] } }) => store.tasks.tasks || []
+  );
 
   return { projects, tasks };
 };

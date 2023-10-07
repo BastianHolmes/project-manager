@@ -10,10 +10,10 @@ import { CREATE_PROJECT_START, GET_PROJECTS_START } from "../../actionTypes";
 import { getProjects, postProjects } from "../../../api/projectsAPI";
 import {
   createProjectError,
+  createProjectStart,
   createProjectSuccess,
   loadProjectsSuccess,
 } from "./actions";
-import { Project } from "../../../types/projectsTypes";
 
 export function* handleGetProjects() {
   try {
@@ -25,10 +25,11 @@ export function* handleGetProjects() {
 }
 
 export function* handleCreateProjects({ payload }: any) {
+  console.log(payload);
   try {
-    const response = yield call(postProjects, payload);
+    const response = yield call(postProjects, payload.title);
     if (response.msg === "OK") {
-      yield put(createProjectSuccess(response.data));
+      yield put(createProjectSuccess(response));
     }
   } catch (err) {
     yield put(createProjectError(err));

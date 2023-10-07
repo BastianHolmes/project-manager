@@ -6,6 +6,7 @@ import {
   getProjects,
 } from "../../../redux/modules/projects/actions";
 import { useState } from "react";
+import { formatDate } from "../../../helpers/formatDate";
 
 interface ModalContentProps {
   onClose: (value: boolean) => void;
@@ -25,13 +26,12 @@ const ModalContent: React.FC<ModalContentProps> = ({ onClose }) => {
   const dispatch = useDispatch();
 
   const handleSubmit = (e: any) => {
+    const date = new Date();
+    const id = crypto.randomUUID().toString();
     e.preventDefault();
     if (title) {
-      dispatch(createProjectStart(title));
-      setTimeout(() => {
-        onClose(false);
-        dispatch(getProjects());
-      }, 500);
+      dispatch(createProjectStart(date, title, id));
+      onClose(false);
     }
   };
   return (
@@ -52,7 +52,9 @@ const ModalContent: React.FC<ModalContentProps> = ({ onClose }) => {
           value={title}
           onChange={(e) => setState({ title: e.target.value })}
         />
-        <button onClick={(e) => handleSubmit(e)}>Готово</button>
+        <button className={styles.btn} onClick={(e) => handleSubmit(e)}>
+          Готово
+        </button>
       </form>
     </div>
   );

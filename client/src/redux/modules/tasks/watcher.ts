@@ -1,6 +1,6 @@
-import { call, put, takeEvery } from "redux-saga/effects";
-import { LOAD_TASKS_START } from "../../actionTypes";
-import { getAllTasks, getTasks } from "../../../api/tasksAPI";
+import { call, put, take, takeEvery, fork } from "redux-saga/effects";
+import { CREATE_TASKS_START, LOAD_TASKS_START } from "../../actionTypes";
+import { getAllTasks, postTasks } from "../../../api/tasksAPI";
 import {
   createTaskError,
   createTaskStart,
@@ -22,12 +22,21 @@ export function* onLoadTasks() {
 }
 
 export function* handleCreateTasks({ payload }) {
+  console.log(payload);
   try {
     const response = yield call(postTasks, payload);
+    console.log(response);
     if (response.msg === "OK") {
       yield put(createTaskSuccess(response.data));
     }
   } catch (err) {
     yield put(createTaskError(err));
+  }
+}
+
+export function* onСreateTasks() {
+  while (true) {
+    const action = yield take(CREATE_TASKS_START);
+    yield fork(handleCreateTasks, action);
   }
 }

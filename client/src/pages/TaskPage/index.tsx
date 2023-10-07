@@ -52,24 +52,21 @@ const TaskPage = () => {
 
   const containers = [
     {
-      title: "QUEUE",
       status: "QUEUE",
       tasks: renderQueryTask,
     },
     {
-      title: "DEVELOPMENT",
       status: "DEVELOPMENT",
       tasks: renderDevelopmentTask,
     },
     {
-      title: "DONE",
       status: "DONE",
       tasks: renderDoneTask,
     },
   ];
 
-  const changeTask = (id: string, status: string) => {
-    dispatch(changeTaskStatus(id, status));
+  const changeTask = (id: string, status: string, taskNum: number) => {
+    dispatch(changeTaskStatus(id, status, taskNum));
   };
 
   const toggleModal = (task: Task) => {
@@ -93,8 +90,8 @@ const TaskPage = () => {
           {containers.map((container, index) => (
             <TaskContainer
               key={index}
+              project_id={currentProject?.id}
               status={container.status}
-              title={container.title}
               tasks={container.tasks}
               onDrop={changeTask}
               onOpenModal={toggleModal}

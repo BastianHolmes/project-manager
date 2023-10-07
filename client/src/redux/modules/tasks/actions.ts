@@ -15,9 +15,14 @@ export const setTasks = (payload) => ({
   payload,
 });
 
-export const createTaskStart = (payload) => ({
+export const createTaskStart = (id, title, status, project_id) => ({
   type: CREATE_TASKS_START,
-  payload,
+  payload: {
+    id,
+    title,
+    status,
+    project_id,
+  },
 });
 
 export const createTaskSuccess = (payload) => ({
@@ -30,10 +35,15 @@ export const createTaskError = (payload) => ({
   payload,
 });
 
-export const changeTaskStatus = (taskId: string, newStatus: string) => ({
+export const changeTaskStatus = (
+  id: string,
+  newStatus: string,
+  taskNum: number
+) => ({
   type: "CHANGE_TASK_STATUS",
   payload: {
-    taskId,
+    id,
     newStatus,
+    taskNum,
   },
 });

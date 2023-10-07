@@ -32,16 +32,20 @@ export const getProjects = (): GetProjectsAction => ({
   type: GET_PROJECTS_START,
 });
 
-export const createProjectStart = (project: any): CreateProjectStartAction => ({
+export const createProjectStart = (created_at, title, id) => ({
   type: CREATE_PROJECT_START,
-  payload: project,
+  payload: {
+    created_at,
+    title,
+    id,
+  },
 });
 
 export const createProjectSuccess = (
-  projectId: any
+  project: any
 ): CreateProjectSuccessAction => ({
   type: CREATE_PROJECT_SUCCESS,
-  payload: projectId,
+  payload: project,
 });
 
 export const createProjectError = (error: any): CreateProjectErrorAction => ({

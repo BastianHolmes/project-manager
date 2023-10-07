@@ -10,21 +10,25 @@ import Pagination from "../../components/shared/Pagination";
 import Loader from "../../components/shared/Loader";
 import { useGetInfo } from "../../hooks/useGetInfo";
 import { useLoading } from "../../hooks/useLoading";
-import { usePagination } from "../../hooks/usePagination";
 
 const ProjectPage = () => {
   const { projects: allProjects } = useGetInfo();
   const Loading = useLoading();
   const [isOpenModal, setIsOpenModal] = useState(false);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
 
-  const {
-    slicedData: projects,
-    totalPages,
-    handlePageChange,
-  } = usePagination(allProjects, itemsPerPage);
+  const indexOfFirstProject = (currentPage - 1) * itemsPerPage;
+  const indexOfLastProject = indexOfFirstProject + itemsPerPage;
+  const projects = Array.isArray(allProjects)
+    ? allProjects.slice(indexOfFirstProject, indexOfLastProject)
+    : [];
+
+  const totalPages = Math.ceil(allProjects.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   const toggleModal = () => {
     setIsOpenModal(!isOpenModal);
@@ -58,23 +62,30 @@ const ProjectPage = () => {
             <ul className={styles.project_list}>
               {projects
                 .sort((a: Project, b: Project) => a.id - b.id)
-                .map((item: Project) => (
+                .map((item: Project, index) => (
                   <ProjectItem
+                    number={indexOfFirstProject + index + 1}
                     key={item.id}
                     name={item.title || ""}
-                    id={item.id.toString()}
-                    date={formatDate(item.created_at)}
+                    id={item.id ? item.id.toString() : ""}
+                    date={
+                      item.created_at
+                        ? formatDate(item.created_at.toString())
+                        : ""
+                    }
                   />
                 ))}
             </ul>
           )
         )}
       </section>
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
     </main>
   );
 };
