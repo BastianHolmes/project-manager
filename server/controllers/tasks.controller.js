@@ -12,7 +12,7 @@ const projectController = {
     try {
       const { rows } = await pool.query(
         "INSERT INTO tasks (title,project_id, status) values ($1,$2,$3) returning *",
-        [req.body.title, req.body.status, req.body.project_id]
+        [req.body.title, req.body.project_id, req.body.status]
       );
       res.status(200).json({
         msg: "OK",
