@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./TaskPage.module.scss";
 import { changeTaskStatus } from "../../redux/modules/tasks/actions";
@@ -26,34 +26,42 @@ const TaskPage = () => {
   const [count, setCount] = useState(1);
 
   useEffect(() => {
-    setCount(filterObjectsByProjectId(tasks, id).length + 1);
+    function setFunction() {
+      setCount(filterObjectsByProjectId(tasks, id).length + 1);
+    }
+    if (tasks.length > 0) {
+      setFunction();
+    }
   }, [tasks]);
 
   const currentProject = Loading ? undefined : findItem(id, projects);
 
   const projectTitle = currentProject?.title;
-  const renderQueryTask: Task[] =
-    tasks && Array.isArray(tasks)
-      ? tasks.filter(
-          (task: Task) =>
-            task.project_id === currentProject?.id && task.status === "QUEUE"
-        )
-      : [];
-  const renderDevelopmentTask: Task[] =
-    tasks && Array.isArray(tasks)
-      ? tasks.filter(
-          (task: Task) =>
-            task.project_id === currentProject?.id &&
-            task.status === "DEVELOPMENT"
-        )
-      : [];
-  const renderDoneTask: Task[] =
-    tasks && Array.isArray(tasks)
-      ? tasks.filter(
-          (task: Task) =>
-            task.project_id === currentProject?.id && task.status === "DONE"
-        )
-      : [];
+  const renderQueryTask = useMemo(
+    () =>
+      tasks.filter(
+        (task: Task) =>
+          task.project_id === currentProject?.id && task.status === "QUEUE"
+      ),
+    [tasks, currentProject?.id]
+  );
+  const renderDevelopmentTask = useMemo(
+    () =>
+      tasks.filter(
+        (task: Task) =>
+          task.project_id === currentProject?.id &&
+          task.status === "DEVELOPMENT"
+      ),
+    [tasks, currentProject?.id]
+  );
+  const renderDoneTask = useMemo(
+    () =>
+      tasks.filter(
+        (task: Task) =>
+          task.project_id === currentProject?.id && task.status === "DONE"
+      ),
+    [tasks, currentProject?.id]
+  );
 
   const containers = [
     {
