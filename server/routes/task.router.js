@@ -9,6 +9,6 @@ router.get("/", taskController.getAllTasks);
 router.post("/", taskController.postTask);
 router.put("/description", taskController.addDescription);
 router.put("/status", taskController.changeStatus);
-router.put("/file", upload.single("file"), taskController.uploadFile);
+// router.put("/file", upload.single("file"), taskController.uploadFile);
 
 export default router;
