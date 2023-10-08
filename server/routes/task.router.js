@@ -5,7 +5,7 @@ import taskController from "../controllers/tasks.controller.js";
 
 router.get("/", taskController.getAllTasks);
 router.post("/", taskController.postTask);
-router.put("/", taskController.addDescription);
-router.put("/", taskController.changeStatus);
+router.put("/description", taskController.addDescription);
+router.put("/status", taskController.changeStatus);
 
 export default router;
