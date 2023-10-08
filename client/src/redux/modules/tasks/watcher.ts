@@ -1,14 +1,28 @@
 import { call, put, take, takeEvery, fork } from "redux-saga/effects";
-import { CREATE_TASKS_START, LOAD_TASKS_START } from "../../actionTypes";
-import { getAllTasks, postTasks } from "../../../api/tasksAPI";
 import {
+  ADD_DESCRIPTION_TASK_START,
+  CHANGE_TASK_STATUS_START,
+  CREATE_TASKS_START,
+  LOAD_TASKS_START,
+} from "../../actionTypes";
+import {
+  addDescription,
+  getAllTasks,
+  postTasks,
+  updateStatus,
+} from "../../../api/tasksAPI";
+import {
+  addDescriptionTaskError,
+  addDescriptionTaskSuccess,
+  changeTaskStatus,
+  changeTaskStatusError,
+  changeTaskStatusSuccess,
   createTaskError,
-  createTaskStart,
   createTaskSuccess,
   setTasks,
 } from "./actions";
 
-export function* handleGetTasks() {
+function* handleGetTasks() {
   try {
     const { data } = yield call(getAllTasks);
     yield put(setTasks(data));
@@ -21,7 +35,7 @@ export function* onLoadTasks() {
   yield takeEvery(LOAD_TASKS_START, handleGetTasks);
 }
 
-export function* handleCreateTasks({ payload }) {
+function* handleCreateTasks({ payload }) {
   try {
     const response = yield call(postTasks, payload);
     if (response.msg === "OK") {
@@ -39,13 +53,38 @@ export function* onСreateTasks() {
   }
 }
 
-// export function* handleAddTaskDescription({ payload }) {
-//   try {
-//     const response = yield call(postTasks, payload);
-//     if (response.msg === "OK") {
-//       yield put(createTaskSuccess(response.data));
-//     }
-//   } catch (err) {
-//     yield put(createTaskError(err));
-//   }
-// }
+function* handleAddTaskDescription({ payload }) {
+  try {
+    const response = yield call(addDescription, payload);
+    if (response.msg === "OK") {
+      yield put(addDescriptionTaskSuccess(response.data));
+    }
+  } catch (err) {
+    yield put(addDescriptionTaskError(err));
+  }
+}
+
+export function* onAddDescription() {
+  while (true) {
+    const action = yield take(ADD_DESCRIPTION_TASK_START);
+    yield fork(handleAddTaskDescription, action);
+  }
+}
+
+function* handleChangeStatus({ payload }) {
+  try {
+    const response = yield call(updateStatus, payload);
+    if (response.msg === "OK") {
+      yield put(changeTaskStatusSuccess(response.data));
+    }
+  } catch (err) {
+    yield put(changeTaskStatusError(err));
+  }
+}
+
+export function* onChangeStatus() {
+  while (true) {
+    const action = yield take(CHANGE_TASK_STATUS_START);
+    yield fork(handleChangeStatus, action);
+  }
+}

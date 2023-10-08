@@ -3,6 +3,9 @@ import {
   ADD_DESCRIPTION_TASK_ERROR,
   ADD_DESCRIPTION_TASK_START,
   ADD_DESCRIPTION_TASK_SUCCESS,
+  CHANGE_TASK_STATUS_ERROR,
+  CHANGE_TASK_STATUS_START,
+  CHANGE_TASK_STATUS_SUCCESS,
   CREATE_TASKS_START,
   CREATE_TASKS_SUCCESS,
   LOAD_TASKS_ERROR,
@@ -52,7 +55,7 @@ const tasks = (
         loading: false,
         error: payload,
       };
-    case "CHANGE_TASK_STATUS":
+    case CHANGE_TASK_STATUS_START:
       return {
         ...state,
         tasks: state.tasks.map((task) => {
@@ -66,14 +69,27 @@ const tasks = (
           return task;
         }),
       };
+    case CHANGE_TASK_STATUS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+    case CHANGE_TASK_STATUS_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
     case ADD_DESCRIPTION_TASK_START:
       return {
         ...state,
         tasks: state.tasks.map((task) => {
+          console.log(task);
+          console.log(payload);
           if (task.id === payload.id) {
             return {
               ...task,
-              status: payload.description,
+              description: payload.description,
             };
           }
           return task;

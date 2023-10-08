@@ -36,6 +36,20 @@ const taskController = {
       res.json({ msg: error.msg });
     }
   },
+  changeStatus: async (req, res) => {
+    try {
+      const { rows } = await pool.query(
+        "UPDATE tasks SET status=$1 WHERE id=$2 returning *",
+        [req.body.status, req.body.id]
+      );
+      res.status(200).json({
+        msg: "OK",
+        data: rows,
+      });
+    } catch (error) {
+      res.json({ msg: error.msg });
+    }
+  },
 };
 
 export default taskController;

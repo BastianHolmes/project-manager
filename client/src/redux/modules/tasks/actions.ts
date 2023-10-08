@@ -2,6 +2,8 @@ import {
   ADD_DESCRIPTION_TASK_ERROR,
   ADD_DESCRIPTION_TASK_START,
   ADD_DESCRIPTION_TASK_SUCCESS,
+  CHANGE_TASK_STATUS_ERROR,
+  CHANGE_TASK_STATUS_SUCCESS,
   CREATE_TASKS_ERROR,
   CREATE_TASKS_START,
   CREATE_TASKS_SUCCESS,
@@ -39,19 +41,6 @@ export const createTaskError = (payload) => ({
   payload,
 });
 
-export const changeTaskStatus = (
-  id: string,
-  newStatus: string,
-  taskNum: number
-) => ({
-  type: "CHANGE_TASK_STATUS",
-  payload: {
-    id,
-    newStatus,
-    taskNum,
-  },
-});
-
 export const addDescriptionTaskStart = (id, description) => ({
   type: ADD_DESCRIPTION_TASK_START,
   payload: {
@@ -67,5 +56,28 @@ export const addDescriptionTaskSuccess = (payload) => ({
 
 export const addDescriptionTaskError = (payload) => ({
   type: ADD_DESCRIPTION_TASK_ERROR,
+  payload,
+});
+
+export const changeTaskStatusStart = (
+  id: string,
+  newStatus: string,
+  taskNum: number
+) => ({
+  type: "CHANGE_TASK_STATUS",
+  payload: {
+    id,
+    newStatus,
+    taskNum,
+  },
+});
+
+export const changeTaskStatusSuccess = (payload) => ({
+  type: CHANGE_TASK_STATUS_SUCCESS,
+  payload,
+});
+
+export const changeTaskStatusError = (payload) => ({
+  type: CHANGE_TASK_STATUS_ERROR,
   payload,
 });
