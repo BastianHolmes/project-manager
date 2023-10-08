@@ -2,6 +2,7 @@ import { all, fork } from "redux-saga/effects";
 import { onCreateProject, onGetProjects } from "./modules/projects/watcher";
 import {
   onAddDescription,
+  onChangeStatus,
   onLoadTasks,
   onСreateTasks,
 } from "./modules/tasks/watcher";
@@ -13,5 +14,6 @@ export default function* rootSaga() {
     fork(onLoadTasks),
     fork(onСreateTasks),
     fork(onAddDescription),
+    fork(onChangeStatus),
   ]);
 }

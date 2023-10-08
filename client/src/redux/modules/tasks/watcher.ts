@@ -14,7 +14,6 @@ import {
 import {
   addDescriptionTaskError,
   addDescriptionTaskSuccess,
-  changeTaskStatus,
   changeTaskStatusError,
   changeTaskStatusSuccess,
   createTaskError,
@@ -55,7 +54,11 @@ export function* onСreateTasks() {
 
 function* handleAddTaskDescription({ payload }) {
   try {
-    const response = yield call(addDescription, payload);
+    const response = yield call(
+      addDescription,
+      payload.description,
+      payload.id
+    );
     if (response.msg === "OK") {
       yield put(addDescriptionTaskSuccess(response.data));
     }
@@ -72,8 +75,9 @@ export function* onAddDescription() {
 }
 
 function* handleChangeStatus({ payload }) {
+  console.log(payload);
   try {
-    const response = yield call(updateStatus, payload);
+    const response = yield call(updateStatus, payload.newStatus, payload.id);
     if (response.msg === "OK") {
       yield put(changeTaskStatusSuccess(response.data));
     }

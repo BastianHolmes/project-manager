@@ -18,18 +18,24 @@ export const postTasks = async (title: string) => {
   }
 };
 
-export const addDescription = async (description: string) => {
+export const addDescription = async (description: string, id: string) => {
   try {
-    const { data } = await API.put(`/tasks`, description);
+    const { data } = await API.put(`/tasks`, {
+      description,
+      id,
+    });
     return data;
   } catch (err) {
     console.log(err);
   }
 };
 
-export const updateStatus = async (status: string) => {
+export const updateStatus = async (status: string, id: string) => {
   try {
-    const { data } = await API.put(`/tasks`, status);
+    const { data } = await API.put(`/tasks`, {
+      status,
+      id,
+    });
     return data;
   } catch (err) {
     console.log(err);

@@ -60,7 +60,6 @@ const tasks = (
         ...state,
         tasks: state.tasks.map((task) => {
           if (task.id === payload.id) {
-            if (payload.taskNum >= 6) return task;
             return {
               ...task,
               status: payload.newStatus,

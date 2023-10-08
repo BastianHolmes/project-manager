@@ -3,6 +3,7 @@ import {
   ADD_DESCRIPTION_TASK_START,
   ADD_DESCRIPTION_TASK_SUCCESS,
   CHANGE_TASK_STATUS_ERROR,
+  CHANGE_TASK_STATUS_START,
   CHANGE_TASK_STATUS_SUCCESS,
   CREATE_TASKS_ERROR,
   CREATE_TASKS_START,
@@ -64,7 +65,7 @@ export const changeTaskStatusStart = (
   newStatus: string,
   taskNum: number
 ) => ({
-  type: "CHANGE_TASK_STATUS",
+  type: CHANGE_TASK_STATUS_START,
   payload: {
     id,
     newStatus,

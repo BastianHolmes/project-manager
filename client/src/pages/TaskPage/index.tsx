@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./TaskPage.module.scss";
-import { changeTaskStatus } from "../../redux/modules/tasks/actions";
+import { changeTaskStatusStart } from "../../redux/modules/tasks/actions";
 import { useParams } from "react-router-dom";
 import { findItem } from "../../helpers/findItem";
 import { DndProvider } from "react-dnd";
@@ -79,7 +79,7 @@ const TaskPage = () => {
   ];
 
   const changeTask = (id: string, status: string, taskNum: number) => {
-    dispatch(changeTaskStatus(id, status, taskNum));
+    dispatch(changeTaskStatusStart(id, status, taskNum));
   };
 
   const toggleModal = (task: Task) => {
