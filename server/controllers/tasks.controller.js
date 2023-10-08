@@ -26,7 +26,7 @@ const taskController = {
     try {
       const { rows } = await pool.query(
         "UPDATE tasks SET description=$1 WHERE id=$2 returning *",
-        [req.body.name, req.body.id]
+        [req.body.description, req.body.id]
       );
       res.status(200).json({
         msg: "OK",
