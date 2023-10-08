@@ -1,4 +1,7 @@
 import {
+  ADD_DESCRIPTION_TASK_ERROR,
+  ADD_DESCRIPTION_TASK_START,
+  ADD_DESCRIPTION_TASK_SUCCESS,
   CREATE_TASKS_ERROR,
   CREATE_TASKS_START,
   CREATE_TASKS_SUCCESS,
@@ -47,4 +50,22 @@ export const changeTaskStatus = (
     newStatus,
     taskNum,
   },
+});
+
+export const addDescriptionTaskStart = (id, description) => ({
+  type: ADD_DESCRIPTION_TASK_START,
+  payload: {
+    id,
+    description,
+  },
+});
+
+export const addDescriptionTaskSuccess = (payload) => ({
+  type: ADD_DESCRIPTION_TASK_SUCCESS,
+  payload,
+});
+
+export const addDescriptionTaskError = (payload) => ({
+  type: ADD_DESCRIPTION_TASK_ERROR,
+  payload,
 });

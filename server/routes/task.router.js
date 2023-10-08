@@ -1,9 +1,10 @@
 import { Router } from "express";
 const router = Router();
 
-import projectController from "../controllers/tasks.controller.js";
+import taskController from "../controllers/tasks.controller.js";
 
-router.get("/", projectController.getAllTasks);
-router.post("/", projectController.postTask);
+router.get("/", taskController.getAllTasks);
+router.post("/", taskController.postTask);
+router.put("/", taskController.addDescription);
 
 export default router;

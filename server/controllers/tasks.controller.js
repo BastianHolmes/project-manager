@@ -1,5 +1,5 @@
 import { pool } from "../db/index.js";
-const projectController = {
+const taskController = {
   getAllTasks: async (req, res) => {
     try {
       const { rows } = await pool.query("select * from tasks");
@@ -22,6 +22,20 @@ const projectController = {
       res.json({ msg: error.msg });
     }
   },
+  addDescription: async (req, res) => {
+    try {
+      const { rows } = await pool.query(
+        "UPDATE tasks SET description=$1 WHERE id=$2 returning *",
+        [req.body.name, req.body.id]
+      );
+      res.status(200).json({
+        msg: "OK",
+        data: rows,
+      });
+    } catch (error) {
+      res.json({ msg: error.msg });
+    }
+  },
 };
 
-export default projectController;
+export default taskController;

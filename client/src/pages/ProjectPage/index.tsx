@@ -43,11 +43,11 @@ const ProjectPage = () => {
       )}
       {allProjects.length === 0 ? (
         <h1>
-          Список <span className={styles.highlight}>проектов</span>
+          Создать <span className={styles.highlight}>проект</span>
         </h1>
       ) : (
         <h1>
-          Создать <span className={styles.highlight}>проект</span>
+          Мои <span className={styles.highlight}>проекты</span>
         </h1>
       )}
       <section className={styles.list}>

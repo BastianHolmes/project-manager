@@ -26,15 +26,26 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
   onDrop,
   status,
   onOpenModal,
-  index
+  index,
 }) => {
-  const taskId = Math.floor(Math.random() * 100);
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [taskTitle, setTaskTitle] = useState("");
+  const taskId = Math.floor(Math.random() * 100);
+
   const handleCreateTask = () => {
     setIsEditing(true);
   };
+
+  const handleInput = () => {
+    setIsEditing(false);
+    if (taskTitle.length > 2) {
+      dispatch(createTaskStart(taskId, count, taskTitle, status, project_id));
+      setCount(count + 1);
+    }
+    setTaskTitle("");
+  };
+
   const [{ isOver }, drop] = useDrop(() => ({
     type: "task",
     accept: "task",
@@ -61,31 +72,11 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
             className={styles.input}
             autoFocus
             onBlur={() => {
-              setIsEditing(false);
-              if (taskTitle.length > 2) {
-                dispatch(
-                  createTaskStart(taskId, count, taskTitle, status, project_id)
-                );
-                setCount(count + 1);
-              }
-              setTaskTitle("");
+              handleInput();
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                setIsEditing(false);
-                if (taskTitle.length > 2) {
-                  dispatch(
-                    createTaskStart(
-                      taskId,
-                      count,
-                      taskTitle,
-                      status,
-                      project_id
-                    )
-                  );
-                  setCount(count + 1);
-                }
-                setTaskTitle("");
+                handleInput();
               }
             }}
           />

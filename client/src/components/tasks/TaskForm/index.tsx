@@ -7,6 +7,7 @@ interface ModalContentProps {
 }
 
 const TaskForm: React.FC<ModalContentProps> = ({ task }) => {
+  const handleDescription = (e: any) => {};
   return (
     <div className={styles.formContainer}>
       <Textarea task={task} input="Description" />

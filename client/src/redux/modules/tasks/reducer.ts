@@ -1,5 +1,8 @@
 import { Task } from "../../../types/taskTypes";
 import {
+  ADD_DESCRIPTION_TASK_ERROR,
+  ADD_DESCRIPTION_TASK_START,
+  ADD_DESCRIPTION_TASK_SUCCESS,
   CREATE_TASKS_START,
   CREATE_TASKS_SUCCESS,
   LOAD_TASKS_ERROR,
@@ -63,7 +66,31 @@ const tasks = (
           return task;
         }),
       };
-
+    case ADD_DESCRIPTION_TASK_START:
+      return {
+        ...state,
+        tasks: state.tasks.map((task) => {
+          if (task.id === payload.id) {
+            return {
+              ...task,
+              status: payload.description,
+            };
+          }
+          return task;
+        }),
+      };
+    case ADD_DESCRIPTION_TASK_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+    case ADD_DESCRIPTION_TASK_ERROR: {
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+    }
     default:
       return state;
   }

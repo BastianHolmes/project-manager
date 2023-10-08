@@ -2,8 +2,6 @@
 CREATE TABLE projects (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    description TEXT,
-    task_count INTEGER DEFAULT 0,
     created_at TIMESTAMP DEFAULT NOW()
 );
 

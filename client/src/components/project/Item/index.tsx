@@ -15,7 +15,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
 }) => {
   const navigate = useNavigate();
   const handleClick = (id: string) => {
-    navigate(`/${id}/tasks`);
+    navigate(`/${number}/tasks`);
   };
   return (
     <li className={styles.item} onClick={() => handleClick(id)}>
