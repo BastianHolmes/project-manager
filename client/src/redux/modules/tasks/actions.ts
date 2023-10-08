@@ -1,3 +1,4 @@
+import { Task } from "../../../types/taskTypes";
 import {
   ADD_DESCRIPTION_TASK_ERROR,
   ADD_DESCRIPTION_TASK_START,
@@ -11,17 +12,53 @@ import {
   LOAD_TASKS_START,
   SET_TASKS,
 } from "../../actionTypes";
+import {
+  addDescriptionTaskErrorAction,
+  addDescriptionTaskStartAction,
+  addDescriptionTaskSuccessAction,
+  changeTaskStatusErrorAction,
+  changeTaskStatusStartAction,
+  changeTaskStatusSuccessAction,
+  createTaskErrorAction,
+  createTaskSuccessAction,
+} from "./types";
 
-export const LoadTask = () => ({
+type TaskId = string;
+type TaskCount = number;
+type TaskTitle = string;
+type TaskStatus = string;
+type ProjectId = string;
+type TaskDescription = string;
+type NewTaskStatus = string;
+type TaskNumber = number;
+
+export const LoadTask = (): { type: typeof LOAD_TASKS_START } => ({
   type: LOAD_TASKS_START,
 });
 
-export const setTasks = (payload) => ({
+export const setTasks = (
+  payload: Array<Task>
+): { type: typeof SET_TASKS; payload: Array<Task> } => ({
   type: SET_TASKS,
   payload,
 });
 
-export const createTaskStart = (id, count, title, status, project_id) => ({
+export const createTaskStart = (
+  id: TaskId,
+  count: TaskCount,
+  title: TaskTitle,
+  status: TaskStatus,
+  project_id: ProjectId
+): {
+  type: typeof CREATE_TASKS_START;
+  payload: {
+    id: TaskId;
+    count: TaskCount;
+    title: TaskTitle;
+    status: TaskStatus;
+    project_id: ProjectId;
+  };
+} => ({
   type: CREATE_TASKS_START,
   payload: {
     id,
@@ -32,17 +69,20 @@ export const createTaskStart = (id, count, title, status, project_id) => ({
   },
 });
 
-export const createTaskSuccess = (payload) => ({
+export const createTaskSuccess = (payload: Task): createTaskSuccessAction => ({
   type: CREATE_TASKS_SUCCESS,
   payload,
 });
 
-export const createTaskError = (payload) => ({
+export const createTaskError = (payload: any): createTaskErrorAction => ({
   type: CREATE_TASKS_ERROR,
   payload,
 });
 
-export const addDescriptionTaskStart = (id, description) => ({
+export const addDescriptionTaskStart = (
+  id: TaskId,
+  description: TaskDescription
+): addDescriptionTaskStartAction => ({
   type: ADD_DESCRIPTION_TASK_START,
   payload: {
     id,
@@ -50,35 +90,43 @@ export const addDescriptionTaskStart = (id, description) => ({
   },
 });
 
-export const addDescriptionTaskSuccess = (payload) => ({
+export const addDescriptionTaskSuccess = (
+  payload: Task
+): addDescriptionTaskSuccessAction => ({
   type: ADD_DESCRIPTION_TASK_SUCCESS,
   payload,
 });
 
-export const addDescriptionTaskError = (payload) => ({
+export const addDescriptionTaskError = (
+  payload: any
+): addDescriptionTaskErrorAction => ({
   type: ADD_DESCRIPTION_TASK_ERROR,
   payload,
 });
 
 export const changeTaskStatusStart = (
-  id: string,
-  newStatus: string,
-  taskNum: number
-) => ({
+  id: TaskId,
+  status: NewTaskStatus,
+  taskNum: TaskNumber
+): changeTaskStatusStartAction => ({
   type: CHANGE_TASK_STATUS_START,
   payload: {
     id,
-    newStatus,
+    status,
     taskNum,
   },
 });
 
-export const changeTaskStatusSuccess = (payload) => ({
+export const changeTaskStatusSuccess = (
+  payload: Task
+): changeTaskStatusSuccessAction => ({
   type: CHANGE_TASK_STATUS_SUCCESS,
   payload,
 });
 
-export const changeTaskStatusError = (payload) => ({
+export const changeTaskStatusError = (
+  payload: any
+): changeTaskStatusErrorAction => ({
   type: CHANGE_TASK_STATUS_ERROR,
   payload,
 });

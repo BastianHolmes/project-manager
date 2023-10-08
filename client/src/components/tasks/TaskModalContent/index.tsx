@@ -36,8 +36,8 @@ const TaskModalContent: React.FC<ModalContentProps> = ({ onClose, task }) => {
         <header className={styles.header}>
           <div className={styles.title}>
             <h4 className={styles.name}>{task?.title}</h4>
-            <Dropdown options={options} onSelect={handleSelect} />
           </div>
+          <Dropdown options={options} onSelect={handleSelect} />
           <h5 className={styles.status}>{task?.status}</h5>
         </header>
         <div className={styles.main}>

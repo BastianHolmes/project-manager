@@ -40,7 +40,15 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
   const handleInput = () => {
     setIsEditing(false);
     if (taskTitle.length > 2) {
-      dispatch(createTaskStart(taskId, count, taskTitle, status, project_id));
+      dispatch(
+        createTaskStart(
+          taskId.toString(),
+          count,
+          taskTitle,
+          status,
+          project_id.toString()
+        )
+      );
       setCount(count + 1);
     }
     setTaskTitle("");

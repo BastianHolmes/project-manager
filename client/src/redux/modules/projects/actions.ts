@@ -1,3 +1,4 @@
+import { Project } from "../../../types/projectsTypes";
 import {
   CREATE_PROJECT_ERROR,
   CREATE_PROJECT_START,
@@ -5,13 +6,11 @@ import {
   GET_PROJECTS_START,
   LOAD_PROJECTS_START,
   LOAD_PROJECTS_SUCCESS,
-  LOAD_TASKS_ERROR,
 } from "../../actionTypes";
 import {
   LoadProjectsStartsAction,
   LoadProjectsSuccessAction,
   GetProjectsAction,
-  CreateProjectStartAction,
   CreateProjectSuccessAction,
   CreateProjectErrorAction,
 } from "./types";
@@ -32,7 +31,11 @@ export const getProjects = (): GetProjectsAction => ({
   type: GET_PROJECTS_START,
 });
 
-export const createProjectStart = (created_at, title, id) => ({
+export const createProjectStart = (
+  created_at: string,
+  title: string,
+  id: number
+) => ({
   type: CREATE_PROJECT_START,
   payload: {
     created_at,
@@ -42,7 +45,7 @@ export const createProjectStart = (created_at, title, id) => ({
 });
 
 export const createProjectSuccess = (
-  project: any
+  project: Project
 ): CreateProjectSuccessAction => ({
   type: CREATE_PROJECT_SUCCESS,
   payload: project,

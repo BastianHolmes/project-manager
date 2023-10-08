@@ -20,7 +20,7 @@ export const postTasks = async (title: string) => {
 
 export const addDescription = async (description: string, id: string) => {
   try {
-    const { data } = await API.put(`/tasks`, {
+    const { data } = await API.put(`/tasks/description`, {
       description,
       id,
     });
@@ -32,7 +32,7 @@ export const addDescription = async (description: string, id: string) => {
 
 export const updateStatus = async (status: string, id: string) => {
   try {
-    const { data } = await API.put(`/tasks`, {
+    const { data } = await API.put(`/tasks/status`, {
       status,
       id,
     });

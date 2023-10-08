@@ -1,0 +1,55 @@
+@import "../../../styles/variables.scss";
+
+.upload {
+  display: flex;
+}
+
+.buttons {
+  margin: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.file {
+  cursor: pointer;
+  margin: 1rem 0;
+  padding: 1rem;
+  width: 70%;
+  list-style: none;
+
+  border: 3px solid $primary-color;
+  border-radius: 5px;
+}
+
+.upload_btn_wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btn {
+  cursor: pointer;
+  font-family: inherit;
+  border: 2px solid $background-color;
+  color: white;
+  background-color: $primary-color;
+  padding: 8px 20px;
+  border-radius: 8px;
+}
+
+input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+input[type="file"]::before {
+  content: "Выбрать файл";
+}
+
+input[type="file"]:hover + .btn {
+  background-color: gray;
+  color: white;
+}

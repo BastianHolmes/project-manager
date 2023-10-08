@@ -30,6 +30,7 @@ const Textarea: React.FC<TextareaProps> = ({ task, input }) => {
     <>
       <label htmlFor={`${input}`}>{input}</label>
       <textarea
+        rows={6}
         readOnly={!isEditing}
         id={`${input}`}
         className={styles.textarea}
@@ -38,11 +39,6 @@ const Textarea: React.FC<TextareaProps> = ({ task, input }) => {
         onClick={() => handleClick()}
         onBlur={() => handleInput()}
         onChange={handleChange}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            handleInput();
-          }
-        }}
       />
     </>
   );

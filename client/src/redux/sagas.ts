@@ -6,6 +6,7 @@ import {
   onLoadTasks,
   onСreateTasks,
 } from "./modules/tasks/watcher";
+import fileUploaderSaga from "./modules/files/watcher";
 
 export default function* rootSaga() {
   yield all([
@@ -15,5 +16,6 @@ export default function* rootSaga() {
     fork(onСreateTasks),
     fork(onAddDescription),
     fork(onChangeStatus),
+    fork(fileUploaderSaga),
   ]);
 }

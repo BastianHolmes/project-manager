@@ -14,6 +14,7 @@ import { useGetInfo } from "../../hooks/useGetInfo";
 import { useLoading } from "../../hooks/useLoading";
 import Loader from "../../components/shared/Loader";
 import { filterObjectsByProjectId } from "../../helpers/filterObjectsByProjectId";
+import TaskSearch from "../../components/tasks/TaskSearch";
 
 const TaskPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -96,6 +97,7 @@ const TaskPage = () => {
       )}
       <header className={styles.header}>
         <h2 className={styles.title}>{projectTitle}</h2>
+        <TaskSearch tasks={tasks} onOpenModal={toggleModal} />
       </header>
       <section className={styles.task_container}>
         <DndProvider backend={HTML5Backend}>

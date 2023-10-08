@@ -58,11 +58,12 @@
 
 .title {
   display: flex;
+  justify-content: space-between;
   flex-direction: row;
 }
 
 .name {
-  margin-right: 5rem;
+  margin-right: auto;
   color: white;
   text-transform: uppercase;
 
