@@ -15,7 +15,6 @@ interface SubtaskProps {
 const Subtask: React.FC<SubtaskProps> = ({ title, id }) => {
   const [isDone, setIsDone] = useState(false);
   const dispatch = useDispatch();
-  console.log(id);
   const handleDone = () => {
     dispatch(doneSubTaskStart(id, title, isDone));
     setIsDone(!isDone);

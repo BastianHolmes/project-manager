@@ -35,21 +35,21 @@ export const loadSubtasksStart = (id: number) => ({
 });
 
 export const loadSubtasksSuccess = (payload) => ({
-    type: LOAD_SUBTASKS_SUCCESS,
-    payload
-  });
+  type: LOAD_SUBTASKS_SUCCESS,
+  payload,
+});
 
-export const loadSubTaskError = (payload) => ({
+export const loadSubtasksError = (payload) => ({
   type: LOAD_SUBTASKS_ERROR,
   payload,
 });
 
-export const createSubTaskSuccess = (payload) => ({
+export const createSubtaskSuccess = (payload) => ({
   type: CREATE_SUBTASKS_SUCCESS,
   payload,
 });
 
-export const createSubTaskError = (payload) => ({
+export const createSubtaskError = (payload) => ({
   type: CREATE_SUBTASKS_ERROR,
   payload,
 });

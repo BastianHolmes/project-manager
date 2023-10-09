@@ -4,10 +4,14 @@ import MaterialSymbolsAddBoxSharp from "../../shared/Icon";
 import Textarea from "../../shared/Textarea";
 import FileUploader from "../FileUploader";
 import styles from "./TaskForm.module.scss";
-import { createSubTaskStart } from "../../../redux/modules/subtasks/actions";
-import { useState, useRef } from "react";
+import {
+  createSubTaskStart,
+  loadSubtasksStart,
+} from "../../../redux/modules/subtasks/actions";
+import { useState, useRef, useEffect } from "react";
 import Input from "../../shared/Input";
 import Subtask from "../../shared/Subtask";
+import Loader from "../../shared/Loader";
 
 interface ModalContentProps {
   task: Task;
@@ -24,6 +28,13 @@ const TaskForm: React.FC<ModalContentProps> = ({ task }: ModalContentProps) => {
   const id = crypto.randomUUID();
   const inputRef: InputRefProps = useRef<HTMLInputElement>(null);
   const [showInput, setShowInput] = useState<boolean>(false);
+
+  useEffect(() => {
+    function dispatchFn() {
+      dispatch(loadSubtasksStart(task.id));
+    }
+    dispatchFn();
+  }, [task.id]);
 
   const handleCreateSubtask = () => {
     if (title.length > 2) {
@@ -61,11 +72,15 @@ const TaskForm: React.FC<ModalContentProps> = ({ task }: ModalContentProps) => {
           />
         )}
         <div className={styles.grid_container}>
-          {subtasks.map((item, index) => (
-            <div key={index} className={styles.grid_item}>
-              <Subtask title={item.title} id={item.id} />
-            </div>
-          ))}
+          {Array.isArray(subtasks) ? (
+            subtasks.map((item, index) => (
+              <div key={index} className={styles.grid_item}>
+                <Subtask title={item.title} id={item.id} />
+              </div>
+            ))
+          ) : (
+            <Loader />
+          )}
         </div>
       </div>
     </div>

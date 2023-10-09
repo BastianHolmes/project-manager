@@ -19,7 +19,7 @@ import { loadSubtasksStart } from "../../redux/modules/subtasks/actions";
 
 const TaskPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const { projects, tasks, subtasks } = useGetInfo();
+  const { projects, tasks } = useGetInfo();
 
   const Loading = useLoading();
   const [selectedTask, setSelectedTask] = useState<Task>({});
@@ -87,7 +87,6 @@ const TaskPage = () => {
   const toggleModal = (task: Task) => {
     setIsOpenModal(!isOpenModal);
     setSelectedTask(task);
-    dispatch(loadSubtasksStart(task.id));
   };
 
   return (
