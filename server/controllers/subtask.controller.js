@@ -44,7 +44,7 @@ const subtaskController = {
     try {
       const { rows } = await pool.query(
         "UPDATE subtasks SET done = $1 WHERE id = $2 returning *",
-        [req.body.isDone, req.params.id]
+        [req.body.done, req.params.id]
       );
       res.status(200).json({
         msg: "OK",

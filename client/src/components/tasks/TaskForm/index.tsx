@@ -29,13 +29,6 @@ const TaskForm: React.FC<ModalContentProps> = ({ task }: ModalContentProps) => {
   const inputRef: InputRefProps = useRef<HTMLInputElement>(null);
   const [showInput, setShowInput] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   function dispatchFn() {
-  //     dispatch(loadSubtasksStart(task.id));
-  //   }
-  //   dispatchFn();
-  // }, [task.id]);
-
   const handleCreateSubtask = () => {
     if (title.length > 2) {
       dispatch(createSubTaskStart(id, task?.id, title));
@@ -75,7 +68,7 @@ const TaskForm: React.FC<ModalContentProps> = ({ task }: ModalContentProps) => {
           {Array.isArray(subtasks) ? (
             subtasks.map((item, index) => (
               <div key={index} className={styles.grid_item}>
-                <Subtask title={item.title} id={item.id} />
+                <Subtask item={item} />
               </div>
             ))
           ) : (

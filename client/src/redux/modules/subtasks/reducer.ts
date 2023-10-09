@@ -3,7 +3,9 @@ import {
   CREATE_SUBTASKS_START,
   CREATE_SUBTASKS_SUCCESS,
   DELETE_SUBTASKS_START,
+  DONE_SUBTASKS_ERROR,
   DONE_SUBTASKS_START,
+  DONE_SUBTASKS_SUCCESS,
   LOAD_SUBTASKS_ERROR,
   LOAD_SUBTASKS_START,
   LOAD_SUBTASKS_SUCCESS,
@@ -60,11 +62,22 @@ const subtasks = (state = initialState, { type, payload }) => {
           if (subtask.id === payload.id) {
             return {
               ...subtask,
-              done: true,
+              done: !payload.done,
             };
           }
           return subtask;
         }),
+      };
+    case DONE_SUBTASKS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+    case DONE_SUBTASKS_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
       };
     case DELETE_SUBTASKS_START:
       return {

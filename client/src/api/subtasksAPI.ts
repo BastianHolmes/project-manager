@@ -29,7 +29,7 @@ export const deleteSubtasks = async (subtaskID: string) => {
 
 export const updateSubtasks = async (done: boolean, id: string) => {
   try {
-    const { data } = await API.put(`/subtasks/${id}`, { boolean });
+    const { data } = await API.put(`/subtasks/${id}`, { done });
     return data;
   } catch (err) {
     console.log(err);

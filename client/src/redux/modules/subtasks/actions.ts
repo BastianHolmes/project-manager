@@ -54,11 +54,10 @@ export const createSubtaskError = (payload) => ({
   payload,
 });
 
-export const doneSubtaskStart = (id: number, title: string, done: boolean) => ({
+export const doneSubtaskStart = (id: number, done: boolean) => ({
   type: DONE_SUBTASKS_START,
   payload: {
     id,
-    title,
     done,
   },
 });

@@ -75,9 +75,9 @@ export function* onDeleteSubTasks(): Generator<any, void> {
   yield takeEvery(DELETE_SUBTASKS_START, handleDeleteSubtasks);
 }
 
-function* handleUpdateSubtasks({ payload }: { id: string }) {
+function* handleUpdateSubtasks({ payload }: { done: string }) {
   try {
-    const response = yield call(updateSubtasks, payload.id);
+    const response = yield call(updateSubtasks, payload.done, payload.id);
     console.log(response);
     if (response.msg === "OK") {
       yield put(doneSubtaskSuccess(response.data));

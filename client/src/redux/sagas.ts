@@ -11,6 +11,7 @@ import {
   onCreateSubTasks,
   onDeleteSubTasks,
   onLoadSubTasks,
+  onUpdateSubTasks,
 } from "./modules/subtasks/watcher";
 
 export default function* rootSaga() {
@@ -25,5 +26,6 @@ export default function* rootSaga() {
     fork(onLoadSubTasks),
     fork(onCreateSubTasks),
     fork(onDeleteSubTasks),
+    fork(onUpdateSubTasks),
   ]);
 }
