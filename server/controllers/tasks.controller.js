@@ -51,6 +51,20 @@ const taskController = {
       res.json({ msg: error.msg });
     }
   },
+  changePriority: async (req, res) => {
+    try {
+      const { rows } = await pool.query(
+        "UPDATE tasks SET priority=$1 WHERE id=$2 returning *",
+        [req.body.priority, req.body.id]
+      );
+      res.status(200).json({
+        msg: "OK",
+        data: rows,
+      });
+    } catch (error) {
+      res.json({ msg: error.msg });
+    }
+  },
 };
 
 export default taskController;

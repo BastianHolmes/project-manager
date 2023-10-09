@@ -3,6 +3,9 @@ import {
   ADD_DESCRIPTION_TASK_ERROR,
   ADD_DESCRIPTION_TASK_START,
   ADD_DESCRIPTION_TASK_SUCCESS,
+  CHANGE_TASK_PRIORITY_ERROR,
+  CHANGE_TASK_PRIORITY_START,
+  CHANGE_TASK_PRIORITY_SUCCESS,
   CHANGE_TASK_STATUS_ERROR,
   CHANGE_TASK_STATUS_START,
   CHANGE_TASK_STATUS_SUCCESS,
@@ -108,6 +111,34 @@ const tasks = (
         loading: false,
       };
     case ADD_DESCRIPTION_TASK_ERROR: {
+      return {
+        ...state,
+        loading: false,
+        error: payload as string,
+      };
+    }
+    case CHANGE_TASK_PRIORITY_START: {
+      return {
+        ...state,
+        loading: false,
+        tasks: state.tasks.map((task) => {
+          if (task.id === (payload as Task).id) {
+            return {
+              ...task,
+              priority: (payload as Task).priority,
+            };
+          }
+          return task;
+        }),
+      };
+    }
+    case CHANGE_TASK_PRIORITY_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+    case CHANGE_TASK_PRIORITY_ERROR: {
       return {
         ...state,
         loading: false,

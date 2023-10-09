@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import styles from "./DropDown.module.scss";
+import { useDispatch } from "react-redux";
+import {
+  changeTaskPriorityError,
+  changeTaskPriorityStart,
+} from "../../../redux/modules/tasks/actions";
 
 interface Option {
   value: string;
@@ -9,16 +14,19 @@ interface Option {
 interface DropdownProps {
   options: Option[];
   onSelect: (value: string) => void;
+  id: string;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ options, onSelect }) => {
+const Dropdown: React.FC<DropdownProps> = ({ options, onSelect, id }) => {
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [isOpen, setIsOpen] = useState(false);
-
+  const dispatch = useDispatch();
   const handleOptionClick = (option: Option) => {
     setSelectedOption(option);
     setIsOpen(false);
     onSelect(option.value);
+    console.log(option.value);
+    dispatch(changeTaskPriorityStart(id, option.value));
   };
 
   return (

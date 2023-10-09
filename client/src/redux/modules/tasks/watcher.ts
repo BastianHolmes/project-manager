@@ -103,7 +103,6 @@ export function* onAddDescription(): Generator<any, void> {
 function* handleChangeStatus(action: {
   payload: { status: string; id: number };
 }): Generator<any, void, ChangeStatusResponse> {
-  console.log(action.payload);
   try {
     const response: ChangeStatusResponse = yield call(
       updateStatus,

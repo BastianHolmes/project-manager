@@ -43,7 +43,7 @@ const TaskSideBar: React.FC<TaskSideBarProps> = ({ task }) => {
         </h4>
         <time className={styles.time}>{formatDate(task?.due_date || "")}</time>
       </div>
-      <Dropdown options={options} onSelect={handleSelect} />
+      <Dropdown options={options} onSelect={handleSelect} id={task?.id} />
     </aside>
   );
 };

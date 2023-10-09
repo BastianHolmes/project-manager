@@ -4,6 +4,9 @@ import {
   ADD_DESCRIPTION_TASK_ERROR,
   ADD_DESCRIPTION_TASK_START,
   ADD_DESCRIPTION_TASK_SUCCESS,
+  CHANGE_TASK_PRIORITY_ERROR,
+  CHANGE_TASK_PRIORITY_START,
+  CHANGE_TASK_PRIORITY_SUCCESS,
   CHANGE_TASK_STATUS_ERROR,
   CHANGE_TASK_STATUS_START,
   CHANGE_TASK_STATUS_SUCCESS,
@@ -32,6 +35,7 @@ type ProjectId = number;
 type TaskDescription = string;
 type NewTaskStatus = string;
 type TaskNumber = number;
+type TaskPriority = string;
 
 export const LoadTask = (): { type: typeof LOAD_TASKS_START } => ({
   type: LOAD_TASKS_START,
@@ -131,5 +135,23 @@ export const changeTaskStatusError = (
   payload: any
 ): changeTaskStatusErrorAction => ({
   type: CHANGE_TASK_STATUS_ERROR,
+  payload,
+});
+
+export const changeTaskPriorityStart = (id: TaskId, priority:TaskPriority) => ({
+  type: CHANGE_TASK_PRIORITY_START,
+  payload: {
+    id,
+    priority,
+  },
+});
+
+export const changeTaskPrioritySuccess = (payload: Task) => ({
+  type: CHANGE_TASK_PRIORITY_SUCCESS,
+  payload,
+});
+
+export const changeTaskPriorityError = (payload: Task) => ({
+  type: CHANGE_TASK_PRIORITY_ERROR,
   payload,
 });

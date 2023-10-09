@@ -5,6 +5,7 @@ export interface Task {
   project_id?: number;
   status?: string;
   count?: number;
+  priority?: string;
   created_at?: string;
   due_date?: string;
   attachments?: string[];
