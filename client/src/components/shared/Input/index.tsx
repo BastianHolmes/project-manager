@@ -36,6 +36,7 @@ const Input: React.FC<InputProps> = ({
       className={styles.input}
       style={{ width: `${width}` }}
       ref={ref}
+      maxLength={30}
       type="text"
       value={title}
       onChange={handleChange}

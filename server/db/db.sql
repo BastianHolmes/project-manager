@@ -22,6 +22,14 @@ CREATE TABLE tasks (
     is_parent_task BOOLEAN DEFAULT false
 );
 
+
+CREATE TABLE subtasks (
+    id SERIAL PRIMARY KEY,
+    title TEXT NOT NULL,
+    task_id INTEGER REFERENCES tasks(id),
+    done BOOLEAN DEFAULT false
+);
+
 CREATE TABLE comments (
     id SERIAL PRIMARY KEY,
     text TEXT NOT NULL,
@@ -38,3 +46,5 @@ VALUES ('New Project', 'This is a new project', 0);
 INSERT INTO tasks (title, description, due_date, priority, project_id, is_parent_task)
 VALUES ('Подготовить презентацию', 'Сделать слайды и подготовить доклад', '2022-10-15', 'Высокий', 1, true);
 
+//Cоздание подзадачи
+INSERT INTO subtasks (title, task_id) VALUES ('Подзадача 1', 1);

@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Task } from "../../../types/taskTypes";
 import MaterialSymbolsAddBoxSharp from "../../shared/Icon";
 import Textarea from "../../shared/Textarea";
@@ -7,6 +7,7 @@ import styles from "./TaskForm.module.scss";
 import { createSubTaskStart } from "../../../redux/modules/subtasks/actions";
 import { useState, useRef } from "react";
 import Input from "../../shared/Input";
+import Subtask from "../../shared/Subtask";
 
 interface ModalContentProps {
   task: Task;
@@ -18,8 +19,9 @@ interface InputRefProps extends React.RefObject<HTMLInputElement> {
 
 const TaskForm: React.FC<ModalContentProps> = ({ task }: ModalContentProps) => {
   const [title, setTitle] = useState<string>("");
+  const subtasks = useSelector((state: any) => state.subtasks.subtasks);
   const dispatch = useDispatch();
-  const id = Number(crypto.randomUUID());
+  const id = crypto.randomUUID();
   const inputRef: InputRefProps = useRef<HTMLInputElement>(null);
   const [showInput, setShowInput] = useState<boolean>(false);
 
@@ -58,6 +60,13 @@ const TaskForm: React.FC<ModalContentProps> = ({ task }: ModalContentProps) => {
             onClick={() => handleEditing()}
           />
         )}
+        <div className={styles.grid_container}>
+          {subtasks.map((item, index) => (
+            <div key={index} className={styles.grid_item}>
+              <Subtask title={item.title} id={item.id} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
