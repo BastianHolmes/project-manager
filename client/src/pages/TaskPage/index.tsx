@@ -15,10 +15,11 @@ import { useLoading } from "../../hooks/useLoading";
 import Loader from "../../components/shared/Loader";
 import { filterObjectsByProjectId } from "../../helpers/filterObjectsByProjectId";
 import TaskSearch from "../../components/tasks/TaskSearch";
+import { loadSubtasksStart } from "../../redux/modules/subtasks/actions";
 
 const TaskPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const { projects, tasks } = useGetInfo();
+  const { projects, tasks, subtasks } = useGetInfo();
 
   const Loading = useLoading();
   const [selectedTask, setSelectedTask] = useState<Task>({});
@@ -86,6 +87,7 @@ const TaskPage = () => {
   const toggleModal = (task: Task) => {
     setIsOpenModal(!isOpenModal);
     setSelectedTask(task);
+    dispatch(loadSubtasksStart(task.id));
   };
 
   return (

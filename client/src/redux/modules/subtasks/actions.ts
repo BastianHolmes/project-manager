@@ -8,6 +8,9 @@ import {
   DONE_SUBTASKS_SUCCESS,
   DONE_SUBTASKS_ERROR,
   DELETE_SUBTASKS_ERROR,
+  LOAD_SUBTASKS_START,
+  LOAD_SUBTASKS_SUCCESS,
+  LOAD_SUBTASKS_ERROR,
 } from "../../actionTypes";
 
 export const createSubTaskStart = (
@@ -22,6 +25,23 @@ export const createSubTaskStart = (
     title,
     done: false,
   },
+});
+
+export const loadSubtasksStart = (id: number) => ({
+  type: LOAD_SUBTASKS_START,
+  payload: {
+    id,
+  },
+});
+
+export const loadSubtasksSuccess = (payload) => ({
+    type: LOAD_SUBTASKS_SUCCESS,
+    payload
+  });
+
+export const loadSubTaskError = (payload) => ({
+  type: LOAD_SUBTASKS_ERROR,
+  payload,
 });
 
 export const createSubTaskSuccess = (payload) => ({

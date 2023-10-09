@@ -5,6 +5,7 @@ import { loadavg } from "os";
 import { LoadTask } from "../redux/modules/tasks/actions";
 import { Project } from "../types/projectsTypes";
 import { Task } from "../types/taskTypes";
+import { loadSubtasksStart } from "../redux/modules/subtasks/actions";
 
 export const useGetInfo = () => {
   const dispatch = useDispatch();
