@@ -1,14 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Task } from "../../../types/taskTypes";
 import MaterialSymbolsAddBoxSharp from "../../shared/Icon";
 import Textarea from "../../shared/Textarea";
 import FileUploader from "../FileUploader";
 import styles from "./TaskForm.module.scss";
-import {
-  createSubTaskStart,
-  loadSubtasksStart,
-} from "../../../redux/modules/subtasks/actions";
-import { useState, useRef, useEffect } from "react";
+import { createSubTaskStart } from "../../../redux/modules/subtasks/actions";
+import { useState, useRef } from "react";
 import Input from "../../shared/Input";
 import SubtaskItem from "../../shared/Subtask";
 import Loader from "../../shared/Loader";
@@ -35,7 +31,7 @@ const TaskForm: React.FC<ModalContentProps> = ({
   const [showInput, setShowInput] = useState<boolean>(false);
 
   const handleCreateSubtask = (): void => {
-    if (title.length > 2) {
+    if (title.length > 2 && task?.id) {
       dispatch(createSubTaskStart(id, task?.id, title));
     }
 

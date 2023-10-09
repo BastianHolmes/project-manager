@@ -17,7 +17,7 @@ const SubtaskItem: React.FC<SubtaskProps> = ({
 }: SubtaskProps): JSX.Element => {
   const dispatch = useDispatch();
   const handleDone = (): void => {
-    if (item.id) {
+    if (item.id && item.done !== undefined) {
       dispatch(doneSubtaskStart(item.id, item.done));
     }
   };

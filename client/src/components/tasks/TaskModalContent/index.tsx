@@ -3,18 +3,43 @@ import { Task } from "../../../types/taskTypes";
 import TaskForm from "../TaskForm";
 import TaskSideBar from "../TaskSideBar";
 import Dropdown from "../../shared/DropDown";
+import Comments from "../Comments";
+import Input from "../../shared/Input";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createCommentStart } from "../../../redux/modules/comments/actions";
 
 interface ModalContentProps {
   onClose: (value: boolean) => void;
   task?: Task;
 }
 const TaskModalContent: React.FC<ModalContentProps> = ({ onClose, task }) => {
+  const [id, setId] = useState(0);
+  const dispatch = useDispatch();
+  const [comment, setComment] = useState("");
+  const commentsData = useSelector((state: any) => state.comments.comments);
   const handleBackgroundClick = (e: any) => {
     if (e.target === e.currentTarget) {
       onClose(false);
     }
     return;
   };
+
+  const handleInput = () => {
+    setId((state) => state + 1);
+  };
+
+  const handleReply = (parentId: number) => {
+    if (id !== 0) {
+      dispatch(createCommentStart(id, task?.id, comment, parentId));
+    }
+  };
+
+  useEffect(() => {
+    if (id !== 0) {
+      dispatch(createCommentStart(id, task?.id, comment, null));
+    }
+  }, [id]);
 
   if (!task) return;
   return (
@@ -33,6 +58,14 @@ const TaskModalContent: React.FC<ModalContentProps> = ({ onClose, task }) => {
           <TaskForm task={task} />
           <TaskSideBar task={task} />
         </div>
+        {commentsData && (
+          <Comments comments={commentsData} handleReply={handleReply} />
+        )}
+        <Input
+          title={comment}
+          setTitle={setComment}
+          handleInput={handleInput}
+        />
       </section>
     </div>
   );
