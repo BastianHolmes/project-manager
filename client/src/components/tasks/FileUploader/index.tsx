@@ -59,10 +59,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({ taskId }) => {
     });
   };
 
-  const handleFileUpload = (): void => {
-    dispatch(uploadFiles());
-  };
-
   const handleFileDownload = (fileName: string): void => {
     dispatch(downloadFile(fileName));
   };
@@ -90,9 +86,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({ taskId }) => {
             onChange={handleFileChange}
           />
         </div>
-        <button className={styles.btn} onClick={handleFileUpload}>
-          Save
-        </button>
       </div>
       <ul>
         {selectedFiles.map((file) => (

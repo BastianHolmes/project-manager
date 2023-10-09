@@ -33,6 +33,7 @@ const TaskForm: React.FC<ModalContentProps> = ({ task }: ModalContentProps) => {
     if (title.length > 2) {
       dispatch(createSubTaskStart(id, task?.id, title));
     }
+
     setTitle("");
     setShowInput(false);
   };
