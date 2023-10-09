@@ -5,7 +5,7 @@ const subtaskController = {
     try {
       const { rows } = await pool.query(
         "select * from subtasks where task_id = $1",
-        [req.body.id]
+        [req.body.task_id]
       );
       res.status(200).json({ msg: "OK", data: rows });
     } catch (error) {
