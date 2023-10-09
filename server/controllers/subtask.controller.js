@@ -30,7 +30,7 @@ const subtaskController = {
     try {
       const { rows } = await pool.query(
         "DELETE FROM subtasks WHERE id = $1 returning *",
-        [req.body.id]
+        [req.params.id]
       );
       res.status(200).json({
         msg: "OK",

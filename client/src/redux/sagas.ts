@@ -7,7 +7,11 @@ import {
   onCreateTasks,
 } from "./modules/tasks/watcher";
 import fileUploaderSaga from "./modules/files/watcher";
-import { onCreateSubTasks, onLoadSubTasks } from "./modules/subtasks/watcher";
+import {
+  onCreateSubTasks,
+  onDeleteSubTasks,
+  onLoadSubTasks,
+} from "./modules/subtasks/watcher";
 
 export default function* rootSaga() {
   yield all([
@@ -20,5 +24,6 @@ export default function* rootSaga() {
     fork(fileUploaderSaga),
     fork(onLoadSubTasks),
     fork(onCreateSubTasks),
+    fork(onDeleteSubTasks),
   ]);
 }

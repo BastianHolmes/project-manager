@@ -2,11 +2,21 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import {
   createSubtaskError,
   createSubtaskSuccess,
+  deleteSubTaskSuccess,
+  deleteSubtaskError,
   loadSubtasksError,
   loadSubtasksSuccess,
 } from "./actions";
-import { CREATE_SUBTASKS_START, LOAD_SUBTASKS_START } from "../../actionTypes";
-import { createSubtasks, getSubtasks } from "../../../api/subtasksAPI";
+import {
+  CREATE_SUBTASKS_START,
+  DELETE_SUBTASKS_START,
+  LOAD_SUBTASKS_START,
+} from "../../actionTypes";
+import {
+  createSubtasks,
+  deleteSubtasks,
+  getSubtasks,
+} from "../../../api/subtasksAPI";
 
 function* handleLoadSubtasks({ payload }: { id: string }) {
   try {
@@ -43,4 +53,20 @@ function* handleCreateSubtasks({
 
 export function* onCreateSubTasks(): Generator<any, void> {
   yield takeEvery(CREATE_SUBTASKS_START, handleCreateSubtasks);
+}
+
+function* handleDeleteSubtasks({ payload }: { id: string }) {
+  try {
+    const response = yield call(deleteSubtasks, payload.id);
+    console.log(response);
+    if (response.msg === "OK") {
+      yield put(deleteSubTaskSuccess(response.data));
+    }
+  } catch (err) {
+    yield put(deleteSubtaskError(err));
+  }
+}
+
+export function* onDeleteSubTasks(): Generator<any, void> {
+  yield takeEvery(DELETE_SUBTASKS_START, handleDeleteSubtasks);
 }

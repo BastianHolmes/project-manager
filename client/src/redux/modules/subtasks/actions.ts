@@ -54,7 +54,7 @@ export const createSubtaskError = (payload) => ({
   payload,
 });
 
-export const doneSubTaskStart = (id: number, title: string, done: boolean) => ({
+export const doneSubtaskStart = (id: number, title: string, done: boolean) => ({
   type: DONE_SUBTASKS_START,
   payload: {
     id,
@@ -63,17 +63,17 @@ export const doneSubTaskStart = (id: number, title: string, done: boolean) => ({
   },
 });
 
-export const doneSubTaskSuccess = (payload) => ({
+export const doneSubtaskSuccess = (payload) => ({
   type: DONE_SUBTASKS_SUCCESS,
   payload,
 });
 
-export const doneSubTaskError = (payload) => ({
+export const doneSubtaskError = (payload) => ({
   type: DONE_SUBTASKS_ERROR,
   payload,
 });
 
-export const deleteSubTaskStart = (id: number) => ({
+export const deleteSubtaskStart = (id: number) => ({
   type: DELETE_SUBTASKS_START,
   payload: {
     id,
@@ -85,7 +85,7 @@ export const deleteSubTaskSuccess = (payload) => ({
   payload,
 });
 
-export const deleteSubTaskError = (payload) => ({
+export const deleteSubtaskError = (payload) => ({
   type: DELETE_SUBTASKS_ERROR,
   payload,
 });
