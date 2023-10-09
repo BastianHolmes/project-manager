@@ -40,6 +40,20 @@ const subtaskController = {
       res.json({ msg: error.msg });
     }
   },
+  updateSubtask: async (req, res) => {
+    try {
+      const { rows } = await pool.query(
+        "UPDATE subtasks SET done = $1 WHERE id = $2 returning *",
+        [req.body.isDone, req.params.id]
+      );
+      res.status(200).json({
+        msg: "OK",
+        data: rows,
+      });
+    } catch (error) {
+      res.json({ msg: error.msg });
+    }
+  },
 };
 
 export default subtaskController;

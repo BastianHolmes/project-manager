@@ -4,18 +4,22 @@ import {
   createSubtaskSuccess,
   deleteSubTaskSuccess,
   deleteSubtaskError,
+  doneSubtaskError,
+  doneSubtaskSuccess,
   loadSubtasksError,
   loadSubtasksSuccess,
 } from "./actions";
 import {
   CREATE_SUBTASKS_START,
   DELETE_SUBTASKS_START,
+  DONE_SUBTASKS_START,
   LOAD_SUBTASKS_START,
 } from "../../actionTypes";
 import {
   createSubtasks,
   deleteSubtasks,
   getSubtasks,
+  updateSubtasks,
 } from "../../../api/subtasksAPI";
 
 function* handleLoadSubtasks({ payload }: { id: string }) {
@@ -69,4 +73,20 @@ function* handleDeleteSubtasks({ payload }: { id: string }) {
 
 export function* onDeleteSubTasks(): Generator<any, void> {
   yield takeEvery(DELETE_SUBTASKS_START, handleDeleteSubtasks);
+}
+
+function* handleUpdateSubtasks({ payload }: { id: string }) {
+  try {
+    const response = yield call(updateSubtasks, payload.id);
+    console.log(response);
+    if (response.msg === "OK") {
+      yield put(doneSubtaskSuccess(response.data));
+    }
+  } catch (err) {
+    yield put(doneSubtaskError(err));
+  }
+}
+
+export function* onUpdateSubTasks(): Generator<any, void> {
+  yield takeEvery(DONE_SUBTASKS_START, handleUpdateSubtasks);
 }

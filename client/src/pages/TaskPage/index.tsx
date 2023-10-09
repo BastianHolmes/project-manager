@@ -87,6 +87,7 @@ const TaskPage = () => {
   const toggleModal = (task: Task) => {
     setIsOpenModal(!isOpenModal);
     setSelectedTask(task);
+    dispatch(loadSubtasksStart(task.id));
   };
 
   return (

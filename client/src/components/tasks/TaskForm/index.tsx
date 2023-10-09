@@ -29,12 +29,12 @@ const TaskForm: React.FC<ModalContentProps> = ({ task }: ModalContentProps) => {
   const inputRef: InputRefProps = useRef<HTMLInputElement>(null);
   const [showInput, setShowInput] = useState<boolean>(false);
 
-  useEffect(() => {
-    function dispatchFn() {
-      dispatch(loadSubtasksStart(task.id));
-    }
-    dispatchFn();
-  }, [task.id]);
+  // useEffect(() => {
+  //   function dispatchFn() {
+  //     dispatch(loadSubtasksStart(task.id));
+  //   }
+  //   dispatchFn();
+  // }, [task.id]);
 
   const handleCreateSubtask = () => {
     if (title.length > 2) {
