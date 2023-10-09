@@ -5,6 +5,7 @@ import {
   onChangeStatus,
   onLoadTasks,
   onCreateTasks,
+  onChangePriority,
 } from "./modules/tasks/watcher";
 import fileUploaderSaga from "./modules/files/watcher";
 import {
@@ -27,5 +28,6 @@ export default function* rootSaga() {
     fork(onCreateSubTasks),
     fork(onDeleteSubTasks),
     fork(onUpdateSubTasks),
+    fork(onChangePriority),
   ]);
 }

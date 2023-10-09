@@ -6,29 +6,39 @@ import {
   doneSubtaskStart,
 } from "../../../redux/modules/subtasks/actions";
 import { MaterialSymbolsDeleteOutline } from "../IconDelete";
+import { Subtask } from "../../../types/subtaskTypes";
 
-interface SubtaskProps {}
+interface SubtaskProps {
+  item: Subtask;
+}
 
-const Subtask: React.FC<SubtaskProps> = ({ item }) => {
+const SubtaskItem: React.FC<SubtaskProps> = ({
+  item,
+}: SubtaskProps): JSX.Element => {
   const dispatch = useDispatch();
-  const handleDone = () => {
-    dispatch(doneSubtaskStart(item.id, item.done));
+  const handleDone = (): void => {
+    if (item.id) {
+      dispatch(doneSubtaskStart(item.id, item.done));
+    }
   };
 
-  const handleDelete = () => {
-    dispatch(deleteSubtaskStart(item.id));
+  const handleDelete = (): void => {
+    if (item.id) {
+      dispatch(deleteSubtaskStart(item.id));
+    }
   };
+
   return (
     <div className={styles.subtaskContainer}>
       <div
         className={item.done ? styles.done : styles.subtask}
-        onClick={() => handleDone()}
+        onClick={handleDone}
       >
         <p className={styles.title}>{item.title}</p>
       </div>
-      <MaterialSymbolsDeleteOutline onClick={() => handleDelete()} />
+      <MaterialSymbolsDeleteOutline onClick={handleDelete} />
     </div>
   );
 };
 
-export default Subtask;
+export default SubtaskItem;

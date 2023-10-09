@@ -1,3 +1,4 @@
+import { Subtask } from "../../../types/subtaskTypes";
 import {
   CREATE_SUBTASKS_ERROR,
   CREATE_SUBTASKS_START,
@@ -14,10 +15,10 @@ import {
 } from "../../actionTypes";
 
 export const createSubTaskStart = (
-  id: number,
-  task_id: number,
+  id: string,
+  task_id: string,
   title: string
-) => ({
+): { type: string; payload: Subtask } => ({
   type: CREATE_SUBTASKS_START,
   payload: {
     id,
@@ -27,34 +28,54 @@ export const createSubTaskStart = (
   },
 });
 
-export const loadSubtasksStart = (id: number) => ({
+export const loadSubtasksStart = (
+  id: string
+): { type: string; payload: Subtask } => ({
   type: LOAD_SUBTASKS_START,
   payload: {
     id,
   },
 });
 
-export const loadSubtasksSuccess = (payload) => ({
+export const loadSubtasksSuccess = (
+  payload: any
+): { type: string; payload: any } => ({
   type: LOAD_SUBTASKS_SUCCESS,
   payload,
 });
 
-export const loadSubtasksError = (payload) => ({
+export const loadSubtasksError = (
+  payload: any
+): { type: string; payload: any } => ({
   type: LOAD_SUBTASKS_ERROR,
   payload,
 });
 
-export const createSubtaskSuccess = (payload) => ({
+export const createSubtaskStart = (
+  payload: Subtask
+): { type: string; payload: Subtask } => ({
+  type: CREATE_SUBTASKS_START,
+  payload,
+});
+
+export const createSubtaskSuccess = (
+  payload: any
+): { type: string; payload: any } => ({
   type: CREATE_SUBTASKS_SUCCESS,
   payload,
 });
 
-export const createSubtaskError = (payload) => ({
+export const createSubtaskError = (
+  payload: any
+): { type: string; payload: any } => ({
   type: CREATE_SUBTASKS_ERROR,
   payload,
 });
 
-export const doneSubtaskStart = (id: number, done: boolean) => ({
+export const doneSubtaskStart = (
+  id: string,
+  done: boolean
+): { type: string; payload: Subtask } => ({
   type: DONE_SUBTASKS_START,
   payload: {
     id,
@@ -62,29 +83,39 @@ export const doneSubtaskStart = (id: number, done: boolean) => ({
   },
 });
 
-export const doneSubtaskSuccess = (payload) => ({
+export const doneSubtaskSuccess = (
+  payload: any
+): { type: string; payload: any } => ({
   type: DONE_SUBTASKS_SUCCESS,
   payload,
 });
 
-export const doneSubtaskError = (payload) => ({
+export const doneSubtaskError = (
+  payload: any
+): { type: string; payload: any } => ({
   type: DONE_SUBTASKS_ERROR,
   payload,
 });
 
-export const deleteSubtaskStart = (id: number) => ({
+export const deleteSubtaskStart = (
+  id: string
+): { type: string; payload: Subtask } => ({
   type: DELETE_SUBTASKS_START,
   payload: {
     id,
   },
 });
 
-export const deleteSubTaskSuccess = (payload) => ({
+export const deleteSubTaskSuccess = (
+  payload: any
+): { type: string; payload: any } => ({
   type: DELETE_SUBTASKS_SUCCESS,
   payload,
 });
 
-export const deleteSubtaskError = (payload) => ({
+export const deleteSubtaskError = (
+  payload: any
+): { type: string; payload: any } => ({
   type: DELETE_SUBTASKS_ERROR,
   payload,
 });

@@ -1,6 +1,7 @@
 import { call, put, take, takeEvery, fork } from "redux-saga/effects";
 import {
   ADD_DESCRIPTION_TASK_START,
+  CHANGE_TASK_PRIORITY_START,
   CHANGE_TASK_STATUS_START,
   CREATE_TASKS_START,
   LOAD_TASKS_START,
@@ -9,11 +10,14 @@ import {
   addDescription,
   getAllTasks,
   postTasks,
+  updatePriority,
   updateStatus,
 } from "../../../api/tasksAPI";
 import {
   addDescriptionTaskError,
   addDescriptionTaskSuccess,
+  changeTaskPriorityError,
+  changeTaskPrioritySuccess,
   changeTaskStatusError,
   changeTaskStatusSuccess,
   createTaskError,
@@ -123,5 +127,32 @@ export function* onChangeStatus(): Generator<any, void> {
       CHANGE_TASK_STATUS_START
     );
     yield fork(handleChangeStatus, action);
+  }
+}
+
+function* handleChangePriority(action: {
+  payload: { priority: string; id: number };
+}): Generator<any, void, ChangeStatusResponse> {
+  try {
+    console.log(action.payload.id);
+    const response: ChangeStatusResponse = yield call(
+      updatePriority,
+      action.payload.priority,
+      action.payload.id
+    );
+    if (response.msg === "OK") {
+      yield put(changeTaskPrioritySuccess(response.data));
+    }
+  } catch (err) {
+    yield put(changeTaskPriorityError(err));
+  }
+}
+
+export function* onChangePriority(): Generator<any, void> {
+  while (true) {
+    const action: { payload: { status: string; id: number } } = yield take(
+      CHANGE_TASK_PRIORITY_START
+    );
+    yield fork(handleChangePriority, action);
   }
 }

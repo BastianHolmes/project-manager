@@ -5,7 +5,7 @@ import Dropdown from "../../shared/DropDown";
 import styles from "./TaskSideBar.module.scss";
 
 interface TaskSideBarProps {
-  task?: Task;
+  task: Task;
 }
 
 const TaskSideBar: React.FC<TaskSideBarProps> = ({ task }) => {
@@ -14,10 +14,6 @@ const TaskSideBar: React.FC<TaskSideBarProps> = ({ task }) => {
     { value: "MEDIUM", label: "MEDIUM" },
     { value: "HIGH", label: "HIGH" },
   ];
-
-  const handleSelect = (value: string) => {
-    console.log(value);
-  };
 
   return (
     <aside className={styles.sidebar}>
@@ -43,7 +39,7 @@ const TaskSideBar: React.FC<TaskSideBarProps> = ({ task }) => {
         </h4>
         <time className={styles.time}>{formatDate(task?.due_date || "")}</time>
       </div>
-      <Dropdown options={options} onSelect={handleSelect} id={task?.id} />
+      <Dropdown options={options} task={task} />
     </aside>
   );
 };

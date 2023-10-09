@@ -10,26 +10,31 @@ import {
 } from "../../../redux/modules/subtasks/actions";
 import { useState, useRef, useEffect } from "react";
 import Input from "../../shared/Input";
-import Subtask from "../../shared/Subtask";
+import SubtaskItem from "../../shared/Subtask";
 import Loader from "../../shared/Loader";
+import { Subtask } from "../../../types/subtaskTypes";
 
 interface ModalContentProps {
-  task: Task;
+  task: Subtask;
 }
 
 interface InputRefProps extends React.RefObject<HTMLInputElement> {
   current: HTMLInputElement | null;
 }
 
-const TaskForm: React.FC<ModalContentProps> = ({ task }: ModalContentProps) => {
+const TaskForm: React.FC<ModalContentProps> = ({
+  task,
+}: ModalContentProps): JSX.Element => {
   const [title, setTitle] = useState<string>("");
-  const subtasks = useSelector((state: any) => state.subtasks.subtasks);
+  const subtasks: Subtask[] = useSelector(
+    (state: any) => state.subtasks.subtasks
+  );
   const dispatch = useDispatch();
-  const id = crypto.randomUUID();
+  const id: string = crypto.randomUUID();
   const inputRef: InputRefProps = useRef<HTMLInputElement>(null);
   const [showInput, setShowInput] = useState<boolean>(false);
 
-  const handleCreateSubtask = () => {
+  const handleCreateSubtask = (): void => {
     if (title.length > 2) {
       dispatch(createSubTaskStart(id, task?.id, title));
     }
@@ -38,7 +43,7 @@ const TaskForm: React.FC<ModalContentProps> = ({ task }: ModalContentProps) => {
     setShowInput(false);
   };
 
-  const handleEditing = () => {
+  const handleEditing = (): void => {
     setShowInput(true);
     inputRef.current?.focus();
   };
@@ -67,9 +72,9 @@ const TaskForm: React.FC<ModalContentProps> = ({ task }: ModalContentProps) => {
         )}
         <div className={styles.grid_container}>
           {Array.isArray(subtasks) ? (
-            subtasks.map((item, index) => (
+            subtasks.map((item: Subtask, index: number) => (
               <div key={index} className={styles.grid_item}>
-                <Subtask item={item} />
+                <SubtaskItem item={item} />
               </div>
             ))
           ) : (

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import styles from "./DropDown.module.scss";
 import { useDispatch } from "react-redux";
-import {
-  changeTaskPriorityError,
-  changeTaskPriorityStart,
-} from "../../../redux/modules/tasks/actions";
+import { changeTaskPriorityStart } from "../../../redux/modules/tasks/actions";
+import { Task } from "../../../types/taskTypes";
+import { useGetInfo } from "../../../hooks/useGetInfo";
 
 interface Option {
   value: string;
@@ -13,20 +12,22 @@ interface Option {
 
 interface DropdownProps {
   options: Option[];
-  onSelect: (value: string) => void;
-  id: string;
+  task: Task;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ options, onSelect, id }) => {
-  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
+const Dropdown: React.FC<DropdownProps> = ({
+  options,
+  task,
+}: DropdownProps) => {
+  const { tasks } = useGetInfo();
+  const priority = tasks.find((t: Task) => t.id === task.id)?.priority;
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
-  const handleOptionClick = (option: Option) => {
-    setSelectedOption(option);
+  const handleOptionClick = (option: Option): void => {
     setIsOpen(false);
-    onSelect(option.value);
-    console.log(option.value);
-    dispatch(changeTaskPriorityStart(id, option.value));
+    if (task.id !== undefined) {
+      dispatch(changeTaskPriorityStart(task.id, option.value));
+    }
   };
 
   return (
@@ -35,7 +36,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, onSelect, id }) => {
         className={styles.dropdown_toggle}
         onClick={() => setIsOpen(!isOpen)}
       >
-        {selectedOption ? selectedOption.label : "HIGH"}
+        {priority}
       </button>
       {isOpen && (
         <div className={styles.dropdown_menu}>
