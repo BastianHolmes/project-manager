@@ -1,3 +1,4 @@
+import { formatDate } from "../../../helpers/formatDate";
 import { Task } from "../../../types/taskTypes";
 import {
   ADD_DESCRIPTION_TASK_ERROR,
@@ -27,7 +28,7 @@ type TaskId = string;
 type TaskCount = number;
 type TaskTitle = string;
 type TaskStatus = string;
-type ProjectId = string;
+type ProjectId = number;
 type TaskDescription = string;
 type NewTaskStatus = string;
 type TaskNumber = number;
@@ -57,6 +58,7 @@ export const createTaskStart = (
     title: TaskTitle;
     status: TaskStatus;
     project_id: ProjectId;
+    created_at: string;
   };
 } => ({
   type: CREATE_TASKS_START,
@@ -66,6 +68,7 @@ export const createTaskStart = (
     title,
     status,
     project_id,
+    created_at: new Date().toISOString(),
   },
 });
 

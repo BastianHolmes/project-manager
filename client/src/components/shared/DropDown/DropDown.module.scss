@@ -14,13 +14,12 @@
   }
 
   &_menu {
+    margin-top: 1rem;
     position: absolute;
-    top: 100%;
-    left: 50%;
     width: 12rem;
-    padding: 10px;
-    background-color: $primary-color;
-    border: 1px solid $primary-color;
+    padding: 1rem;
+    background-color: $tertiary-color;
+    border: 1px solid $tertiary-color;
     border-radius: 5px;
     list-style: none;
     margin: 0;
@@ -34,9 +33,10 @@
   }
 
   &_item {
-    color: white;
     padding: 5px;
+    color: white;
     cursor: pointer;
+    border-bottom: 1px solid transparent;
 
     &:hover {
       border-bottom: 1px solid white;

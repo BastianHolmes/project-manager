@@ -47,7 +47,7 @@ const tasks = (
       return {
         ...state,
         loading: true,
-        tasks: state.tasks.concat(payload as Task),
+        tasks: [...state.tasks, payload as Task],
       };
     case CREATE_TASKS_SUCCESS:
       return {
@@ -57,7 +57,6 @@ const tasks = (
     case LOAD_TASKS_SUCCESS:
       return {
         ...state,
-        tasks: payload as Task[],
         loading: false,
       };
     case LOAD_TASKS_ERROR:

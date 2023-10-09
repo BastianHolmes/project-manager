@@ -9,16 +9,6 @@ interface ModalContentProps {
   task?: Task;
 }
 const TaskModalContent: React.FC<ModalContentProps> = ({ onClose, task }) => {
-  const options = [
-    { value: "LOW", label: "LOW" },
-    { value: "MEDIUM", label: "MEDIUM" },
-    { value: "HIGH", label: "HIGH" },
-  ];
-
-  const handleSelect = (value: string) => {
-    console.log(value);
-  };
-
   const handleBackgroundClick = (e: any) => {
     if (e.target === e.currentTarget) {
       onClose(false);
@@ -37,7 +27,6 @@ const TaskModalContent: React.FC<ModalContentProps> = ({ onClose, task }) => {
           <div className={styles.title}>
             <h4 className={styles.name}>{task?.title}</h4>
           </div>
-          <Dropdown options={options} onSelect={handleSelect} />
           <h5 className={styles.status}>{task?.status}</h5>
         </header>
         <div className={styles.main}>

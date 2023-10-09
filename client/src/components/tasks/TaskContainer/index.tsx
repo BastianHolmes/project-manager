@@ -6,6 +6,7 @@ import Button from "../../shared/Button";
 import { useState } from "react";
 import { createTaskStart } from "../../../redux/modules/tasks/actions";
 import { useDispatch } from "react-redux";
+import Input from "../../shared/Input";
 
 interface TaskContainerProps {
   count: number;
@@ -41,13 +42,7 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
     setIsEditing(false);
     if (taskTitle.length > 2) {
       dispatch(
-        createTaskStart(
-          taskId.toString(),
-          count,
-          taskTitle,
-          status,
-          project_id.toString()
-        )
+        createTaskStart(taskId.toString(), count, taskTitle, status, project_id)
       );
       setCount(count + 1);
     }
@@ -73,20 +68,10 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
             <TaskItem key={item.id} item={item} onOpenModal={onOpenModal} />
           ))}
         {isEditing ? (
-          <input
-            value={taskTitle}
-            onChange={(e) => setTaskTitle(e.target.value)}
-            type="text"
-            className={styles.input}
-            autoFocus
-            onBlur={() => {
-              handleInput();
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleInput();
-              }
-            }}
+          <Input
+            title={taskTitle}
+            setTitle={setTaskTitle}
+            handleInput={handleInput}
           />
         ) : tasks.length < 6 ? (
           <Button onClick={handleCreateTask}>New task</Button>
