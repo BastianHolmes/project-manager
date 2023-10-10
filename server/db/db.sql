@@ -31,12 +31,15 @@ CREATE TABLE subtasks (
 );
 
 CREATE TABLE comments (
-    id SERIAL PRIMARY KEY,
-    text TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW(),
-    task_id INTEGER REFERENCES tasks(id),
-    parent_comment_id INTEGER REFERENCES comments(id) ON DELETE CASCADE
+task_id INTEGER
+id SERIAL PRIMARY KEY,
+comment_text TEXT NOT NULL,
+parent_id INTEGER,
+created_at TIMESTAMP DEFAULT NOW(),
+updated_at TIMESTAMP DEFAULT NOW(),
+FOREIGN KEY (parent_id) REFERENCES comments (id) ON DELETE CASCADE
 );
+
 
 //Создание проекта:
 INSERT INTO projects (title, description, task_count)

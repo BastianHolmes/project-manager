@@ -1,31 +1,31 @@
-import { CREATE_COMMENTS_ERROR, CREATE_COMMENTS_START, CREATE_COMMENTS_SUCCESS } from "../../actionTypes";
+import {
+  CREATE_COMMENTS_ERROR,
+  CREATE_COMMENTS_START,
+  CREATE_COMMENTS_SUCCESS,
+} from "../../actionTypes";
 
 export const createCommentStart = (
   id: string,
   task_id: string,
-  body: string,
+  newCommentText: string,
   parentId: string
 ) => ({
   type: CREATE_COMMENTS_START,
   payload: {
     id,
     task_id,
-    body,
     parentId,
+    newCommentText,
     date: new Date().toISOString(),
   },
 });
 
-export const createCommentSuccess = (
-  payload: any
-) => ({
+export const createCommentSuccess = (payload: any) => ({
   type: CREATE_COMMENTS_SUCCESS,
   payload,
-})
+});
 
-export const createCommentError = (
-    payload: any
-  ) => ({
-    type: CREATE_COMMENTS_ERROR,
-    payload,
-  })
+export const createCommentError = (payload: any) => ({
+  type: CREATE_COMMENTS_ERROR,
+  payload,
+});

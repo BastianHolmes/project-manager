@@ -2,7 +2,7 @@ import styles from "./TaskModalContent.module.scss";
 import { Task } from "../../../types/types";
 import TaskForm from "../TaskForm";
 import TaskSideBar from "../TaskSideBar";
-import Comments from "../Comments";
+import Comments from "../Comment";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createCommentStart } from "../../../redux/modules/comments/actions";
@@ -56,7 +56,7 @@ const TaskModalContent: React.FC<ModalContentProps> = ({ onClose, task }) => {
         {commentsData && (
           <Comments comments={commentsData} handleReply={handleReply} />
         )}
-        <CommentSection />
+        <CommentSection taskId={task.id} />
       </section>
     </div>
   );

@@ -1,148 +1,44 @@
 import { useState } from "react";
+import styles from "./CommentSection.module.scss";
+import Comment from "../Comment";
+import { RiSendPlane2Fill } from "../../shared/Icons/IconSend";
+import { useDispatch, useSelector } from "react-redux";
+import { createCommentStart } from "../../../redux/modules/comments/actions";
 
-const getNewComment = (commentValue, isRootNode = false, parentNodeId) => {
-  return {
-    id: crypto.randomUUID().toString(),
-    commentText: commentValue,
-    childCommments: [],
-    isRootNode,
-    parentNodeId,
-  };
-};
-
-const initialState = {};
-
-function CommentSection() {
-  const [comments, setComments] = useState(initialState);
+function CommentSection({ taskId }) {
+  const dispatch = useDispatch();
   const [rootComment, setRootComment] = useState("");
-  const addComment = (parentId, newCommentText) => {
-    let newComment = null;
-    if (parentId) {
-      newComment = getNewComment(newCommentText, false, parentId);
-      setComments((comments) => ({
-        ...comments,
-        [parentId]: {
-          ...comments[parentId],
-          childCommments: [...comments[parentId].childCommments, newComment.id],
-        },
-      }));
-    } else {
-      newComment = getNewComment(newCommentText, true, null);
-    }
-    setComments((comments) => ({ ...comments, [newComment.id]: newComment }));
-  };
-  const commentMapper = (comment) => {
-    return {
-      ...comment,
-      childCommments: comment.childCommments
-        .map((id) => comments[id])
-        .map((comment) => commentMapper(comment)),
-    };
-  };
-  const enhancedComments = Object.values(comments)
-    .filter((comment) => {
-      return !comment.parentNodeId;
-    })
-    .map(commentMapper);
+
+  const comments = useSelector((state: any) => state.comments.comments);
   const onAdd = () => {
-    addComment(null, rootComment);
+    const id = crypto.randomUUID();
+    dispatch(createCommentStart(id, taskId, rootComment, null));
     setRootComment("");
   };
   return (
-    <div className="App">
-      <header style={{ marginBottom: "2rem", fontSize: "2rem" }}>
-        Nested Comment Example
-      </header>
-      <div className="comments-container">
-        <input
-          type="text"
+    <div className={styles.commentSection}>
+      <h3>Комментарии</h3>
+      <div className={styles.commentsContainer}>
+        <textarea
+          rows={3}
+          className={styles.textarea}
+          placeholder="Add comment"
           value={rootComment}
           onChange={(e) => setRootComment(e.target.value)}
-          placeholder="add comment"
-          style={{ width: "80%", marginRight: "1rem" }}
-        />{" "}
-        <button onClick={onAdd}>Add</button>
+        />
+        <RiSendPlane2Fill className={styles.sendIcon} onClick={onAdd} />
       </div>
-      <div
-        style={{
-          border: "1px solid blue",
-          width: "60%",
-          margin: "auto",
-          overflowX: "auto",
-          padding: "2rem",
-        }}
-      >
-        {enhancedComments.map((comment, key) => {
+      <div>
+        {comments.map((comment, key) => {
           return (
-            <Comment key={key} comment={comment} addComment={addComment} />
+            <>
+              <Comment key={key} comment={comment} taskId={taskId} />
+            </>
           );
         })}
       </div>
     </div>
   );
 }
-
-const Comment = ({ comment, addComment }) => {
-  const { commentText, childCommments, id } = comment;
-  const [childComment, setChildComment] = useState("");
-  const [show, setShow] = useState(true);
-  const [showAddComponet, setShowAddComponet] = useState(false);
-  const onAdd = () => {
-    addComment(id, childComment);
-    setChildComment("");
-    setShowAddComponet(false);
-  };
-  return (
-    <div className="Comment">
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <div style={{ textAlign: "left" }}>{commentText}</div>
-        &nbsp;
-        {childCommments.length > 0 && (
-          <button onClick={() => setShow((show) => !show)}>
-            {show ? "Hide" : "Show"}
-          </button>
-        )}
-      </div>
-      <div>
-        <div>
-          {showAddComponet ? (
-            <>
-              <input
-                type="text"
-                value={childComment}
-                onChange={(e) => setChildComment(e.target.value)}
-                placeholder="add comment"
-              />{" "}
-              <button onClick={onAdd}>Submit</button>
-            </>
-          ) : (
-            <a
-              style={{ cursor: "pointer", fontSize: "0.7rem", color: "blue" }}
-              onClick={() => setShowAddComponet(true)}
-            >
-              Add a reply
-            </a>
-          )}
-        </div>
-      </div>
-      {show &&
-        childCommments.map((childCommentEl, key) => {
-          return (
-            <Comment
-              key={key}
-              comment={childCommentEl}
-              addComment={addComment}
-            />
-          );
-        })}
-    </div>
-  );
-};
 
 export default CommentSection;

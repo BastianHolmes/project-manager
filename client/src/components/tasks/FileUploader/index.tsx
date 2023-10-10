@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import styles from "./FileUploader.module.scss";
-import { IconParkOutlineDownload } from "../../shared/IconDownload";
-import { MaterialSymbolsDeleteOutline } from "../../shared/IconDelete";
+import { IconParkOutlineDownload } from "../../shared/Icons/IconDownload";
+import { MaterialSymbolsDeleteOutline } from "../../shared/Icons/IconDelete";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addSelectedFiles,

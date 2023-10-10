@@ -1,0 +1,28 @@
+.commentSection {
+  margin: 3rem 3rem;
+}
+.commentsContainer {
+  position: relative;
+}
+.textarea {
+  margin: 1rem 0;
+  padding: 1rem 5rem 1rem 1rem;
+  width: 100%;
+  overflow: hidden;
+  background-color: inherit;
+  resize: none;
+  position: relative;
+
+  font-family: inherit;
+  font-size: inherit;
+  color: white;
+  border-radius: 5px;
+}
+
+.sendIcon {
+  width: 3rem;
+  position: absolute;
+  top: 3.5rem;
+  right: 2rem;
+  cursor: pointer;
+}

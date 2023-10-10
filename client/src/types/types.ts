@@ -7,7 +7,7 @@ export interface Project {
 export interface Comment {
   id: string;
   commentText: string;
-  childCommments: Comment[];
+  childComments: Comment[];
   isRootNode: boolean;
   parentNodeId: string | null;
 }

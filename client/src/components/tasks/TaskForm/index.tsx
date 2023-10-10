@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import MaterialSymbolsAddBoxSharp from "../../shared/Icon";
+import MaterialSymbolsAddBoxSharp from "../../shared/Icons/IconAdd";
 import Textarea from "../../shared/Textarea";
 import FileUploader from "../FileUploader";
 import styles from "./TaskForm.module.scss";

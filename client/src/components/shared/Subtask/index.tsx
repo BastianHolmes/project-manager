@@ -5,7 +5,7 @@ import {
   deleteSubtaskStart,
   doneSubtaskStart,
 } from "../../../redux/modules/subtasks/actions";
-import { MaterialSymbolsDeleteOutline } from "../IconDelete";
+import { MaterialSymbolsDeleteOutline } from "../Icons/IconDelete";
 import { Subtask } from "../../../types/types";
 
 interface SubtaskProps {

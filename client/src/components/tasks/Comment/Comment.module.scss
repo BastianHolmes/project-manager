@@ -1,0 +1,53 @@
+.bubble {
+  background: powderblue;
+  margin-bottom: 5px;
+  border-radius: 50px;
+  padding: 15px;
+  width: fit-content;
+}
+.children {
+  border-left: 2px solid lightgrey;
+  padding-left: 50px;
+}
+
+.textarea {
+  margin: 1rem 0;
+  padding: 1rem 5rem 1rem 1rem;
+  width: 100%;
+  overflow: hidden;
+  background-color: inherit;
+  resize: none;
+  position: relative;
+
+  font-family: inherit;
+  font-size: inherit;
+  color: white;
+  border-radius: 5px;
+}
+
+.commentContainer {
+  padding-left: 3rem;
+  position: relative;
+}
+
+.comment {
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.sendIcon {
+  width: 3rem;
+  position: absolute;
+  top: 7rem;
+  right: 2rem;
+  cursor: pointer;
+}
+
+.replyIcon {
+  margin-top: 1rem;
+  cursor: pointer;
+  width: 3rem;
+  height: 3rem;
+}
