@@ -14,7 +14,7 @@ const commentsController = {
         ];
         const { rows } = await pool.query(query, values);
       }
-      res.status(200).json({ msg: "OK" });
+      res.status(200).json({ msg: "OK", data: comments });
     } catch (error) {
       res.json({ msg: error.msg });
     }
