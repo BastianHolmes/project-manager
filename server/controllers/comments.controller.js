@@ -1,9 +1,9 @@
 import { pool } from "../db/index.js";
-import transform from "../transform.js";
+import extractNestedArrays from "../transform.js";
 const commentsController = {
   postComments: async (req, res) => {
     try {
-      const comments = transform(req.body);
+      const comments = extractNestedArrays(req.body);
       for (let i = 0; i < comments.length; i++) {
         const query =
           "INSERT INTO comments (task_id, comment_text, parent_id) VALUES($1,$2,$3)";
@@ -13,7 +13,6 @@ const commentsController = {
           comments[i].parentId,
         ];
         const { rows } = await pool.query(query, values);
-        console.log(rows);
       }
       res.status(200).json({ msg: "OK", data: req.body });
     } catch (error) {
