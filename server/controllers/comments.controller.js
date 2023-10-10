@@ -4,17 +4,15 @@ const commentsController = {
   postComments: async (req, res) => {
     try {
       const comments = extractNestedArrays(req.body);
-      for (let i = 0; i < comments.length; i++) {
-        const query =
-          "INSERT INTO comments (task_id, comment_text, parent_id) VALUES($1,$2,$3)";
-        const values = [
-          comments[i].taskId,
-          comments[i].comment,
-          comments[i].parentId,
-        ];
-        const { rows } = await pool.query(query, values);
-      }
-      res.status(200).json({ msg: "OK", data: req.body });
+      const query =
+        "INSERT INTO comments (task_id, comment_text, parent_id) VALUES($1,$2,$3)";
+      const values = comments.map((comment) => [
+        comment.taskId,
+        comment.comment,
+        comment.parentId,
+      ]);
+      const { rowCount } = await pool.query(query, values.flat());
+      res.status(200).json({ msg: "OK", data: rowCount });
     } catch (error) {
       res.json({ msg: error.msg });
     }
