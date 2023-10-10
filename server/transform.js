@@ -1,4 +1,4 @@
-export function extractNestedArrays(comments) {
+export default function extractNestedArrays(comments) {
   const result = [];
 
   function traverse(comment) {
