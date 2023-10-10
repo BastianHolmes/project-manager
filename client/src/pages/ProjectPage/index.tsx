@@ -5,7 +5,7 @@ import styles from "./ProjectPage.module.scss";
 import Modal from "../../components/shared/Modal";
 import ModalContent from "../../components/project/ProjectModalContent";
 import { formatDate } from "../../helpers/formatDate";
-import { Project } from "../../types/projectsTypes";
+import { Project } from "../../types/types";
 import Pagination from "../../components/shared/Pagination";
 import Loader from "../../components/shared/Loader";
 import { useGetInfo } from "../../hooks/useGetInfo";

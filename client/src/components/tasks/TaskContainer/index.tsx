@@ -1,6 +1,6 @@
 import { useDrop } from "react-dnd";
 import styles from "./TaskContainer.module.scss";
-import { Task } from "../../../types/taskTypes";
+import { Task } from "../../../types/types";
 import TaskItem from "../TaskItem";
 import Button from "../../shared/Button";
 import { useState } from "react";

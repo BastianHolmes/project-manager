@@ -1,12 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styles from "./ModalContent.module.scss";
-import {
-  createProjectStart,
-  getProjects,
-} from "../../../redux/modules/projects/actions";
+import { createProjectStart } from "../../../redux/modules/projects/actions";
 import { useState } from "react";
-import { formatDate } from "../../../helpers/formatDate";
 
 interface ModalContentProps {
   onClose: (value: boolean) => void;

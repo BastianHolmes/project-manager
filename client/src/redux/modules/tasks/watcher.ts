@@ -24,7 +24,7 @@ import {
   createTaskSuccess,
   setTasks,
 } from "./actions";
-import { Task } from "../../../types/taskTypes";
+import { Task } from "../../../types/types";
 
 interface GetTasksResponse {
   data: Task[];

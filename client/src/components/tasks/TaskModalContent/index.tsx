@@ -1,13 +1,12 @@
 import styles from "./TaskModalContent.module.scss";
-import { Task } from "../../../types/taskTypes";
+import { Task } from "../../../types/types";
 import TaskForm from "../TaskForm";
 import TaskSideBar from "../TaskSideBar";
-import Dropdown from "../../shared/DropDown";
 import Comments from "../Comments";
-import Input from "../../shared/Input";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createCommentStart } from "../../../redux/modules/comments/actions";
+import CommentSection from "../CommentSection";
 
 interface ModalContentProps {
   onClose: (value: boolean) => void;
@@ -23,10 +22,6 @@ const TaskModalContent: React.FC<ModalContentProps> = ({ onClose, task }) => {
       onClose(false);
     }
     return;
-  };
-
-  const handleInput = () => {
-    setId((state) => state + 1);
   };
 
   const handleReply = (parentId: number) => {
@@ -61,11 +56,7 @@ const TaskModalContent: React.FC<ModalContentProps> = ({ onClose, task }) => {
         {commentsData && (
           <Comments comments={commentsData} handleReply={handleReply} />
         )}
-        <Input
-          title={comment}
-          setTitle={setComment}
-          handleInput={handleInput}
-        />
+        <CommentSection />
       </section>
     </div>
   );

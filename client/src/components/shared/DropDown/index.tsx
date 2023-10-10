@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./DropDown.module.scss";
 import { useDispatch } from "react-redux";
 import { changeTaskPriorityStart } from "../../../redux/modules/tasks/actions";
-import { Task } from "../../../types/taskTypes";
+import { Task } from "../../../types/types";
 import { useGetInfo } from "../../../hooks/useGetInfo";
 
 interface Option {

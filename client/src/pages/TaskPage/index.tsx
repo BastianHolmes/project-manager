@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styles from "./TaskPage.module.scss";
 import { changeTaskStatusStart } from "../../redux/modules/tasks/actions";
 import { useParams } from "react-router-dom";
@@ -7,7 +7,7 @@ import { findItem } from "../../helpers/findItem";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import TaskContainer from "../../components/tasks/TaskContainer";
-import { Task } from "../../types/taskTypes";
+import { Task } from "../../types/types";
 import Modal from "../../components/shared/Modal";
 import TaskModalContent from "../../components/tasks/TaskModalContent";
 import { useGetInfo } from "../../hooks/useGetInfo";

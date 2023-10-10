@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Project } from "../types/projectsTypes";
+import { Project } from "../types/types";
 
 export const useLoading = () => {
   return useSelector(

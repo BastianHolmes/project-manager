@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProjects } from "../redux/modules/projects/actions";
-import { loadavg } from "os";
 import { LoadTask } from "../redux/modules/tasks/actions";
-import { Project } from "../types/projectsTypes";
-import { Task } from "../types/taskTypes";
-import { loadSubtasksStart } from "../redux/modules/subtasks/actions";
+import { Project } from "../types/types";
+import { Task } from "../types/types";
 
 export const useGetInfo = () => {
   const dispatch = useDispatch();

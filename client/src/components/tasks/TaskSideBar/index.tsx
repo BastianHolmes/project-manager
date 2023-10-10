@@ -1,6 +1,6 @@
 import { daysPassed } from "../../../helpers/daysPassed";
 import { formatDate } from "../../../helpers/formatDate";
-import { Task } from "../../../types/taskTypes";
+import { Task } from "../../../types/types";
 import Dropdown from "../../shared/DropDown";
 import styles from "./TaskSideBar.module.scss";
 

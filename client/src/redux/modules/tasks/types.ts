@@ -1,4 +1,4 @@
-import { Task } from "../../../types/taskTypes";
+import { Task } from "../../../types/types";
 import {
   ADD_DESCRIPTION_TASK_ERROR,
   ADD_DESCRIPTION_TASK_START,

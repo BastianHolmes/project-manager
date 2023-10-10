@@ -8,7 +8,7 @@ import { useState, useRef } from "react";
 import Input from "../../shared/Input";
 import SubtaskItem from "../../shared/Subtask";
 import Loader from "../../shared/Loader";
-import { Subtask } from "../../../types/subtaskTypes";
+import { Subtask } from "../../../types/types";
 
 interface ModalContentProps {
   task: Subtask;

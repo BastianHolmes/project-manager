@@ -1,4 +1,4 @@
-import { Project } from "../../../types/projectsTypes";
+import { Project } from "../../../types/types";
 import {
   CREATE_PROJECT_ERROR,
   CREATE_PROJECT_START,

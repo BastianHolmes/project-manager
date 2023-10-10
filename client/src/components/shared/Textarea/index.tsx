@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Task } from "../../../types/taskTypes";
+import { Task } from "../../../types/types";
 import styles from "./Textarea.module.scss";
 import { useDispatch } from "react-redux";
 import { addDescriptionTaskStart } from "../../../redux/modules/tasks/actions";
@@ -19,7 +19,9 @@ const Textarea: React.FC<TextareaProps> = ({ task, input }) => {
 
   const handleInput = () => {
     setIsEditing(false);
-    dispatch(addDescriptionTaskStart(task?.id, description));
+    if (task?.id && description !== (undefined && "")) {
+      dispatch(addDescriptionTaskStart(task?.id, description));
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

@@ -1,4 +1,4 @@
-import { Project } from "../types/projectsTypes";
+import { Project } from "../types/types";
 import { Task } from "../types/taskTypes";
 
 export function findItem(

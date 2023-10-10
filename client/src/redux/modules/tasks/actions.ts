@@ -1,5 +1,4 @@
-import { formatDate } from "../../../helpers/formatDate";
-import { Task } from "../../../types/taskTypes";
+import { Task } from "../../../types/types";
 import {
   ADD_DESCRIPTION_TASK_ERROR,
   ADD_DESCRIPTION_TASK_START,
@@ -138,7 +137,10 @@ export const changeTaskStatusError = (
   payload,
 });
 
-export const changeTaskPriorityStart = (id: TaskId, priority:TaskPriority) => ({
+export const changeTaskPriorityStart = (
+  id: TaskId,
+  priority: TaskPriority
+) => ({
   type: CHANGE_TASK_PRIORITY_START,
   payload: {
     id,

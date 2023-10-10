@@ -8,7 +8,6 @@ import {
   deleteFile,
   downloadFile,
   setSelectedFiles,
-  uploadFiles,
 } from "../../../redux/modules/files/actions";
 
 interface File {
