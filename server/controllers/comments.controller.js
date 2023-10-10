@@ -13,8 +13,8 @@ const commentsController = {
           comments[i].parentId,
         ];
         const { rows } = await pool.query(query, values);
-        res.status(200).json({ msg: "OK", data: rows });
       }
+      res.status(200).json({ msg: "OK" });
     } catch (error) {
       res.json({ msg: error.msg });
     }
