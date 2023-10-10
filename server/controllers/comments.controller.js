@@ -3,8 +3,7 @@ import transform from "../transform.js";
 const commentsController = {
   postComments: async (req, res) => {
     try {
-      const transformedComments = transform(req.body);
-      const comments = transformedComments.flat();
+      const comments = transform(req.body);
       for (let i = 0; i < comments.length; i++) {
         const query =
           "INSERT INTO comments (task_id, comment_text, parent_id) VALUES($1,$2,$3)";
