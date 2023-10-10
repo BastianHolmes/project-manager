@@ -6,7 +6,7 @@ export default function transform(comments) {
       result[depth] = [];
     }
 
-    const { childComment, ...commentWithoutChildComment } = comment;
+    const { childComment, isRootNode, ...commentWithoutChildComment } = comment;
     result[depth].push(commentWithoutChildComment);
 
     for (const child of childComment) {
