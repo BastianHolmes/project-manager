@@ -3,7 +3,7 @@ import extractNestedArrays from "../transform.js";
 const commentsController = {
   postComments: async (req, res) => {
     try {
-      const comments = extractNestedArrays(req.body);
+      const comments = extractNestedArrays(req.body.comments);
       for (item of comments) {
         const { taskId, comment, parentId } = item;
         const query =
