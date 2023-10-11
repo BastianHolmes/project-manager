@@ -2,7 +2,7 @@ import { pool } from "../db/index.js";
 const commentsController = {
   postComments: async (req, res) => {
     try {
-      const query = `INSERT INTO comments (task_id, comment_text, parent_id) VALUES ($3, $2, $3);`;
+      const query = `INSERT INTO comments (task_id, comment_text, parent_id) VALUES ($1, $2, $3);`;
       const { rows } = await pool.query(query, [
         req.body.task_id,
         req.body.comment_text,
