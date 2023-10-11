@@ -9,11 +9,11 @@ const commentsController = {
       ), recursive_cte AS (
         SELECT (item ->> 'taskId')::integer as task_id, item ->> 'comment' as comment_text, item ->> 'parentId' as parent_id FROM cte WHERE item ->> 'parentId' IS NULL
         UNION ALL
-        SELECT (cte.item ->> 'taskId')::integer, cte.item ->> 'comment', cte.item ->> 'parentId' FROM cte JOIN recursive_cte ON (cte.item ->> 'parentId')::integer = recursive_cte.task_id
+        SELECT (cte.item ->> 'taskId')::integer, cte.item ->> 'comment', CAST(cte.item ->> 'parentId' AS integer) FROM cte JOIN recursive_cte ON CAST(cte.item ->> 'parentId' AS integer) = recursive_cte.task_id
       )
       INSERT INTO comments (task_id, comment_text, parent_id)
       SELECT task_id, comment_text, parent_id FROM recursive_cte
-      RETURNING *;       
+      RETURNING *;      
       `;
       const { rows } = await pool.query(query, [comments]);
       res.status(200).json({ msg: "OK", data: rows });
