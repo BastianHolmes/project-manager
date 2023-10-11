@@ -4,7 +4,7 @@ const commentsController = {
     try {
       const comments = req.body.comments;
       const query = `    INSERT INTO comments (task_id, comment_text, parent_id)
-      SELECT item ->> 'taskId' as task_id, item ->> 'comment' as comment_text item ->> 'parentId'::integer as parent_id
+      SELECT item ->> 'taskId' as task_id, item ->> 'comment' as comment_text, item ->> 'parentId'::integer as parent_id
       FROM unnest($1::json->'comments') as item; `;
       const { rows } = await pool.query(query, [comments]);
       res.status(200).json({ msg: "OK", data: rows });
