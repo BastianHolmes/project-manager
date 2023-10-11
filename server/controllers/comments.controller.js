@@ -9,7 +9,7 @@ const commentsController = {
       ), recursive_cte AS (
         SELECT (item ->> 'taskId')::integer as task_id, item ->> 'comment' as comment_text, item ->> 'parentId' as parent_id FROM cte WHERE item ->> 'parentId' IS NULL
         UNION ALL
-        SELECT (cte.item ->> 'taskId')::integer, cte.item ->> 'comment', cte.item ->> 'parentId' FROM cte JOIN recursive_cte ON cte.item ->> 'parentId' = recursive_cte.task_id
+        SELECT (cte.item ->> 'taskId')::integer, cte.item ->> 'comment', (cte.item ->> 'parentId')::integer FROM cte JOIN recursive_cte ON cte.item ->> 'parentId' = recursive_cte.task_id
       )
       INSERT INTO comments (task_id, comment_text, parent_id)
       SELECT task_id, comment_text, parent_id FROM recursive_cte
