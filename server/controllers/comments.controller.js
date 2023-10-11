@@ -4,16 +4,16 @@ const commentsController = {
     try {
       const comments = req.body.comments;
       const query = `
-      WITH RECURSIVE cte AS (
-        SELECT * FROM unnest($1::json[]) as item
-      ), recursive_cte AS (
-        SELECT item ->> 'taskId'::integer as task_id, item ->> 'comment' as comment_text, item ->> 'parentId'::integer as parent_id FROM cte WHERE item ->> 'parentId' IS NULL
-        UNION ALL
-        SELECT cte.item ->> 'taskId'::integer as task_id, cte.item ->> 'comment'as comment_text, cte.item ->> 'parentId'::integer as parent_id FROM cte JOIN recursive_cte ON cte.item ->> 'parentId' = recursive_cte.task_id
-      )
-      INSERT INTO comments (task_id, comment_text, parent_id)
-      SELECT task_id, comment_text, parent_id FROM recursive_cte
-      RETURNING *;
+        WITH RECURSIVE cte AS (
+          SELECT * FROM unnest($1::json[]) as item
+        ), recursive_cte AS (
+          SELECT item ->> 'taskId' as task_id, item ->> 'comment' as comment_text, item ->> 'parentId' as parent_id FROM cte WHERE item ->> 'parentId' IS NULL
+          UNION ALL
+          SELECT cte.item ->> 'taskId', cte.item ->> 'comment', cte.item ->> 'parentId' FROM cte JOIN recursive_cte ON cte.item ->> 'parentId' = recursive_cte.task_id
+        )
+        INSERT INTO comments (task_id, comment_text, parent_id)
+        SELECT task_id, comment_text, parent_id FROM recursive_cte
+        RETURNING *;
       `;
       const { rows } = await pool.query(query, [comments]);
       res.status(200).json({ msg: "OK", data: rows });
