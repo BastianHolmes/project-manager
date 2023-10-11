@@ -3,16 +3,20 @@ const commentsController = {
   postComments: async (req, res) => {
     try {
       const comments = req.body.comments;
-
-      // for (item of comments) {
-      //   const { taskId, comment, parentId } = item;
-      //   const query =
-      //     "INSERT INTO comments (task_id, comment_text, parent_id) VALUES ($1,$2,$3) returning *";
-      //   const values = [taskId, comment, parentId];
-      //   const { rows } = await pool.query(query, values);
-      //   res.status(200).json({ msg: "OK", data: rows });
-      // }
-      res.status(200).json({ msg: "OK", data: comments });
+      const query = `const query = 
+      WITH RECURSIVE cte AS (
+        SELECT * FROM unnest($1::json[]) as item
+      ), recursive_cte AS (
+        SELECT task_id, comment_text, parent_id FROM cte WHERE item ->> 'parentId' IS NULL
+        UNION ALL
+        SELECT cte.item ->> 'taskId', cte.item ->> 'comment', cte.item ->> 'parentId' FROM cte JOIN recursive_cte ON cte.item ->> 'parentId' = recursive_cte.task_id
+      )
+      INSERT INTO comments (task_id, comment_text, parent_id)
+      SELECT task_id, comment_text, parent_id FROM recursive_cte
+      RETURNING *;
+    ;`;
+      const { rows } = await pool.query(query, comments);
+      res.status(200).json({ msg: "OK", data: rows });
     } catch (error) {
       res.json({ msg: error.msg });
     }
