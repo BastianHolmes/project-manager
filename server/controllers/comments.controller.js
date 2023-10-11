@@ -7,12 +7,9 @@ const commentsController = {
       WITH RECURSIVE cte AS (
         SELECT * FROM unnest($1::json[]) as item
       ), recursive_cte AS (
-        SELECT COALESCE(item ->> 'taskId', '0')::integer as task_id, item ->> 'comment' as comment_text, COALESCE(item ->> 'parentId', '0')::integer as parent_id FROM cte WHERE item ->> 'parentId' IS NULL
+        SELECT item ->> 'taskId'::integer as task_id, item ->> 'comment' as comment_text, item ->> 'parentId'::integer as parent_id FROM cte WHERE item ->> 'parentId' IS NULL
         UNION ALL
-        SELECT 
-        COALESCE(cte.item ->> 'taskId', '0')::integer,
-        cte.item ->> 'comment', 
-        COALESCE(cte.item ->> 'parentId', 'null')::integer FROM cte JOIN recursive_cte ON cte.item ->> 'parentId' = recursive_cte.task_id
+        SELECT cte.item ->> 'taskId'::integer as task_id, cte.item ->> 'comment'as comment_text, cte.item ->> 'parentId'::integer as parent_id FROM cte JOIN recursive_cte ON cte.item ->> 'parentId' = recursive_cte.task_id
       )
       INSERT INTO comments (task_id, comment_text, parent_id)
       SELECT task_id, comment_text, parent_id FROM recursive_cte
