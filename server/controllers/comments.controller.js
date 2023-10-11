@@ -11,8 +11,8 @@ const commentsController = {
         comment.comment,
         comment.parentId,
       ]);
-      const { rowCount } = await pool.query(query, values.flat());
-      res.status(200).json({ msg: "OK", data: rowCount });
+      const { rows } = await pool.query(query, values.flat());
+      res.status(200).json({ msg: "OK", data: comments });
     } catch (error) {
       res.json({ msg: error.msg });
     }
