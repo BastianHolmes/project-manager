@@ -3,15 +3,16 @@ const commentsController = {
   postComments: async (req, res) => {
     try {
       const comments = req.body.comments;
-      console.log(comments);
-      for (item of comments) {
-        const { taskId, comment, parentId } = item;
-        const query =
-          "INSERT INTO comments (task_id, comment_text, parent_id) VALUES ($1,$2,$3) returning *";
-        const values = [taskId, comment, parentId];
-        const { rows } = await pool.query(query, values);
-        res.status(200).json({ msg: "OK", data: rows });
-      }
+
+      // for (item of comments) {
+      //   const { taskId, comment, parentId } = item;
+      //   const query =
+      //     "INSERT INTO comments (task_id, comment_text, parent_id) VALUES ($1,$2,$3) returning *";
+      //   const values = [taskId, comment, parentId];
+      //   const { rows } = await pool.query(query, values);
+      //   res.status(200).json({ msg: "OK", data: rows });
+      // }
+      res.status(200).json({ msg: "OK", data: comments });
     } catch (error) {
       res.json({ msg: error.msg });
     }
