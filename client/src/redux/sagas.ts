@@ -1,13 +1,6 @@
 import { all, fork } from "redux-saga/effects";
-import { onGetProjects } from "./modules/projects/watcher";
 import { onCreateProject } from "../features/Projects/create-project/sagas";
-import {
-  onAddDescription,
-  onChangeStatus,
-  onLoadTasks,
-  onCreateTasks,
-  onChangePriority,
-} from "./modules/tasks/watcher";
+import { onAddDescription, onChangePriority } from "./modules/tasks/watcher";
 import fileUploaderSaga from "./modules/files/watcher";
 import {
   onCreateSubTasks,
@@ -15,6 +8,10 @@ import {
   onLoadSubTasks,
   onUpdateSubTasks,
 } from "./modules/subtasks/watcher";
+import { onGetProjects } from "../pages/ProjectPage/sagas";
+import { onCreateTasks } from "../features/Tasks/create-task/sagas";
+import { onChangeStatus } from "../features/Tasks/change-status-task/sagas";
+import { onLoadTasks } from "../pages/TaskPage/sagas";
 
 export default function* rootSaga() {
   yield all([

@@ -6,16 +6,18 @@ import {
   CHANGE_TASK_PRIORITY_ERROR,
   CHANGE_TASK_PRIORITY_START,
   CHANGE_TASK_PRIORITY_SUCCESS,
+} from "../../../redux/actionTypes";
+import {
   CHANGE_TASK_STATUS_ERROR,
   CHANGE_TASK_STATUS_START,
   CHANGE_TASK_STATUS_SUCCESS,
-  CREATE_TASKS_START,
-  CREATE_TASKS_SUCCESS,
+} from "../change-status-task/model";
+import { CREATE_TASKS_START, CREATE_TASKS_SUCCESS } from "../create-task/model";
+import {
   LOAD_TASKS_ERROR,
   LOAD_TASKS_START,
   LOAD_TASKS_SUCCESS,
-  SET_TASKS,
-} from "../../actionTypes";
+} from "../../../pages/TaskPage/model";
 
 interface TasksState {
   tasks: Task[];
@@ -39,12 +41,22 @@ const tasks = (
   { type, payload }: Action
 ): TasksState => {
   switch (type) {
-    case SET_TASKS:
     case LOAD_TASKS_START:
       return {
         ...state,
         loading: true,
+      };
+    case LOAD_TASKS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
         tasks: payload as Task[],
+      };
+    case LOAD_TASKS_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: payload as string,
       };
     case CREATE_TASKS_START:
       return {
@@ -56,21 +68,12 @@ const tasks = (
       return {
         ...state,
         loading: false,
-      };
-    case LOAD_TASKS_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-      };
-    case LOAD_TASKS_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: payload as string,
+        tasks: state.tasks.slice(0, -1).concat(payload as Task),
       };
     case CHANGE_TASK_STATUS_START:
       return {
         ...state,
+        loading: true,
         tasks: state.tasks.map((task) => {
           if (task.id === (payload as Task).id) {
             return {

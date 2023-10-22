@@ -1,8 +1,7 @@
 import {
   LOAD_PROJECTS_START,
   LOAD_PROJECTS_SUCCESS,
-  LOAD_TASKS_ERROR,
-} from "../../../redux/actionTypes";
+} from "../../../pages/ProjectPage/model";
 import { Project } from "../../../shared/types/types";
 import {
   CREATE_PROJECT_ERROR,
@@ -44,7 +43,6 @@ const projects = (
         loading: false,
         projects: [...state.projects, payload],
       };
-    case LOAD_TASKS_ERROR:
     case CREATE_PROJECT_ERROR:
       return {
         ...state,

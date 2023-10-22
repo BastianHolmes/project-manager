@@ -3,11 +3,10 @@ import styles from "./TaskContainer.module.scss";
 import { Task } from "../../../shared/types/types";
 import TaskItem from "../TaskItem";
 import Button from "../../../shared/components/Button";
-import { useContext, useState } from "react";
-import { createTaskStart } from "../../../redux/modules/tasks/actions";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import Input from "../../../shared/components/Input";
-import { IdContext } from "../../../context";
+import { createTaskStart } from "../../../features/Tasks/create-task/model";
 
 interface TaskContainerProps {
   count: number;

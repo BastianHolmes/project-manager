@@ -1,23 +1,25 @@
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./TaskPage.module.scss";
-import { changeTaskStatusStart } from "../../redux/modules/tasks/actions";
 import { useParams } from "react-router-dom";
-import { findItem } from "../../shared/helpers/findItem";
-import TaskContainer from "../../components/tasks/TaskContainer";
-import { Task } from "../../shared/types/types";
-import Modal from "../../shared/components/Modal";
-import TaskModalContent from "../../components/tasks/TaskModalContent";
-import { useGetInfo } from "../../shared/hooks/useGetInfo";
-import { useLoading } from "../../shared/hooks/useLoading";
-import Loader from "../../shared/components/Loader";
-import { filterObjectsByProjectId } from "../../shared/helpers/filterObjectsByProjectId";
-import TaskSearch from "../../components/tasks/TaskSearch";
-import { loadSubtasksStart } from "../../redux/modules/subtasks/actions";
+import { findItem } from "../../../shared/helpers/findItem";
+import TaskContainer from "../../../components/tasks/TaskContainer";
+import { Task } from "../../../shared/types/types";
+import Modal from "../../../shared/components/Modal";
+import TaskModalContent from "../../../components/tasks/TaskModalContent";
+import { useLoading } from "../../../shared/hooks/useLoading";
+import Loader from "../../../shared/components/Loader";
+import { filterObjectsByProjectId } from "../../../shared/helpers/filterObjectsByProjectId";
+import TaskSearch from "../../../components/tasks/TaskSearch";
+import { loadSubtasksStart } from "../../../redux/modules/subtasks/actions";
+import { changeTaskStatusStart } from "../../../features/Tasks/change-status-task/model";
+import { useProjects } from "../../ProjectPage/utils/useProjects";
+import { useTasks } from "../utils/useTasks";
 
 const TaskPage = ({}) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const { projects, tasks } = useGetInfo();
+  const tasks = useTasks();
+  const projects = useProjects();
 
   const Loading = useLoading();
   const [selectedTask, setSelectedTask] = useState<Task>({});
@@ -40,25 +42,18 @@ const TaskPage = ({}) => {
   const renderQueryTask = useMemo(
     () =>
       tasks.filter(
-        (task: Task) =>
-          task.project_id === currentProject?.id && task.status === "QUEUE"
+        (tasks: Task<any>) =>
+          tasks.project_id === currentProject?.id && tasks.status === "QUEUE"
       ),
     [tasks, currentProject?.id]
   );
+
   const renderDevelopmentTask = useMemo(
     () =>
       tasks.filter(
-        (task: Task) =>
-          task.project_id === currentProject?.id &&
-          task.status === "DEVELOPMENT"
-      ),
-    [tasks, currentProject?.id]
-  );
-  const renderDoneTask = useMemo(
-    () =>
-      tasks.filter(
-        (task: Task) =>
-          task.project_id === currentProject?.id && task.status === "DONE"
+        (tasks: Task<any>) =>
+          tasks.project_id === currentProject?.id &&
+          tasks.status === "DEVELOPMENT"
       ),
     [tasks, currentProject?.id]
   );

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadProjects } from "../../../redux/modules/projects/actions";
 import { Project } from "../../../shared/types/types";
+import { loadProjects } from "../model";
 
 export const useProjects = () => {
   const dispatch = useDispatch();
@@ -15,5 +15,5 @@ export const useProjects = () => {
       store.projects.projects || []
   );
 
-  return { projects };
+  return projects;
 };

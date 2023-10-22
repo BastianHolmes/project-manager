@@ -12,11 +12,12 @@ import { useLoading } from "../../../shared/hooks/useLoading";
 import { useProjects } from "../utils/useProjects";
 
 const ProjectPage = ({}) => {
-  const { projects: allProjects } = useProjects();
+  const allProjects = useProjects();
   const Loading = useLoading();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(4);
+
+  const itemsPerPage = 4;
 
   const indexOfFirstProject = (currentPage - 1) * itemsPerPage;
   const indexOfLastProject = indexOfFirstProject + itemsPerPage;
@@ -41,15 +42,9 @@ const ProjectPage = ({}) => {
           <ModalContent onClose={setIsOpenModal} />
         </Modal>
       )}
-      {allProjects.length === 0 ? (
-        <h1>
-          Создать <span className={styles.highlight}>проект</span>
-        </h1>
-      ) : (
-        <h1>
-          Мои <span className={styles.highlight}>проекты</span>
-        </h1>
-      )}
+      <h1>
+        Мои <span className={styles.highlight}>проекты</span>
+      </h1>
       <section className={styles.list}>
         <MaterialSymbolsAddBoxSharp
           className={styles.icon}

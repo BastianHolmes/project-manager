@@ -1,7 +1,6 @@
-import { put, call, takeEvery, fork, take } from "redux-saga/effects";
-import { LOAD_PROJECTS_START } from "../../actionTypes";
+import { call, put, takeEvery } from "redux-saga/effects";
 import { getProjects } from "../../../features/Projects/api/project.servise";
-import { loadProjectsSuccess } from "./actions";
+import { LOAD_PROJECTS_START, loadProjectsSuccess } from "../model";
 
 export function* handleGetProjects(): Generator<any, void, any> {
   try {
