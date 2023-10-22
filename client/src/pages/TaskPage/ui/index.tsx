@@ -42,28 +42,25 @@ const TaskPage = ({}) => {
   const renderQueryTask = useMemo(
     () =>
       tasks.filter(
-        (tasks: Task<any>) =>
-          tasks.project_id === currentProject?.id && tasks.status === "QUEUE"
+        (task: Task) =>
+          task.project_id === currentProject?.id && task.status === "QUEUE"
       ),
     [tasks, currentProject?.id]
   );
-
   const renderDevelopmentTask = useMemo(
     () =>
       tasks.filter(
-        (tasks: Task<any>) =>
-          tasks.project_id === currentProject?.id &&
-          tasks.status === "DEVELOPMENT"
+        (task: Task) =>
+          task.project_id === currentProject?.id &&
+          task.status === "DEVELOPMENT"
       ),
     [tasks, currentProject?.id]
   );
-
   const renderDoneTask = useMemo(
     () =>
       tasks.filter(
-        (tasks: Task<any>) =>
-          tasks.project_id === currentProject?.id &&
-          tasks.status === "DEVELOPMENT"
+        (task: Task) =>
+          task.project_id === currentProject?.id && task.status === "DONE"
       ),
     [tasks, currentProject?.id]
   );
