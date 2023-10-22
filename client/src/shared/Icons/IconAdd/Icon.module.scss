@@ -1,0 +1,11 @@
+@import "../../../shared/styles/variables.scss";
+.icon {
+  cursor: pointer;
+  height: 4rem;
+  width: 4rem;
+  color: $primary-color;
+  transition: all 0.3s ease;
+  &:hover {
+    transform: scale(1.3);
+  }
+}

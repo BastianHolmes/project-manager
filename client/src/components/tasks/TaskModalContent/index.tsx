@@ -1,5 +1,5 @@
 import styles from "./TaskModalContent.module.scss";
-import { Task } from "../../../types/types";
+import { Task } from "../../../shared/types/types";
 import TaskForm from "../TaskForm";
 import TaskSideBar from "../TaskSideBar";
 import Comments from "../Comment";

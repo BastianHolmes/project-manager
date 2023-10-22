@@ -1,4 +1,4 @@
-import { getNewComment } from "../../../helpers/getNewComment";
+import { getNewComment } from "../../../shared/helpers/getNewComment";
 import {
   CREATE_COMMENTS_ERROR,
   CREATE_COMMENTS_START,
@@ -36,7 +36,6 @@ const addCommentToParent = (comments, parentId, newComment) => {
 };
 
 const comments = (state = initialState, { type, payload }) => {
-  console.log(payload);
   switch (type) {
     case LOAD_COMMENTS_START:
       return {

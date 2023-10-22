@@ -1,8 +1,8 @@
 import React from "react";
 import { useDrag } from "react-dnd";
 import styles from "./Task.module.scss";
-import { Task } from "../../../types/types";
-import { formatDate } from "../../../helpers/formatDate";
+import { Task } from "../../../shared/types/types";
+import { formatDate } from "../../../shared/helpers/formatDate";
 
 interface TaskItem extends Task {
   item: Task;

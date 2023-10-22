@@ -11,15 +11,11 @@ CREATE TABLE tasks (
     title VARCHAR(255) NOT NULL,
     description TEXT,
     created_at TIMESTAMP DEFAULT NOW(),
-    time_spent INTERVAL,
     due_date DATE,
-    priority VARCHAR(50),
-    attached_files TEXT[],
+    priority TEXT DEFAULT 'LOW',
     status VARCHAR(50),
     project_id INTEGER REFERENCES projects(id),
-    count INTEGER DEFAULT 0,
-    parent_task_id INTEGER REFERENCES tasks(id),
-    is_parent_task BOOLEAN DEFAULT false
+    count INTEGER DEFAULT 0
 );
 
 
@@ -35,8 +31,10 @@ task_id INTEGER,
 id SERIAL PRIMARY KEY,
 comment_text TEXT NOT NULL,
 parent_id INTEGER,
+created_at TIMESTAMP DEFAULT NOW(),
+updated_at TIMESTAMP DEFAULT NOW(),
+FOREIGN KEY (parent_id) REFERENCES comments (id) ON DELETE CASCADE
 );
-
 
 //Создание проекта:
 INSERT INTO projects (title, description, task_count)

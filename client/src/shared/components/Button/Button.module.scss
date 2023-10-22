@@ -1,0 +1,10 @@
+@import "../../../shared/styles/variables.scss";
+
+.btn {
+  width: 100%;
+
+  font-family: inherit;
+  background-color: $primary-color;
+  color: white;
+  font-weight: 600;
+}

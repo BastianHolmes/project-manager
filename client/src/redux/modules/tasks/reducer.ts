@@ -1,4 +1,4 @@
-import { Task } from "../../../types/types";
+import { Task } from "../../../shared/types/types";
 import {
   ADD_DESCRIPTION_TASK_ERROR,
   ADD_DESCRIPTION_TASK_START,

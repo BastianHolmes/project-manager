@@ -1,14 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./TaskSearch.module.scss";
 import TaskItem from "../TaskItem";
-import { Task } from "../../../types/taskTypes";
+import { Task } from "../../../shared/types/types";
 
 interface Props {
   tasks: Task[];
   onOpenModal: (item: Task) => void;
+  project_id: string;
 }
 
-const TaskSearch: React.FC<Props> = ({ tasks, onOpenModal }) => {
+const TaskSearch: React.FC<Props> = ({ tasks, onOpenModal, project_id }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<Task[]>([]);
   const [isFocused, setIsFocused] = useState(false);
@@ -19,12 +20,13 @@ const TaskSearch: React.FC<Props> = ({ tasks, onOpenModal }) => {
     setSearchTerm(searchTerm);
 
     const results = tasks.filter((task) => {
-      if (task.title && task.count) {
+      if (task.title && task.count && task.project_id) {
+        const projectIdMatch = task.project_id.toString().includes(project_id);
         const titleMatch = task.title
           .toLowerCase()
           .includes(searchTerm.toLowerCase());
         const idMatch = task.count.toString().includes(searchTerm);
-        return titleMatch || idMatch;
+        return projectIdMatch ? titleMatch || idMatch : null;
       }
     });
 

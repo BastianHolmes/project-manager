@@ -1,8 +1,10 @@
-import { Project } from "../../../types/types";
 import {
   CREATE_PROJECT_ERROR,
   CREATE_PROJECT_START,
   CREATE_PROJECT_SUCCESS,
+} from "../../../features/Projects/create-project/model";
+import { Project } from "../../../shared/types/types";
+import {
   GET_PROJECTS_START,
   GET_PROJECTS_SUCCESS,
   LOAD_PROJECTS_START,
@@ -14,7 +16,6 @@ export const initialState = {
   projects: [],
   loading: false,
   error: null,
-  projectId: "",
 };
 
 const projects = (
@@ -28,14 +29,12 @@ const projects = (
         loading: true,
         projects: [...state.projects, payload],
       };
-    case GET_PROJECTS_START:
     case LOAD_PROJECTS_START:
       return {
         ...state,
         loading: true,
         projects: payload,
       };
-    case GET_PROJECTS_SUCCESS:
     case LOAD_PROJECTS_SUCCESS:
       return {
         ...state,

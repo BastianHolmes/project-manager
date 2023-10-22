@@ -24,7 +24,7 @@ import {
   createTaskSuccess,
   setTasks,
 } from "./actions";
-import { Task } from "../../../types/types";
+import { Task } from "../../../shared/types/types";
 
 interface GetTasksResponse {
   data: Task[];
@@ -134,7 +134,6 @@ function* handleChangePriority(action: {
   payload: { priority: string; id: number };
 }): Generator<any, void, ChangeStatusResponse> {
   try {
-    console.log(action.payload.id);
     const response: ChangeStatusResponse = yield call(
       updatePriority,
       action.payload.priority,

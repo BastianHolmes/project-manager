@@ -3,21 +3,19 @@ import { useDispatch } from "react-redux";
 import styles from "./TaskPage.module.scss";
 import { changeTaskStatusStart } from "../../redux/modules/tasks/actions";
 import { useParams } from "react-router-dom";
-import { findItem } from "../../helpers/findItem";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { findItem } from "../../shared/helpers/findItem";
 import TaskContainer from "../../components/tasks/TaskContainer";
-import { Task } from "../../types/types";
-import Modal from "../../components/shared/Modal";
+import { Task } from "../../shared/types/types";
+import Modal from "../../shared/components/Modal";
 import TaskModalContent from "../../components/tasks/TaskModalContent";
-import { useGetInfo } from "../../hooks/useGetInfo";
-import { useLoading } from "../../hooks/useLoading";
-import Loader from "../../components/shared/Loader";
-import { filterObjectsByProjectId } from "../../helpers/filterObjectsByProjectId";
+import { useGetInfo } from "../../shared/hooks/useGetInfo";
+import { useLoading } from "../../shared/hooks/useLoading";
+import Loader from "../../shared/components/Loader";
+import { filterObjectsByProjectId } from "../../shared/helpers/filterObjectsByProjectId";
 import TaskSearch from "../../components/tasks/TaskSearch";
 import { loadSubtasksStart } from "../../redux/modules/subtasks/actions";
 
-const TaskPage = () => {
+const TaskPage = ({}) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { projects, tasks } = useGetInfo();
 
@@ -99,25 +97,27 @@ const TaskPage = () => {
       )}
       <header className={styles.header}>
         <h2 className={styles.title}>{projectTitle}</h2>
-        <TaskSearch tasks={tasks} onOpenModal={toggleModal} />
+        <TaskSearch
+          tasks={tasks}
+          onOpenModal={toggleModal}
+          project_id={currentProject?.id}
+        />
       </header>
       <section className={styles.task_container}>
-        <DndProvider backend={HTML5Backend}>
-          {Loading && <Loader />}
-          {containers.map((container, index) => (
-            <TaskContainer
-              index={index}
-              key={index}
-              project_id={Number(currentProject?.id)}
-              status={container.status}
-              tasks={container.tasks}
-              onDrop={changeTask}
-              onOpenModal={toggleModal}
-              count={count}
-              setCount={setCount}
-            />
-          ))}
-        </DndProvider>
+        {Loading && <Loader />}
+        {containers.map((container, index) => (
+          <TaskContainer
+            index={index}
+            key={index}
+            project_id={Number(currentProject?.id)}
+            status={container.status}
+            tasks={container.tasks}
+            onDrop={changeTask}
+            onOpenModal={toggleModal}
+            count={count}
+            setCount={setCount}
+          />
+        ))}
       </section>
     </div>
   );

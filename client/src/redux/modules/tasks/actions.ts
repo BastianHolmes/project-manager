@@ -1,4 +1,4 @@
-import { Task } from "../../../types/types";
+import { Task } from "../../../shared/types/types";
 import {
   ADD_DESCRIPTION_TASK_ERROR,
   ADD_DESCRIPTION_TASK_START,
@@ -48,7 +48,6 @@ export const setTasks = (
 });
 
 export const createTaskStart = (
-  id: TaskId,
   count: TaskCount,
   title: TaskTitle,
   status: TaskStatus,
@@ -56,7 +55,6 @@ export const createTaskStart = (
 ): {
   type: typeof CREATE_TASKS_START;
   payload: {
-    id: TaskId;
     count: TaskCount;
     title: TaskTitle;
     status: TaskStatus;
@@ -66,7 +64,6 @@ export const createTaskStart = (
 } => ({
   type: CREATE_TASKS_START,
   payload: {
-    id,
     count,
     title,
     status,

@@ -1,4 +1,4 @@
-import API from ".";
+import API from "../shared/api/api.service";
 
 export const getAllTasks = async () => {
   try {

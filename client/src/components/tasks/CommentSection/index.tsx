@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./CommentSection.module.scss";
 import Comment from "../Comment";
-import { RiSendPlane2Fill } from "../../shared/Icons/IconSend";
+import { RiSendPlane2Fill } from "../../../shared/Icons/IconSend";
 import { useDispatch, useSelector } from "react-redux";
 import { createCommentStart } from "../../../redux/modules/comments/actions";
 

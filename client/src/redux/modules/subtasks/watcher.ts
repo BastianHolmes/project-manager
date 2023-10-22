@@ -25,7 +25,7 @@ import {
 function* handleLoadSubtasks({ payload }: { id: string }) {
   try {
     const response = yield call(getSubtasks, payload.id);
-    console.log(response);
+
     if (response.msg === "OK") {
       yield put(loadSubtasksSuccess(response.data));
     }
@@ -46,7 +46,7 @@ function* handleCreateSubtasks({
 }) {
   try {
     const response = yield call(createSubtasks, payload.task_id, payload.title);
-    console.log(response);
+
     if (response.msg === "OK") {
       yield put(createSubtaskSuccess(response.data));
     }
@@ -62,7 +62,7 @@ export function* onCreateSubTasks(): Generator<any, void> {
 function* handleDeleteSubtasks({ payload }: { id: string }) {
   try {
     const response = yield call(deleteSubtasks, payload.id);
-    console.log(response);
+
     if (response.msg === "OK") {
       yield put(deleteSubTaskSuccess(response.data));
     }
@@ -78,7 +78,7 @@ export function* onDeleteSubTasks(): Generator<any, void> {
 function* handleUpdateSubtasks({ payload }: { done: string }) {
   try {
     const response = yield call(updateSubtasks, payload.done, payload.id);
-    console.log(response);
+
     if (response.msg === "OK") {
       yield put(doneSubtaskSuccess(response.data));
     }

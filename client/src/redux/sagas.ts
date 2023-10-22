@@ -1,5 +1,6 @@
 import { all, fork } from "redux-saga/effects";
-import { onCreateProject, onGetProjects } from "./modules/projects/watcher";
+import { onGetProjects } from "./modules/projects/watcher";
+import { onCreateProject } from "../features/Projects/create-project/sagas";
 import {
   onAddDescription,
   onChangeStatus,

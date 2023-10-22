@@ -1,0 +1,76 @@
+@import "../../../../shared/styles/variables.scss";
+@import "../../../../shared/styles/mixins.scss";
+
+.background {
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+  background-color: darken($color: $background-color, $amount: 2);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: rgba($background-color, 0.7);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  padding: 5rem;
+  width: 100%;
+  max-width: 80rem;
+  min-width: 30rem;
+
+  background-color: darken($color: $background-color, $amount: 1);
+  position: relative;
+
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+
+  @include respond(tab-port) {
+    position: absolute;
+    left: 0;
+  }
+
+  @include respond(tab-land) {
+    position: absolute;
+    left: 5%;
+  }
+}
+
+.container > * {
+  margin-bottom: 1.5rem;
+}
+
+.name {
+  color: white;
+  text-transform: uppercase;
+}
+
+.field {
+  padding: 1rem;
+  font-family: inherit;
+  font-size: inherit;
+  color: white;
+  border: none;
+  background-color: $background-color;
+  border-radius: 10px;
+}
+
+.btn {
+  border: 3px solid transparent;
+  border-radius: 5px;
+  transition: all 0.8s ease-out;
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+    border: 3px solid $primary-color;
+  }
+}

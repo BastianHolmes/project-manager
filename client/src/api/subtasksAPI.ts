@@ -1,4 +1,4 @@
-import API from ".";
+import API from "../shared/api/api.service";
 
 export const getSubtasks = async (task_id: string) => {
   try {
@@ -30,7 +30,6 @@ export const deleteSubtasks = async (subtaskID: string) => {
 export const updateSubtasks = async (done: boolean, id: string) => {
   try {
     const { data } = await API.put(`/subtasks/${id}`, { done: !done });
-    console.log(data);
     return data;
   } catch (err) {
     console.log(err);

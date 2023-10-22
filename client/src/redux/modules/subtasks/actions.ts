@@ -1,4 +1,4 @@
-import { Subtask } from "../../../types/types";
+import { Subtask } from "../../../shared/types/types";
 import {
   CREATE_SUBTASKS_ERROR,
   CREATE_SUBTASKS_START,

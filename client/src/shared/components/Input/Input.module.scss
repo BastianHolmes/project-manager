@@ -1,0 +1,13 @@
+@import "../../../shared/styles/variables.scss";
+.input {
+  padding: 0 2rem;
+  width: 100%;
+  height: 4rem;
+
+  font-family: inherit;
+  color: $text-color;
+  font-size: inherit;
+
+  border: 3px solid $primary-color;
+  border-radius: 10px;
+}

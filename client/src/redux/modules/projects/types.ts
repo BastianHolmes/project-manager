@@ -1,8 +1,5 @@
-import { Project } from "../../../types/types";
+import { Project } from "../../../shared/types/types";
 import {
-  CREATE_PROJECT_ERROR,
-  CREATE_PROJECT_START,
-  CREATE_PROJECT_SUCCESS,
   GET_PROJECTS_SUCCESS,
   LOAD_PROJECTS_START,
   LOAD_PROJECTS_SUCCESS,
@@ -33,26 +30,8 @@ export interface LoadProjectsErrorAction {
   payload: Project;
 }
 
-export interface CreateProjectStartAction {
-  type: typeof CREATE_PROJECT_START;
-  payload: Project;
-}
-
-export interface CreateProjectSuccessAction {
-  type: typeof CREATE_PROJECT_SUCCESS;
-  payload: Project;
-}
-
-export interface CreateProjectErrorAction {
-  type: typeof CREATE_PROJECT_ERROR;
-  payload: any;
-}
-
 export type ProjectAction =
   | LoadProjectsStartsAction
   | LoadProjectsSuccessAction
   | LoadProjectsErrorAction
-  | GetProjectsAction
-  | CreateProjectStartAction
-  | CreateProjectSuccessAction
-  | CreateProjectErrorAction;
+  | GetProjectsAction;

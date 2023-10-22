@@ -1,12 +1,13 @@
 import { useDrop } from "react-dnd";
 import styles from "./TaskContainer.module.scss";
-import { Task } from "../../../types/types";
+import { Task } from "../../../shared/types/types";
 import TaskItem from "../TaskItem";
-import Button from "../../shared/Button";
-import { useState } from "react";
+import Button from "../../../shared/components/Button";
+import { useContext, useState } from "react";
 import { createTaskStart } from "../../../redux/modules/tasks/actions";
 import { useDispatch } from "react-redux";
-import Input from "../../shared/Input";
+import Input from "../../../shared/components/Input";
+import { IdContext } from "../../../context";
 
 interface TaskContainerProps {
   count: number;
@@ -32,7 +33,6 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [taskTitle, setTaskTitle] = useState("");
-  const taskId = Math.floor(Math.random() * 100);
 
   const handleCreateTask = () => {
     setIsEditing(true);
@@ -41,9 +41,7 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
   const handleInput = () => {
     setIsEditing(false);
     if (taskTitle.length > 2) {
-      dispatch(
-        createTaskStart(taskId.toString(), count, taskTitle, status, project_id)
-      );
+      dispatch(createTaskStart(count, taskTitle, status, project_id));
       setCount(count + 1);
     }
     setTaskTitle("");
@@ -65,7 +63,7 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
       <div>
         {tasks.length > 0 &&
           tasks.map((item) => (
-            <TaskItem key={item.id} item={item} onOpenModal={onOpenModal} />
+            <TaskItem key={item.count} item={item} onOpenModal={onOpenModal} />
           ))}
         {isEditing ? (
           <Input
