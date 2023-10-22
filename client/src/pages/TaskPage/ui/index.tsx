@@ -58,6 +58,16 @@ const TaskPage = ({}) => {
     [tasks, currentProject?.id]
   );
 
+  const renderDoneTask = useMemo(
+    () =>
+      tasks.filter(
+        (tasks: Task<any>) =>
+          tasks.project_id === currentProject?.id &&
+          tasks.status === "DEVELOPMENT"
+      ),
+    [tasks, currentProject?.id]
+  );
+
   const containers = [
     {
       status: "QUEUE",

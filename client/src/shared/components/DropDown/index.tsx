@@ -3,7 +3,7 @@ import styles from "./DropDown.module.scss";
 import { useDispatch } from "react-redux";
 import { changeTaskPriorityStart } from "../../../redux/modules/tasks/actions";
 import { Task } from "../../types/types";
-import { useGetInfo } from "../../hooks/useGetInfo";
+import { useTasks } from "../../../pages/TaskPage/utils/useTasks";
 
 interface Option {
   value: string;
@@ -19,7 +19,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   options,
   task,
 }: DropdownProps) => {
-  const { tasks } = useGetInfo();
+  const tasks = useTasks();
   const priority = tasks.find((t: Task) => t.id === task.id)?.priority;
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
