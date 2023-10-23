@@ -7,9 +7,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import Input from "../../../shared/components/Input";
 import { createTaskStart } from "../../../features/Tasks/create-task/model";
+import { changeTaskStatusStart } from "../../../features/Tasks/change-status-task/model";
 
 interface TaskContainerProps {
-  onDrop: (id: string, status: string, index: number) => void;
   count: number;
   setCount: (value: number) => void;
   tasks: Task[];
@@ -20,7 +20,6 @@ interface TaskContainerProps {
 }
 
 const TaskContainer: React.FC<TaskContainerProps> = ({
-  onDrop,
   setCount,
   count,
   project_id,
@@ -34,6 +33,10 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
   const [taskTitle, setTaskTitle] = useState("");
   const handleCreateTask = () => {
     setIsEditing(true);
+  };
+
+  const Drop = (id: string, status: string, taskNum: number) => {
+    dispatch(changeTaskStatusStart(id, status, taskNum));
   };
 
   const handleInput = () => {
@@ -50,7 +53,7 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
     accept: "task",
     drop: (item: Task) => {
       console.log(item);
-      if (item.id) onDrop(item.id ?? "", status, index);
+      if (item.id) Drop(item.id ?? "", status, index);
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),

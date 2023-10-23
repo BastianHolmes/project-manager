@@ -71,10 +71,6 @@ const TaskPage = ({}) => {
     },
   ];
 
-  const Drop = (id: string, status: string, taskNum: number) => {
-    dispatch(changeTaskStatusStart(id, status, taskNum));
-  };
-
   const toggleModal = (task: Task) => {
     setIsOpenModal(!isOpenModal);
     setSelectedTask(task);
@@ -108,7 +104,6 @@ const TaskPage = ({}) => {
             onOpenModal={toggleModal}
             count={count}
             setCount={setCount}
-            onDrop={Drop}
           />
         ))}
       </section>
