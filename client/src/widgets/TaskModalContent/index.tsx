@@ -1,12 +1,12 @@
 import styles from "./TaskModalContent.module.scss";
-import { Task } from "../../../shared/types/types";
+import { Task } from "../../shared/types/types";
 import TaskForm from "../TaskForm";
-import TaskSideBar from "../TaskSideBar";
-import Comments from "../Comment";
+import { Comment } from "../../entities/Comments";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createCommentStart } from "../../../redux/modules/comments/actions";
+import { createCommentStart } from "../../redux/modules/comments/actions";
 import CommentSection from "../CommentSection";
+import TaskSideBar from "../TaskSideBar";
 
 interface ModalContentProps {
   onClose: (value: boolean) => void;
@@ -54,7 +54,7 @@ const TaskModalContent: React.FC<ModalContentProps> = ({ onClose, task }) => {
           <TaskSideBar task={task} />
         </div>
         {commentsData && (
-          <Comments comments={commentsData} handleReply={handleReply} />
+          <Comment comments={commentsData} handleReply={handleReply} />
         )}
         <CommentSection taskId={task.id} />
       </section>

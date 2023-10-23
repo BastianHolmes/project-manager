@@ -1,7 +1,7 @@
-import { daysPassed } from "../../../shared/helpers/daysPassed";
-import { formatDate } from "../../../shared/helpers/formatDate";
-import { Task } from "../../../shared/types/types";
-import Dropdown from "../../../shared/components/DropDown";
+import Dropdown from "../../shared/components/DropDown";
+import { daysPassed } from "../../shared/helpers/daysPassed";
+import { formatDate } from "../../shared/helpers/formatDate";
+import { Task } from "../../shared/types/types";
 import styles from "./TaskSideBar.module.scss";
 
 interface TaskSideBarProps {

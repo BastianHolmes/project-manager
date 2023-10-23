@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./TaskSearch.module.scss";
-import TaskItem from "../TaskItem";
-import { Task } from "../../../shared/types/types";
+import { TaskItem } from "../../entities/Tasks";
+import { Task } from "../../shared/types/types";
 
 interface Props {
   tasks: Task[];

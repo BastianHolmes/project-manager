@@ -1,9 +1,9 @@
 import { useState } from "react";
 import styles from "./CommentSection.module.scss";
-import Comment from "../Comment";
-import { RiSendPlane2Fill } from "../../../shared/Icons/IconSend";
+import { Comment } from "../../entities/Comments";
+import { RiSendPlane2Fill } from "../../shared/Icons/IconSend";
 import { useDispatch, useSelector } from "react-redux";
-import { createCommentStart } from "../../../redux/modules/comments/actions";
+import { createCommentStart } from "../../redux/modules/comments/actions";
 
 function CommentSection({ taskId }) {
   const dispatch = useDispatch();

@@ -1,13 +1,13 @@
 import { useDrop } from "react-dnd";
 import styles from "./TaskContainer.module.scss";
-import { Task } from "../../../shared/types/types";
-import TaskItem from "../TaskItem";
-import Button from "../../../shared/components/Button";
+import { Task } from "../../shared/types/types";
+import { TaskItem } from "../../entities/Tasks";
+import Button from "../../shared/components/Button";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import Input from "../../../shared/components/Input";
-import { createTaskStart } from "../../../features/Tasks/create-task/model";
-import { changeTaskStatusStart } from "../../../features/Tasks/change-status-task/model";
+import Input from "../../shared/components/Input";
+import { createTaskStart } from "../../features/Tasks/create-task/model";
+import { changeTaskStatusStart } from "../../features/Tasks/change-status-task/model";
 
 interface TaskContainerProps {
   count: number;
@@ -28,6 +28,7 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
   onOpenModal,
   index,
 }) => {
+  console.log(tasks);
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [taskTitle, setTaskTitle] = useState("");
@@ -41,7 +42,7 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
 
   const handleInput = () => {
     setIsEditing(false);
-    if (taskTitle.length > 2) {
+    if (taskTitle?.length > 2) {
       dispatch(createTaskStart(count, taskTitle, status, project_id));
       setCount(count + 1);
     }
@@ -63,7 +64,7 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
     <div className={styles.col} ref={drop}>
       <h3 className={styles.title}>{status}</h3>
       <div>
-        {tasks.length > 0 &&
+        {tasks?.length > 0 &&
           tasks.map((item) => (
             <TaskItem key={item.count} item={item} onOpenModal={onOpenModal} />
           ))}
@@ -73,7 +74,7 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
             setTitle={setTaskTitle}
             handleInput={handleInput}
           />
-        ) : tasks.length < 6 ? (
+        ) : tasks?.length < 6 ? (
           <Button onClick={handleCreateTask}>New task</Button>
         ) : null}
       </div>

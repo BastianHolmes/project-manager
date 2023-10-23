@@ -20,7 +20,7 @@ import {
   deleteSubtasks,
   getSubtasks,
   updateSubtasks,
-} from "../../../api/subtasksAPI";
+} from "../../../features/Subtasks/api";
 
 function* handleLoadSubtasks({ payload }: { id: string }) {
   try {

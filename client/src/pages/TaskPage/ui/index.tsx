@@ -3,29 +3,31 @@ import { useDispatch } from "react-redux";
 import styles from "./TaskPage.module.scss";
 import { useParams } from "react-router-dom";
 import { findItem } from "../../../shared/helpers/findItem";
-import TaskContainer from "../../../components/tasks/TaskContainer";
 import { Task } from "../../../shared/types/types";
 import Modal from "../../../shared/components/Modal";
-import TaskModalContent from "../../../components/tasks/TaskModalContent";
+import TaskModalContent from "../../../widgets/TaskModalContent";
 import { useLoading } from "../../../shared/hooks/useLoading";
 import Loader from "../../../shared/components/Loader";
 import { filterObjectsByProjectId } from "../../../shared/helpers/filterObjectsByProjectId";
-import TaskSearch from "../../../components/tasks/TaskSearch";
+import TaskSearch from "../../../widgets/TaskSearch";
 import { loadSubtasksStart } from "../../../redux/modules/subtasks/actions";
-import { changeTaskStatusStart } from "../../../features/Tasks/change-status-task/model";
 import { useProjects } from "../../ProjectPage/utils/useProjects";
 import { useTasks } from "../utils/useTasks";
+import { TaskHeader } from "./TaskHeader";
+import { TaskContainers } from "./TaskContainers";
 
-const TaskPage = ({}) => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const tasks = useTasks();
+interface TaskPageProps {}
+
+const TaskPage: React.FC<TaskPageProps> = ({}) => {
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const tasks: Task[] = useTasks();
   const projects = useProjects();
 
   const Loading = useLoading();
   const [selectedTask, setSelectedTask] = useState<Task>({});
   const dispatch = useDispatch();
   const { id = "" } = useParams();
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState<number>(1);
 
   useEffect(() => {
     function setFunction() {
@@ -36,45 +38,14 @@ const TaskPage = ({}) => {
     }
   }, [tasks]);
 
-  const Filter = (status: string) => {
-    const Task = useMemo(
-      () =>
-        tasks.filter(
-          (task: Task) =>
-            task.project_id === currentProject?.id && task.status === status
-        ),
-      [tasks, currentProject?.id]
-    );
-
-    return Task;
-  };
-
   const currentProject = Loading ? undefined : findItem(id, projects);
 
-  const projectTitle = currentProject?.title;
-  const QueueTask = Filter("QUEUE");
-  const DevelopmentTask = Filter("DEVELOPMENT");
-  const DoneTask = Filter("DONE");
+  const projectTitle = currentProject?.title || "Project";
 
-  const containers = [
-    {
-      status: "QUEUE",
-      tasks: QueueTask,
-    },
-    {
-      status: "DEVELOPMENT",
-      tasks: DevelopmentTask,
-    },
-    {
-      status: "DONE",
-      tasks: DoneTask,
-    },
-  ];
-
-  const toggleModal = (task: Task) => {
+  const toggleModal = (task: Task): void => {
     setIsOpenModal(!isOpenModal);
     setSelectedTask(task);
-    dispatch(loadSubtasksStart(task.id));
+    dispatch(loadSubtasksStart(task.id ?? ""));
   };
 
   return (
@@ -84,29 +55,25 @@ const TaskPage = ({}) => {
           <TaskModalContent onClose={setIsOpenModal} task={selectedTask} />
         </Modal>
       )}
-      <header className={styles.header}>
-        <h2 className={styles.title}>{projectTitle}</h2>
+
+      <TaskHeader projectTitle={projectTitle}>
         <TaskSearch
           tasks={tasks}
           onOpenModal={toggleModal}
           project_id={currentProject?.id}
         />
-      </header>
-      <section className={styles.task_container}>
-        {Loading && <Loader />}
-        {containers.map((container, index) => (
-          <TaskContainer
-            index={index}
-            key={index}
-            project_id={Number(currentProject?.id)}
-            status={container.status}
-            tasks={container.tasks}
-            onOpenModal={toggleModal}
-            count={count}
-            setCount={setCount}
-          />
-        ))}
-      </section>
+      </TaskHeader>
+
+      {Loading && <Loader />}
+
+      <TaskContainers
+        tasks={tasks}
+        isLoading={Loading}
+        onOpenModal={toggleModal}
+        currentProject={currentProject || ""}
+        count={count}
+        setCount={setCount}
+      />
     </div>
   );
 };

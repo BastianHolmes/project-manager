@@ -9,7 +9,7 @@ interface TaskItemProps {
   onOpenModal: (item: Task) => void;
 }
 
-const TaskItem: React.FC<TaskItemProps> = ({ item, onOpenModal }) => {
+export const TaskItem: React.FC<TaskItemProps> = ({ item, onOpenModal }) => {
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: "task",
@@ -42,5 +42,3 @@ const TaskItem: React.FC<TaskItemProps> = ({ item, onOpenModal }) => {
     </div>
   );
 };
-
-export default TaskItem;

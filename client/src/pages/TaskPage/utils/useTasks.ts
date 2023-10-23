@@ -11,7 +11,7 @@ export const useTasks = () => {
   }, [dispatch]);
 
   const tasks = useSelector(
-    (store: { tasks: { tasks: Task[] } }) => store.tasks.tasks || []
+    (store: { tasks: { tasks: Task[] } }) => store.tasks.tasks
   );
 
   return tasks;

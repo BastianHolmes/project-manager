@@ -16,7 +16,7 @@ interface CommentData {
   id: string;
 }
 
-const Comment: React.FC<CommentProps> = ({ comment, taskId }) => {
+export const Comment: React.FC<CommentProps> = ({ comment, taskId }) => {
   const dispatch = useDispatch();
   const [childComment, setChildComment] = useState("");
   const [showAddComponent, setShowAddComponent] = useState(false);
@@ -74,5 +74,3 @@ const Comment: React.FC<CommentProps> = ({ comment, taskId }) => {
     </div>
   );
 };
-
-export default Comment;

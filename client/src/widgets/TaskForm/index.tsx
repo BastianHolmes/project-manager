@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
-import MaterialSymbolsAddBoxSharp from "../../../shared/Icons/IconAdd";
-import Textarea from "../../../shared/components/Textarea";
-import FileUploader from "../FileUploader";
+import MaterialSymbolsAddBoxSharp from "../../shared/Icons/IconAdd";
+import Textarea from "../../shared/components/Textarea";
 import styles from "./TaskForm.module.scss";
-import { createSubTaskStart } from "../../../redux/modules/subtasks/actions";
+import { createSubTaskStart } from "../../redux/modules/subtasks/actions";
 import { useState, useRef } from "react";
-import Input from "../../../shared/components/Input";
-import { SubtaskItem } from "../../../entities/Subtasks/ui/SubtaskItem";
-import Loader from "../../../shared/components/Loader";
-import { Subtask } from "../../../shared/types/types";
+import Input from "../../shared/components/Input";
+import { SubtaskItem } from "../../entities/Subtasks/ui/SubtaskItem";
+import Loader from "../../shared/components/Loader";
+import { Subtask } from "../../shared/types/types";
+import FileUploader from "../../shared/components/FileUploader";
 
 interface ModalContentProps {
   task: Subtask;
