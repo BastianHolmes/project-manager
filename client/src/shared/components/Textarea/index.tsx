@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Task } from "../../types/types";
 import styles from "./Textarea.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { addDescriptionTaskStart } from "../../../redux/modules/tasks/actions";
+import { addDescriptionTaskStart } from "../../../features/Tasks/add-description-task/model";
 
 interface TextareaProps {
   task?: Task;

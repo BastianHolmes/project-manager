@@ -12,7 +12,7 @@ interface TaskItem extends Task {
 const TaskItem: React.FC<TaskItem> = ({ item, onOpenModal }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "task",
-    item: { id: item.id },
+    item: { id: item.id || "" },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),

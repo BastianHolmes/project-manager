@@ -1,13 +1,5 @@
 import { Task } from "../../../shared/types/types";
 import {
-  ADD_DESCRIPTION_TASK_ERROR,
-  ADD_DESCRIPTION_TASK_START,
-  ADD_DESCRIPTION_TASK_SUCCESS,
-  CHANGE_TASK_PRIORITY_ERROR,
-  CHANGE_TASK_PRIORITY_START,
-  CHANGE_TASK_PRIORITY_SUCCESS,
-} from "../../../redux/actionTypes";
-import {
   CHANGE_TASK_STATUS_ERROR,
   CHANGE_TASK_STATUS_START,
   CHANGE_TASK_STATUS_SUCCESS,
@@ -18,6 +10,16 @@ import {
   LOAD_TASKS_START,
   LOAD_TASKS_SUCCESS,
 } from "../../../pages/TaskPage/model";
+import {
+  ADD_DESCRIPTION_TASK_ERROR,
+  ADD_DESCRIPTION_TASK_START,
+  ADD_DESCRIPTION_TASK_SUCCESS,
+} from "../add-description-task/model";
+import {
+  CHANGE_TASK_PRIORITY_ERROR,
+  CHANGE_TASK_PRIORITY_START,
+  CHANGE_TASK_PRIORITY_SUCCESS,
+} from "../change-priority-task/model";
 
 interface TasksState {
   tasks: Task[];

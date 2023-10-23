@@ -36,51 +36,42 @@ const TaskPage = ({}) => {
     }
   }, [tasks]);
 
+  const Filter = (status: string) => {
+    const Task = useMemo(
+      () =>
+        tasks.filter(
+          (task: Task) =>
+            task.project_id === currentProject?.id && task.status === status
+        ),
+      [tasks, currentProject?.id]
+    );
+
+    return Task;
+  };
+
   const currentProject = Loading ? undefined : findItem(id, projects);
 
   const projectTitle = currentProject?.title;
-  const renderQueryTask = useMemo(
-    () =>
-      tasks.filter(
-        (task: Task) =>
-          task.project_id === currentProject?.id && task.status === "QUEUE"
-      ),
-    [tasks, currentProject?.id]
-  );
-  const renderDevelopmentTask = useMemo(
-    () =>
-      tasks.filter(
-        (task: Task) =>
-          task.project_id === currentProject?.id &&
-          task.status === "DEVELOPMENT"
-      ),
-    [tasks, currentProject?.id]
-  );
-  const renderDoneTask = useMemo(
-    () =>
-      tasks.filter(
-        (task: Task) =>
-          task.project_id === currentProject?.id && task.status === "DONE"
-      ),
-    [tasks, currentProject?.id]
-  );
+  const QueueTask = Filter("QUEUE");
+  const DevelopmentTask = Filter("DEVELOPMENT");
+  const DoneTask = Filter("DONE");
 
   const containers = [
     {
       status: "QUEUE",
-      tasks: renderQueryTask,
+      tasks: QueueTask,
     },
     {
       status: "DEVELOPMENT",
-      tasks: renderDevelopmentTask,
+      tasks: DevelopmentTask,
     },
     {
       status: "DONE",
-      tasks: renderDoneTask,
+      tasks: DoneTask,
     },
   ];
 
-  const changeTask = (id: string, status: string, taskNum: number) => {
+  const Drop = (id: string, status: string, taskNum: number) => {
     dispatch(changeTaskStatusStart(id, status, taskNum));
   };
 
@@ -114,10 +105,10 @@ const TaskPage = ({}) => {
             project_id={Number(currentProject?.id)}
             status={container.status}
             tasks={container.tasks}
-            onDrop={changeTask}
             onOpenModal={toggleModal}
             count={count}
             setCount={setCount}
+            onDrop={Drop}
           />
         ))}
       </section>

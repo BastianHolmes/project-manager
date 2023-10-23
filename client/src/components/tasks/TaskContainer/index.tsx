@@ -9,22 +9,22 @@ import Input from "../../../shared/components/Input";
 import { createTaskStart } from "../../../features/Tasks/create-task/model";
 
 interface TaskContainerProps {
+  onDrop: (id: string, status: string, index: number) => void;
   count: number;
   setCount: (value: number) => void;
   tasks: Task[];
   project_id: number;
   status: string;
   index: number;
-  onDrop: (title: string, status: string, taskNum: number) => void;
   onOpenModal: (item: Task) => void;
 }
 
 const TaskContainer: React.FC<TaskContainerProps> = ({
+  onDrop,
   setCount,
   count,
   project_id,
   tasks,
-  onDrop,
   status,
   onOpenModal,
   index,
@@ -32,7 +32,6 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [taskTitle, setTaskTitle] = useState("");
-
   const handleCreateTask = () => {
     setIsEditing(true);
   };
@@ -50,7 +49,8 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
     type: "task",
     accept: "task",
     drop: (item: Task) => {
-      if (item.id) onDrop(item.id, status, index);
+      console.log(item);
+      if (item.id) onDrop(item.id ?? "", status, index);
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),

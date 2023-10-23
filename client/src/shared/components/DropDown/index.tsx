@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styles from "./DropDown.module.scss";
 import { useDispatch } from "react-redux";
-import { changeTaskPriorityStart } from "../../../redux/modules/tasks/actions";
 import { Task } from "../../types/types";
 import { useTasks } from "../../../pages/TaskPage/utils/useTasks";
+import { changeTaskPriorityStart } from "../../../features/Tasks/change-priority-task/model";
 
 interface Option {
   value: string;

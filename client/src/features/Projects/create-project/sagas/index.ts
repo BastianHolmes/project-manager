@@ -14,7 +14,6 @@ export function* handleCreateProjects({
   try {
     const response: any = yield call(postProjects, payload.title);
     if (response.msg === "OK") {
-      console.log(response);
       yield put(createProjectSuccess(response.data[0]));
     }
   } catch (err) {

@@ -10,7 +10,6 @@ interface GetTasksResponse {
 function* handleGetTasks(): Generator<any, void, GetTasksResponse> {
   try {
     const { data }: GetTasksResponse = yield call(getAllTasks);
-    console.log(data);
     yield put(LoadTaskSuccess(data));
   } catch (err) {
     LoadTaskError(err);
