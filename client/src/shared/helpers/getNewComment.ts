@@ -1,10 +1,10 @@
-import { Comment } from "../types/types";
+import { CommentData } from "../types/types";
 
 export const getNewComment = (
   commentValue: string,
   isRootNode = false,
   parentNodeId: string | null
-): Comment => {
+): CommentData => {
   return {
     id: crypto.randomUUID().toString(),
     commentText: commentValue,

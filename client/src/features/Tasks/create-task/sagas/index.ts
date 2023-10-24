@@ -4,12 +4,12 @@ import {
   createTaskError,
   createTaskSuccess,
 } from "../model";
-import { Task } from "redux-saga";
 import { postTasks } from "../../api";
+import { Task } from "../../../../shared/types/types";
 
 interface CreateTaskResponse {
   msg: string;
-  data: Task;
+  data: Task[];
 }
 
 function* handleCreateTasks(action: {
@@ -17,7 +17,6 @@ function* handleCreateTasks(action: {
 }): Generator<any, void, CreateTaskResponse> {
   try {
     const response: CreateTaskResponse = yield call(postTasks, action.payload);
-    console.log(response);
     if (response.msg === "OK") {
       yield put(createTaskSuccess(response.data[0]));
     }
@@ -28,7 +27,7 @@ function* handleCreateTasks(action: {
 
 export function* onCreateTasks(): Generator<any, void> {
   while (true) {
-    const action: { payload: Task } = yield take(CREATE_TASKS_START);
+    const action: any = yield take(CREATE_TASKS_START);
     yield fork(handleCreateTasks, action);
   }
 }

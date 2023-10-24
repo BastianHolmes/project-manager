@@ -1,11 +1,13 @@
-export default function extractNestedArrays(comments) {
-  const result = [];
+import { CommentData } from "../types/types";
 
-  function traverse(comment) {
+export default function extractNestedArrays(comments: CommentData[]) {
+  const result: CommentData[] = [];
+
+  function traverse(comment: CommentData[]) {
     for (const item of comment) {
-      const { childComment, ...commentWithoutChildComment } = item;
+      const { childComments, ...commentWithoutChildComment } = item;
       result.push(commentWithoutChildComment);
-      traverse(item.childComment);
+      traverse(item.childComments ?? []);
     }
   }
 

@@ -1,4 +1,5 @@
-import { Task } from "redux-saga";
+import { Task } from "../../../../shared/types/types";
+
 
 export const CHANGE_TASK_STATUS_START = "CHANGE_TASK_STATUS_START",
   CHANGE_TASK_STATUS_SUCCESS = "CHANGE_TASK_STATUS_SUCCESS",

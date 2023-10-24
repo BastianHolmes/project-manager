@@ -10,7 +10,7 @@ import {
   setSelectedFiles,
 } from "../../../redux/modules/files/actions";
 
-interface File {
+export interface FileType {
   name: string;
   data: string | null;
 }
@@ -46,7 +46,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({ taskId }) => {
           if (typeof fileData === "string") {
             const fileName = `file_${taskId}_${index}_${file.name}`;
             localStorage.setItem(fileName, fileData);
-            const prefixedFile: File = {
+            const prefixedFile: FileType = {
               name: fileName,
               data: fileData,
             };
@@ -69,8 +69,9 @@ const FileUploader: React.FC<FileUploaderProps> = ({ taskId }) => {
     dispatch(setSelectedFiles(updatedFiles));
   };
 
-  const selectedFiles: File[] = useSelector(
-    (state: { files: { selectedFiles: File[] } }) => state.files.selectedFiles
+  const selectedFiles: FileType[] = useSelector(
+    (state: { files: { selectedFiles: FileType[] } }) =>
+      state.files.selectedFiles
   );
 
   return (

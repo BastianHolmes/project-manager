@@ -10,9 +10,9 @@ export const getAllTasks = async () => {
   }
 };
 
-export const postTasks = async (title: string) => {
+export const postTasks = async (task: Task) => {
   try {
-    const { data } = await API.post(`/tasks`, title);
+    const { data } = await API.post(`/tasks`, task);
     return data;
   } catch (err) {
     console.log(err);

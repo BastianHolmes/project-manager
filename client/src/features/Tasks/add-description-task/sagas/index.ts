@@ -19,7 +19,7 @@ function* handleAddTaskDescription(action: {
     const response: AddDescriptionResponse = yield call(
       addDescription,
       action.payload.description,
-      action.payload.id
+      action.payload.id.toString()
     );
     if (response.msg === "OK") {
       yield put(addDescriptionTaskSuccess(response.data));
@@ -31,9 +31,7 @@ function* handleAddTaskDescription(action: {
 
 export function* onAddDescription(): Generator<any, void> {
   while (true) {
-    const action: { payload: { description: string; id: number } } = yield take(
-      ADD_DESCRIPTION_TASK_START
-    );
+    const action: any = yield take(ADD_DESCRIPTION_TASK_START);
     yield fork(handleAddTaskDescription, action);
   }
 }

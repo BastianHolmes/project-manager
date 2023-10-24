@@ -4,12 +4,12 @@ export interface Project {
   created_at: string;
 }
 
-export interface Comment {
-  id: string;
-  commentText: string;
-  childComments: Comment[];
-  isRootNode: boolean;
-  parentNodeId: string | null;
+export interface CommentData {
+  id?: string;
+  commentText?: string;
+  childComments?: CommentData[];
+  isRootNode?: boolean;
+  parentNodeId?: string | null;
 }
 
 export interface Subtask {

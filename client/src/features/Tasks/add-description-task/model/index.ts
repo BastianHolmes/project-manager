@@ -1,4 +1,4 @@
-import { Task } from "redux-saga";
+import { Task } from "../../../../shared/types/types";
 
 export const ADD_DESCRIPTION_TASK_START = "ADD_DESCRIPTION_TASK_START";
 export const ADD_DESCRIPTION_TASK_SUCCESS = "ADD_DESCRIPTION_TASK_SUCCESS";
@@ -44,7 +44,7 @@ export const addDescriptionTaskSuccess = (
 });
 
 export const addDescriptionTaskError = (
-  payload: any
+  payload: unknown
 ): addDescriptionTaskErrorAction => ({
   type: ADD_DESCRIPTION_TASK_ERROR,
   payload,

@@ -23,7 +23,7 @@ export const changeTaskPrioritySuccess = (payload: Task) => ({
   payload,
 });
 
-export const changeTaskPriorityError = (payload: Task) => ({
+export const changeTaskPriorityError = (payload: any) => ({
   type: CHANGE_TASK_PRIORITY_ERROR,
   payload,
 });

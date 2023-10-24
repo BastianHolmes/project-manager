@@ -14,9 +14,11 @@ const Textarea: React.FC<TextareaProps> = ({ task, input }) => {
   const tasks = useSelector((state: any) => state.tasks.tasks);
 
   const selectedTask =
-    task.id && tasks ? tasks.find((t: Task) => t.id === task.id) : undefined;
+    task && task.id && tasks
+      ? tasks.find((t: Task) => t.id === task.id)
+      : undefined;
 
-  const handleInput = (e) => {
+  const handleInput = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     if (task?.id && e.target.value !== "") {
       dispatch(addDescriptionTaskStart(task?.id, e.target.value));
     }

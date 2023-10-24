@@ -4,16 +4,11 @@ import { RiSendPlane2Fill } from "../../../shared/Icons/IconSend";
 import { RiReplyAllFill } from "../../../shared/Icons/IconReply";
 import { useDispatch } from "react-redux";
 import { createCommentStart } from "../../../redux/modules/comments/actions";
+import { CommentData } from "../../../shared/types/types";
 
 interface CommentProps {
   comment: CommentData;
   taskId: string;
-}
-
-interface CommentData {
-  commentText: string;
-  childComments: CommentData[];
-  id: string;
 }
 
 export const Comment: React.FC<CommentProps> = ({ comment, taskId }) => {
@@ -29,7 +24,9 @@ export const Comment: React.FC<CommentProps> = ({ comment, taskId }) => {
 
   const onReply = () => {
     const parentId = id;
-    dispatch(createCommentStart(parentId, taskId, childComment, id));
+    dispatch(
+      createCommentStart(parentId ?? "", taskId, childComment, id ?? "")
+    );
     setChildComment("");
     setShowAddComponent(false);
   };
@@ -68,9 +65,10 @@ export const Comment: React.FC<CommentProps> = ({ comment, taskId }) => {
         </div>
       </div>
 
-      {childComments.map((childCommentEl: CommentData, key: number) => {
-        return <Comment key={key} comment={childCommentEl} taskId={taskId} />;
-      })}
+      {childComments &&
+        childComments.map((childCommentEl: CommentData, key: number) => {
+          return <Comment key={key} comment={childCommentEl} taskId={taskId} />;
+        })}
     </div>
   );
 };

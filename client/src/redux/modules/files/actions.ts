@@ -1,3 +1,4 @@
+import { FileType } from "../../../shared/components/FileUploader";
 import {
   ADD_SELECTED_FILES,
   DELETE_FILE,
@@ -7,12 +8,12 @@ import {
   UPLOAD_FILES,
 } from "../../actionTypes";
 
-export const setSelectedFiles = (files: string[]) => ({
+export const setSelectedFiles = (files: FileType[]) => ({
   type: SET_SELECTED_FILES,
   payload: files,
 });
 
-export const addSelectedFiles = (files: string[]) => ({
+export const addSelectedFiles = (files: FileType[]) => ({
   type: ADD_SELECTED_FILES,
   payload: files,
 });

@@ -9,7 +9,7 @@ import { Task } from "../../../../shared/types/types";
 
 interface ChangeStatusResponse {
   msg: string;
-  data: Task;
+  data: Task[];
 }
 
 function* handleChangeStatus(action: {
@@ -19,7 +19,7 @@ function* handleChangeStatus(action: {
     const response: ChangeStatusResponse = yield call(
       updateStatus,
       action.payload.status,
-      action.payload.id
+      action.payload.id.toString()
     );
     if (response.msg === "OK") {
       yield put(changeTaskStatusSuccess(response.data[0]));
@@ -31,9 +31,7 @@ function* handleChangeStatus(action: {
 
 export function* onChangeStatus(): Generator<any, void> {
   while (true) {
-    const action: { payload: { status: string; id: number } } = yield take(
-      CHANGE_TASK_STATUS_START
-    );
+    const action: any = yield take(CHANGE_TASK_STATUS_START);
     yield fork(handleChangeStatus, action);
   }
 }

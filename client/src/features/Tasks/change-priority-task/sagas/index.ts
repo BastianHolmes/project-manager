@@ -8,12 +8,12 @@ import {
 
 function* handleChangePriority(action: {
   payload: { priority: string; id: number };
-}): Generator<any, void, ChangeStatusResponse> {
+}): Generator<any, void, any> {
   try {
-    const response: ChangeStatusResponse = yield call(
+    const response = yield call(
       updatePriority,
       action.payload.priority,
-      action.payload.id
+      action.payload.id.toString()
     );
     if (response.msg === "OK") {
       yield put(changeTaskPrioritySuccess(response.data));
@@ -25,9 +25,7 @@ function* handleChangePriority(action: {
 
 export function* onChangePriority(): Generator<any, void> {
   while (true) {
-    const action: { payload: { status: string; id: number } } = yield take(
-      CHANGE_TASK_PRIORITY_START
-    );
+    const action: any = yield take(CHANGE_TASK_PRIORITY_START);
     yield fork(handleChangePriority, action);
   }
 }
