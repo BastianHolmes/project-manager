@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Task } from "redux-saga";
 import { LoadTaskStart } from "../model";
+import { Task } from "../../../shared/types/types";
 
 export const useTasks = () => {
   const dispatch = useDispatch();

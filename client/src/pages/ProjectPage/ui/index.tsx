@@ -1,22 +1,21 @@
+import styles from "./ProjectPage.module.scss";
 import { useState } from "react";
 import MaterialSymbolsAddBoxSharp from "../../../shared/Icons/IconAdd";
-import { ProjectItem } from "../../../entities/Projects";
-import styles from "./ProjectPage.module.scss";
 import Modal from "../../../shared/components/Modal";
 import ModalContent from "../../../features/Projects/create-project/ui/ProjectModal";
-import { formatDate } from "../../../shared/helpers/formatDate";
-import { Project } from "../../../shared/types/types";
 import Pagination from "../../../shared/components/Pagination";
 import Loader from "../../../shared/components/Loader";
 import { useLoading } from "../../../shared/hooks/useLoading";
 import { useProjects } from "../utils/useProjects";
+import ProjectList from "../../../widgets/ProjectList";
 
 const ProjectPage = ({}) => {
   const allProjects = useProjects();
   const Loading = useLoading();
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
+  //Sets items per page for pagination
   const itemsPerPage = 4;
 
   const indexOfFirstProject = (currentPage - 1) * itemsPerPage;
@@ -54,23 +53,10 @@ const ProjectPage = ({}) => {
           <Loader />
         ) : (
           projects.length > 0 && (
-            <ul className={styles.project_list}>
-              {projects
-                .sort((a: Project, b: Project) => a.id - b.id)
-                .map((item: Project, index) => (
-                  <ProjectItem
-                    number={(indexOfFirstProject + index + 1).toString()}
-                    key={item.id}
-                    name={item.title || ""}
-                    id={item.id ? item.id.toString() : ""}
-                    date={
-                      item.created_at
-                        ? formatDate(item.created_at.toString())
-                        : ""
-                    }
-                  />
-                ))}
-            </ul>
+            <ProjectList
+              projects={projects}
+              indexOfFirstProject={indexOfFirstProject}
+            />
           )
         )}
       </section>

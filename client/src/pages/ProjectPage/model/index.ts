@@ -6,17 +6,17 @@ export const LOAD_PROJECTS_START = "LOAD_PROJECTS_START",
 
 export interface LoadProjectsStartsAction {
   type: typeof LOAD_PROJECTS_START;
-  payload: Project;
+  payload: Project[];
 }
 
 export interface LoadProjectsSuccessAction {
   type: typeof LOAD_PROJECTS_SUCCESS;
-  payload: Project;
+  payload: Project[];
 }
 
 export interface LoadProjectsErrorAction {
   type: typeof LOAD_PROJECTS_ERROR;
-  payload: Project;
+  payload: unknown;
 }
 
 export const loadProjects = () => ({
@@ -24,8 +24,15 @@ export const loadProjects = () => ({
 });
 
 export const loadProjectsSuccess = (
-  payload: any
+  payload: Project[]
 ): LoadProjectsSuccessAction => ({
   type: LOAD_PROJECTS_SUCCESS,
+  payload,
+});
+
+export const loadProjectsError = (
+  payload: unknown
+): LoadProjectsErrorAction => ({
+  type: LOAD_PROJECTS_ERROR,
   payload,
 });

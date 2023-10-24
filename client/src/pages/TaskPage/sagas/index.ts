@@ -1,15 +1,15 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import { getAllTasks } from "../../../features/Tasks/api";
-import { Task } from "redux-saga";
 import { LOAD_TASKS_START, LoadTaskError, LoadTaskSuccess } from "../model";
+import { Task } from "../../../shared/types/types";
 
 interface GetTasksResponse {
   data: Task[];
 }
 
-function* handleGetTasks(): Generator<any, void, GetTasksResponse> {
+function* handleGetTasks(): Generator<any, void, any> {
   try {
-    const { data }: GetTasksResponse = yield call(getAllTasks);
+    const { data }: { data: Array<Task> } = yield call(getAllTasks);
     yield put(LoadTaskSuccess(data));
   } catch (err) {
     LoadTaskError(err);

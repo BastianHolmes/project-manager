@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDrag } from "react-dnd";
 import styles from "./Task.module.scss";
+import { useDrag } from "react-dnd";
 import { Task } from "../../../shared/types/types";
 import { formatDate } from "../../../shared/helpers/formatDate";
 
@@ -21,23 +20,17 @@ export const TaskItem: React.FC<TaskItemProps> = ({ item, onOpenModal }) => {
     [item.id]
   );
 
-  const [taskItem, setTaskItem] = useState<Task>(item);
-
-  useEffect(() => {
-    setTaskItem(item);
-  }, [item]);
-
   return (
     <div
       className={styles.task}
       ref={drag}
       style={{ opacity: isDragging ? 0 : 1 }}
-      onClick={() => onOpenModal(taskItem)}
+      onClick={() => onOpenModal(item)}
     >
-      <h5 className={styles.count}>{taskItem.count}.</h5>
+      <h5 className={styles.count}>{item.count}.</h5>
       <div className={styles.header}>
-        <h4>{taskItem.title}.</h4>
-        <h5>{formatDate(taskItem.created_at || "")}</h5>
+        <h4>{item.title}.</h4>
+        <h5>{formatDate(item.created_at || "")}</h5>
       </div>
     </div>
   );

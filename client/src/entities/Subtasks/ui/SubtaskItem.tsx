@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./Subtask.module.scss";
 import { useDispatch } from "react-redux";
 import {
@@ -14,7 +13,7 @@ interface SubtaskProps {
 
 export const SubtaskItem: React.FC<SubtaskProps> = ({
   item,
-}: SubtaskProps): JSX.Element => {
+}: SubtaskProps) => {
   const dispatch = useDispatch();
   const handleDone = (): void => {
     if (item.id) {

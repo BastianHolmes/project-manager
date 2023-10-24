@@ -9,13 +9,13 @@ export const LoadTaskStart = (): { type: typeof LOAD_TASKS_START } => ({
 });
 
 export const LoadTaskSuccess = (
-  payload: Array<Task>
-): { type: typeof LOAD_TASKS_SUCCESS; payload: Array<Task> } => ({
+  payload: Task[]
+): { type: typeof LOAD_TASKS_SUCCESS; payload: Task[] } => ({
   type: LOAD_TASKS_SUCCESS,
   payload,
 });
 
-export const LoadTaskError = (payload: any) => ({
+export const LoadTaskError = (payload: unknown) => ({
   type: LOAD_TASKS_ERROR,
   payload,
 });

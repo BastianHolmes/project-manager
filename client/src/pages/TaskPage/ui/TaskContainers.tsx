@@ -1,15 +1,16 @@
+import styles from "./TaskPage.module.scss";
 import { Project, Task } from "../../../shared/types/types";
 import TaskContainer from "../../../widgets/TaskContainer";
-import styles from "./TaskPage.module.scss";
 
 interface TaskContainerProps {
-  currentProject: Project;
+  currentProject: Project | undefined;
   tasks: Task[];
   count: number;
   setCount: (value: number) => void;
   onOpenModal: (item: Task) => void;
   isLoading: boolean;
 }
+
 export const TaskContainers: React.FC<TaskContainerProps> = ({
   tasks,
   currentProject,
@@ -54,8 +55,8 @@ export const TaskContainers: React.FC<TaskContainerProps> = ({
             index={index}
             key={index}
             project_id={Number(currentProject?.id)}
-            status={container.status}
-            tasks={container.tasks}
+            status={container?.status}
+            tasks={container?.tasks}
             onOpenModal={onOpenModal}
             count={count}
             setCount={setCount}

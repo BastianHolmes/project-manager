@@ -1,11 +1,10 @@
-import { Project } from "../types/types";
-import { Task } from "../types/types";
-
-export function findItem(
-  id: string,
-  items: Project[] | Task[] | undefined
-): Project | Task | undefined {
-  const foundItem = items?.find((item) => item?.id?.toString() === id);
+export function findItem<T extends { id: string | null }>(
+  id: string | null,
+  items: T[]
+) {
+  const foundItem = items?.find(
+    (item) => item?.id?.toString() === id?.toString()
+  );
   if (!foundItem) {
     console.error("Item not found");
   }

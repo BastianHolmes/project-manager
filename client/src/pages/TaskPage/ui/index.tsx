@@ -1,9 +1,9 @@
+import styles from "./TaskPage.module.scss";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
-import styles from "./TaskPage.module.scss";
 import { useParams } from "react-router-dom";
 import { findItem } from "../../../shared/helpers/findItem";
-import { Task } from "../../../shared/types/types";
+import { Project, Task } from "../../../shared/types/types";
 import Modal from "../../../shared/components/Modal";
 import TaskModalContent from "../../../widgets/TaskModalContent";
 import { useLoading } from "../../../shared/hooks/useLoading";
@@ -21,7 +21,7 @@ interface TaskPageProps {}
 const TaskPage: React.FC<TaskPageProps> = ({}) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const tasks: Task[] = useTasks();
-  const projects = useProjects();
+  const projects: Project[] = useProjects();
 
   const Loading = useLoading();
   const [selectedTask, setSelectedTask] = useState<Task>({});
@@ -38,7 +38,7 @@ const TaskPage: React.FC<TaskPageProps> = ({}) => {
     }
   }, [tasks]);
 
-  const currentProject = Loading ? undefined : findItem(id, projects);
+  const currentProject = Loading ? undefined : findItem<Project>(id, projects);
 
   const projectTitle = currentProject?.title || "Project";
 
@@ -60,7 +60,7 @@ const TaskPage: React.FC<TaskPageProps> = ({}) => {
         <TaskSearch
           tasks={tasks}
           onOpenModal={toggleModal}
-          project_id={currentProject?.id}
+          project_id={currentProject?.id ?? ""}
         />
       </TaskHeader>
 
@@ -70,7 +70,7 @@ const TaskPage: React.FC<TaskPageProps> = ({}) => {
         tasks={tasks}
         isLoading={Loading}
         onOpenModal={toggleModal}
-        currentProject={currentProject || ""}
+        currentProject={currentProject}
         count={count}
         setCount={setCount}
       />

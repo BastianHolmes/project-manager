@@ -1,4 +1,5 @@
 import API from "../../../shared/api/api.service";
+import { Task } from "../../../shared/types/types";
 
 export const getAllTasks = async () => {
   try {

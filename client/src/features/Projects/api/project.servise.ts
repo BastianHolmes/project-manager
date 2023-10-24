@@ -1,11 +1,12 @@
 import API from "../../../shared/api/api.service";
+import { Project } from "../../../shared/types/types";
 
-export const getProjects = async () => {
+export const getProjects = async (): Promise<Project[]> => {
   try {
     const { data } = await API.get("/projects");
     return data;
   } catch (err) {
-    console.log(err);
+    throw new Error("Failed to get projects");
   }
 };
 
