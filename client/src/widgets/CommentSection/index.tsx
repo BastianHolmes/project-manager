@@ -3,7 +3,7 @@ import styles from "./CommentSection.module.scss";
 import { Comment } from "../../entities/Comments";
 import { RiSendPlane2Fill } from "../../shared/Icons/IconSend";
 import { useDispatch, useSelector } from "react-redux";
-import { createCommentStart } from "../../redux/modules/comments/actions";
+import { createCommentStart } from "../../features/Comments/create-comment/model";
 
 function CommentSection({ taskId }) {
   const dispatch = useDispatch();
@@ -31,9 +31,11 @@ function CommentSection({ taskId }) {
       <div>
         {comments.map((comment, key) => {
           return (
-            <>
-              <Comment key={key} comment={comment} taskId={taskId} />
-            </>
+            taskId === comment.taskId && (
+              <>
+                <Comment key={key} comment={comment} taskId={taskId} />
+              </>
+            )
           );
         })}
       </div>

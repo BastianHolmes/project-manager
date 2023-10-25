@@ -3,8 +3,8 @@ import styles from "./Comment.module.scss";
 import { RiSendPlane2Fill } from "../../../shared/Icons/IconSend";
 import { RiReplyAllFill } from "../../../shared/Icons/IconReply";
 import { useDispatch } from "react-redux";
-import { createCommentStart } from "../../../redux/modules/comments/actions";
 import { CommentData } from "../../../shared/types/types";
+import { createCommentStart } from "../../../features/Comments/create-comment/model";
 
 interface CommentProps {
   comment: CommentData;

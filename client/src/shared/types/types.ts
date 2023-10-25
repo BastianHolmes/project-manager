@@ -10,6 +10,7 @@ export interface CommentData {
   childComments?: CommentData[];
   isRootNode?: boolean;
   parentNodeId?: string | null;
+  taskId?: string;
 }
 
 export interface Subtask {

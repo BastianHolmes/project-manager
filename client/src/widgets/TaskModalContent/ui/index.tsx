@@ -4,10 +4,10 @@ import TaskForm from "../../TaskForm";
 import { Comment } from "../../../entities/Comments";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createCommentStart } from "../../../redux/modules/comments/actions";
 import CommentSection from "../../CommentSection";
 import TaskSideBar from "../../TaskSideBar";
 import { useSubtasks } from "../utils/useSubtasks";
+import { createCommentStart } from "../../../features/Comments/create-comment/model";
 
 interface ModalContentProps {
   onClose: (value: boolean) => void;

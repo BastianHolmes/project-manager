@@ -1,12 +1,14 @@
 import { getNewComment } from "../../../shared/helpers/getNewComment";
 import {
-  CREATE_COMMENTS_ERROR,
-  CREATE_COMMENTS_START,
-  CREATE_COMMENTS_SUCCESS,
   LOAD_COMMENTS_ERROR,
   LOAD_COMMENTS_START,
   LOAD_COMMENTS_SUCCESS,
-} from "../../actionTypes";
+} from "../../../redux/actionTypes";
+import {
+  CREATE_COMMENTS_ERROR,
+  CREATE_COMMENTS_START,
+  CREATE_COMMENTS_SUCCESS,
+} from "../create-comment/model";
 
 const initialState = {
   comments: [],
@@ -14,7 +16,7 @@ const initialState = {
   error: null,
 };
 
-const addCommentToParent = (comments, parentId, newComment) => {
+const addCommentToParent = (comments, parentId, newComment, taskId) => {
   return comments.map((comment) => {
     if (comment.id === parentId) {
       return {
@@ -27,7 +29,8 @@ const addCommentToParent = (comments, parentId, newComment) => {
         childComments: addCommentToParent(
           comment.childComments,
           parentId,
-          newComment
+          newComment,
+          taskId
         ),
       };
     }
@@ -55,14 +58,20 @@ const comments = (state = initialState, { type, payload }) => {
         error: payload,
       };
     case CREATE_COMMENTS_START:
-      const { parentId, newCommentText } = payload;
-      const newComment = getNewComment(newCommentText, false, parentId);
+      const { parentId, newCommentText, task_id: taskId } = payload;
+      console.log(payload, taskId);
+      const newComment = getNewComment(newCommentText, false, parentId, taskId);
       const updatedComments = [...state.comments];
 
       if (parentId) {
         return {
           ...state,
-          comments: addCommentToParent(updatedComments, parentId, newComment),
+          comments: addCommentToParent(
+            updatedComments,
+            parentId,
+            newComment,
+            taskId
+          ),
         };
       } else {
         return {
