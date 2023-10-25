@@ -1,18 +1,20 @@
 import styles from "./TaskModalContent.module.scss";
-import { Task } from "../../shared/types/types";
-import TaskForm from "../TaskForm";
-import { Comment } from "../../entities/Comments";
+import { Subtask, Task } from "../../../shared/types/types";
+import TaskForm from "../../TaskForm";
+import { Comment } from "../../../entities/Comments";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createCommentStart } from "../../redux/modules/comments/actions";
-import CommentSection from "../CommentSection";
-import TaskSideBar from "../TaskSideBar";
+import { createCommentStart } from "../../../redux/modules/comments/actions";
+import CommentSection from "../../CommentSection";
+import TaskSideBar from "../../TaskSideBar";
+import { useSubtasks } from "../utils/useSubtasks";
 
 interface ModalContentProps {
   onClose: (value: boolean) => void;
-  task?: Task;
+  task: Task;
 }
 const TaskModalContent: React.FC<ModalContentProps> = ({ onClose, task }) => {
+  const subtasks: Subtask[] = useSubtasks(task.id);
   const [id, setId] = useState(0);
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
@@ -50,7 +52,7 @@ const TaskModalContent: React.FC<ModalContentProps> = ({ onClose, task }) => {
           <h5 className={styles.status}>{task?.status}</h5>
         </header>
         <div className={styles.main}>
-          <TaskForm task={task} />
+          <TaskForm task={task} subtasks={subtasks} />
           <TaskSideBar task={task} />
         </div>
         {commentsData && (

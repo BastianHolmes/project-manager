@@ -1,15 +1,23 @@
 import {
-  CREATE_SUBTASKS_ERROR,
-  CREATE_SUBTASKS_START,
-  CREATE_SUBTASKS_SUCCESS,
-  DELETE_SUBTASKS_START,
-  DONE_SUBTASKS_ERROR,
-  DONE_SUBTASKS_START,
-  DONE_SUBTASKS_SUCCESS,
   LOAD_SUBTASKS_ERROR,
   LOAD_SUBTASKS_START,
   LOAD_SUBTASKS_SUCCESS,
-} from "../../actionTypes";
+} from "../../../widgets/TaskModalContent/model";
+import {
+  CREATE_SUBTASKS_ERROR,
+  CREATE_SUBTASKS_START,
+  CREATE_SUBTASKS_SUCCESS,
+} from "../create-subtask/model";
+import {
+  DELETE_SUBTASKS_ERROR,
+  DELETE_SUBTASKS_START,
+  DELETE_SUBTASKS_SUCCESS,
+} from "../delete-subtask/model";
+import {
+  DONE_SUBTASKS_ERROR,
+  DONE_SUBTASKS_START,
+  DONE_SUBTASKS_SUCCESS,
+} from "../update-subtask/model";
 
 const initialState = {
   loading: false,
@@ -47,6 +55,7 @@ const subtasks = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
+        subtasks: state.subtasks.slice(0, -1).concat(payload),
       };
     case CREATE_SUBTASKS_ERROR:
       return {
@@ -84,6 +93,17 @@ const subtasks = (state = initialState, { type, payload }) => {
         ...state,
         loading: true,
         subtasks: state.subtasks.filter((subtask) => subtask.id !== payload.id),
+      };
+    case DELETE_SUBTASKS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+    case DELETE_SUBTASKS_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
       };
     default:
       return state;

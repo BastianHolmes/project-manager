@@ -2,16 +2,17 @@ import { useDispatch, useSelector } from "react-redux";
 import MaterialSymbolsAddBoxSharp from "../../shared/Icons/IconAdd";
 import Textarea from "../../shared/components/Textarea";
 import styles from "./TaskForm.module.scss";
-import { createSubTaskStart } from "../../redux/modules/subtasks/actions";
 import { useState, useRef } from "react";
 import Input from "../../shared/components/Input";
 import { SubtaskItem } from "../../entities/Subtasks/ui/SubtaskItem";
 import Loader from "../../shared/components/Loader";
-import { Subtask } from "../../shared/types/types";
+import { Subtask, Task } from "../../shared/types/types";
 import FileUploader from "../../shared/components/FileUploader";
+import { createSubtaskStart } from "../../features/Subtasks/create-subtask/model";
 
 interface ModalContentProps {
-  task: Subtask;
+  task: Task;
+  subtasks: Subtask[];
 }
 
 interface InputRefProps extends React.RefObject<HTMLInputElement> {
@@ -19,20 +20,16 @@ interface InputRefProps extends React.RefObject<HTMLInputElement> {
 }
 
 const TaskForm: React.FC<ModalContentProps> = ({
-  task,
+  task,subtasks
 }: ModalContentProps): JSX.Element => {
   const [title, setTitle] = useState<string>("");
-  const subtasks: Subtask[] = useSelector(
-    (state: any) => state.subtasks.subtasks
-  );
   const dispatch = useDispatch();
-  const id: string = crypto.randomUUID();
   const inputRef: InputRefProps = useRef<HTMLInputElement>(null);
   const [showInput, setShowInput] = useState<boolean>(false);
 
   const handleCreateSubtask = (): void => {
     if (title.length > 2 && task?.id) {
-      dispatch(createSubTaskStart(id, task?.id, title));
+      dispatch(createSubtaskStart(task?.id, title));
     }
 
     setTitle("");

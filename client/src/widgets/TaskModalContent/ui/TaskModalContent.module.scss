@@ -1,5 +1,5 @@
-@import "../../shared/styles/variables.scss";
-@import "../../shared/styles/mixins.scss";
+@import "../../../shared/styles/variables.scss";
+@import "../../../shared/styles/mixins.scss";
 
 .background {
   overflow: auto;
@@ -27,6 +27,7 @@
     position: absolute;
     left: 5%;
   }
+
   background-color: darken($color: $background-color, $amount: 1);
   position: relative;
   top: 1rem;

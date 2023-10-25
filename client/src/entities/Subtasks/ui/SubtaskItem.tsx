@@ -1,19 +1,15 @@
 import styles from "./Subtask.module.scss";
 import { useDispatch } from "react-redux";
-import {
-  deleteSubtaskStart,
-  doneSubtaskStart,
-} from "../../../redux/modules/subtasks/actions";
 import { MaterialSymbolsDeleteOutline } from "../../../shared/Icons/IconDelete";
 import { Subtask } from "../../../shared/types/types";
+import { deleteSubtaskStart } from "../../../features/Subtasks/delete-subtask/model";
+import { doneSubtaskStart } from "../../../features/Subtasks/update-subtask/model";
 
 interface SubtaskProps {
   item: Subtask;
 }
 
-export const SubtaskItem: React.FC<SubtaskProps> = ({
-  item,
-}: SubtaskProps) => {
+export const SubtaskItem: React.FC<SubtaskProps> = ({ item }: SubtaskProps) => {
   const dispatch = useDispatch();
   const handleDone = (): void => {
     if (item.id) {

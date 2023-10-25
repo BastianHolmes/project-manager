@@ -3,9 +3,9 @@ import { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { findItem } from "../../../shared/helpers/findItem";
-import { Project, Task } from "../../../shared/types/types";
+import { Project, Subtask, Task } from "../../../shared/types/types";
 import Modal from "../../../shared/components/Modal";
-import TaskModalContent from "../../../widgets/TaskModalContent";
+import TaskModalContent from "../../../widgets/TaskModalContent/ui";
 import { useLoading } from "../../../shared/hooks/useLoading";
 import Loader from "../../../shared/components/Loader";
 import { filterObjectsByProjectId } from "../../../shared/helpers/filterObjectsByProjectId";
@@ -15,17 +15,17 @@ import { useProjects } from "../../ProjectPage/utils/useProjects";
 import { useTasks } from "../utils/useTasks";
 import { TaskHeader } from "./TaskHeader";
 import { TaskContainers } from "./TaskContainers";
+import { useSubtasks } from "../../../widgets/TaskModalContent/utils/useSubtasks";
 
 interface TaskPageProps {}
 
 const TaskPage: React.FC<TaskPageProps> = ({}) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [selectedTask, setSelectedTask] = useState<Task>({});
   const tasks: Task[] = useTasks();
   const projects: Project[] = useProjects();
 
   const Loading = useLoading();
-  const [selectedTask, setSelectedTask] = useState<Task>({});
-  const dispatch = useDispatch();
   const { id = "" } = useParams();
   const [count, setCount] = useState<number>(1);
 
@@ -45,7 +45,6 @@ const TaskPage: React.FC<TaskPageProps> = ({}) => {
   const toggleModal = (task: Task): void => {
     setIsOpenModal(!isOpenModal);
     setSelectedTask(task);
-    dispatch(loadSubtasksStart(task.id ?? ""));
   };
 
   return (
